@@ -3,498 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eQro.sit - Q PDF Hub</title>
+    <title>eQro.sit - Q PDF Hub & Q Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --secondary: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
             --danger: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
             --glass: rgba(255,255,255,0.1);
-            --glass-hover: rgba(255,255,255,0.2);
-            --shadow: 0 20px 40px rgba(0,0,0,0.1);
-            --shadow-hover: 0 30px 60px rgba(0,0,0,0.2);
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:system-ui;background:var(--primary);min-height:100vh;color:#333;overflow-x:hidden;}
+        
+        /* Enhanced Logo Header */
+        .logo-header{
+            background:rgba(255,255,255,0.97);backdrop-filter:blur(30px);
+            padding:1.2rem 2rem;box-shadow:0 15px 35px rgba(0,0,0,0.15);
+            position:sticky;top:0;z-index:1000;display:flex;align-items:center;
+            justify-content:space-between;border-bottom:4px solid transparent;
+            background:linear-gradient(135deg,rgba(255,255,255,0.95),rgba(255,255,255,0.85));
         }
-
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background: var(--primary);
-            min-height: 100vh;
-            color: #333;
-            overflow-x: hidden;
+        .main-logo{
+            font-size:2.8rem;font-weight:900;background:var(--primary);
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+            display:flex;align-items:center;gap:1rem;
+            text-shadow:0 2px 10px rgba(102,126,234,0.3);
         }
-
-        /* Header */
-        .header {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(20px);
-            padding: 1.5rem 2rem;
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 2rem;
+        .logo-icon{font-size:3.5rem;animation:pulse 2s infinite;}
+        @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
+        
+        /* Premium Navigation Bar */
+        .nav-container{background:rgba(255,255,255,0.92);backdrop-filter:blur(25px);padding:0;margin:2rem 0;border-radius:25px;box-shadow:0 20px 40px rgba(0,0,0,0.1);border:1px solid rgba(255,255,255,0.3);}
+        .nav-tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:0;padding:1.5rem;}
+        .nav-tab{
+            padding:1.2rem 2.5rem;margin:0 0.5rem;border-radius:50px;font-weight:800;
+            font-size:1.1rem;cursor:pointer;transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+            color:#4a5568;border:3px solid transparent;background:rgba(255,255,255,0.7);
+            backdrop-filter:blur(10px);position:relative;overflow:hidden;
+            text-transform:uppercase;letter-spacing:1px;
         }
-
-        .logo {
-            font-size: 2.2rem;
-            font-weight: 900;
-            background: var(--primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .nav-tab::before{
+            content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+            background:var(--primary);transition:left 0.4s ease;z-index:-1;
         }
-
-        .search-container {
-            flex: 1;
-            max-width: 500px;
-            position: relative;
+        .nav-tab.active::before,.nav-tab:hover::before{left:0;}
+        .nav-tab.active,.nav-tab:hover{
+            color:white;transform:translateY(-5px);border-color:#667eea;
+            box-shadow:0 20px 40px rgba(102,126,234,0.4);
+            background:var(--primary);
         }
-
-        .search-input {
-            width: 100%;
-            padding: 1rem 1rem 1rem 3.5rem;
-            border: 2px solid transparent;
-            border-radius: 50px;
-            font-size: 1rem;
-            background: rgba(255,255,255,0.8);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .nav-tab i{font-size:1.3rem;margin-right:0.5rem;}
+        
+        /* Content */
+        .main-content{max-width:1400px;margin:0 auto;padding:0 2rem;}
+        .section{display:none;}
+        .section.active{display:block;}
+        .hero-title{text-align:center;font-size:clamp(2.8rem,6vw,5rem);font-weight:900;background:linear-gradient(45deg,white,rgba(255,255,255,0.8));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:3rem 0 4rem;text-shadow:0 4px 20px rgba(0,0,0,0.1);}
+        
+        /* PDF Section */
+        .pdf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:2.5rem;}
+        .pdf-card{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-radius:30px;padding:3rem 2rem;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,0.15);transition:all 0.4s ease;border:1px solid rgba(255,255,255,0.4);}
+        .pdf-card:hover{transform:translateY(-15px) scale(1.03);box-shadow:0 40px 80px rgba(0,0,0,0.25);}
+        .pdf-icon{font-size:5rem;margin-bottom:2rem;}
+        .pdf-name{font-size:1.6rem;font-weight:900;margin-bottom:1rem;color:#1a202c;}
+        .pdf-size{color:#718096;font-size:1.2rem;margin-bottom:2.5rem;font-weight:600;}
+        .pdf-download{width:100%;background:var(--secondary);color:white;border:none;padding:1.2rem 3rem;border-radius:50px;cursor:pointer;font-weight:800;font-size:1.1rem;transition:all 0.3s ease;box-shadow:0 15px 30px rgba(72,187,120,0.4);}
+        .pdf-download:hover{transform:translateY(-5px);box-shadow:0 25px 50px rgba(72,187,120,0.6);}
+        
+        /* Enhanced Shop Section - Desktop Optimized */
+        .shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:3rem;}
+        .shop-card{background:rgba(255,255,255,0.95);backdrop-filter:blur(25px);border-radius:30px;padding:2.5rem;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,0.15);transition:all 0.4s ease;border:1px solid rgba(255,255,255,0.4);position:relative;overflow:hidden;}
+        .shop-card::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:var(--secondary);}
+        .shop-card:hover{transform:translateY(-15px) scale(1.02);box-shadow:0 40px 80px rgba(0,0,0,0.25);}
+        .shop-image{
+            width:140px;height:140px;border-radius:50%;margin:0 auto 1.5rem;
+            display:flex;align-items:center;justify-content:center;font-size:4rem;
+            background:linear-gradient(135deg,#f7fafc,#edf2f7);border:4px solid rgba(255,255,255,0.5);
+            box-shadow:0 15px 30px rgba(0,0,0,0.1);transition:all 0.3s ease;
         }
-
-        .search-input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102,126,234,0.1);
-            transform: translateY(-2px);
+        .shop-card:hover .shop-image{transform:scale(1.1) rotate(5deg);}
+        .shop-name{font-size:1.5rem;font-weight:900;color:#1a202c;margin-bottom:0.8rem;text-shadow:0 2px 5px rgba(0,0,0,0.1);}
+        .shop-price{font-size:2rem;font-weight:900;color:#48bb78;margin-bottom:2rem;text-shadow:0 2px 10px rgba(72,187,120,0.3);}
+        .messenger-contact{
+            width:100%;background:#0084ff;color:white;border:none;
+            padding:1.2rem 3rem;border-radius:50px;cursor:pointer;font-weight:800;
+            font-size:1.1rem;transition:all 0.3s ease;box-shadow:0 15px 30px rgba(0,132,255,0.4);
+            display:flex;align-items:center;justify-content:center;gap:0.8rem;
         }
-
-        .search-icon {
-            position: absolute;
-            left: 1.2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.2rem;
-            color: #667eea;
-        }
-
-        .settings-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow);
-        }
-
-        .settings-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        /* Main Content */
-        .main-content {
-            max-width: 1400px;
-            margin: 3rem auto;
-            padding: 0 2rem;
-        }
-
-        .hero-title {
-            text-align: center;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 900;
-            background: linear-gradient(45deg, white, rgba(255,255,255,0.8));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 3rem;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-
-        /* PDF Grid */
-        .pdf-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .pdf-card {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 2.5rem 2rem;
-            box-shadow: var(--shadow);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(255,255,255,0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pdf-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: var(--primary);
-        }
-
-        .pdf-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .pdf-icon {
-            font-size: 4rem;
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .pdf-name {
-            font-size: 1.4rem;
-            font-weight: 800;
-            margin-bottom: 0.8rem;
-            color: #1a202c;
-            text-align: center;
-        }
-
-        .pdf-size {
-            color: #718096;
-            font-size: 1.1rem;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .pdf-download {
-            width: 100%;
-            background: var(--secondary);
-            color: white;
-            text-decoration: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            font-weight: 700;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(72,187,120,0.4);
-        }
-
-        .pdf-download:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(72,187,120,0.6);
-        }
-
+        .messenger-contact:hover{transform:translateY(-5px);box-shadow:0 25px 50px rgba(0,132,255,0.6);}
+        .messenger-contact i{font-size:1.4rem;}
+        
         /* Admin Panel */
-        .admin-panel {
-            display: none;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(20px);
-            padding: 3rem;
-            border-radius: 24px;
-            margin: 3rem 0;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-
-        .admin-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: #2d3748;
-        }
-
-        .form-group {
-            margin-bottom: 2rem;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.8rem;
-            font-weight: 700;
-            color: #2d3748;
-            font-size: 1.1rem;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 1.2rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            font-size: 1.1rem;
-            background: #f7fafc;
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 4px rgba(102,126,234,0.1);
-        }
-
-        .admin-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .btn {
-            padding: 1.2rem 2rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: 700;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow);
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            width: 100%;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .btn-danger {
-            background: var(--danger);
-            color: white;
-            width: 100%;
-        }
-
-        .btn-danger:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 35px rgba(245,101,101,0.6);
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            background: white;
-            padding: 3rem;
-            border-radius: 24px;
-            max-width: 450px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.4);
-            position: relative;
-            animation: slideUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .modal-close {
-            position: absolute;
-            right: 1.5rem;
-            top: 1.5rem;
-            font-size: 2rem;
-            cursor: pointer;
-            color: #cbd5e0;
-            transition: color 0.3s ease;
-        }
-
-        .modal-close:hover {
-            color: #2d3748;
-        }
-
-        /* About Section */
-        .about-section {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 4rem 3rem;
-            border: 1px solid rgba(255,255,255,0.2);
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        .about-title {
-            font-size: 2.8rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, white, rgba(255,255,255,0.8));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1.5rem;
-        }
-
-        .about-text {
-            font-size: 1.3rem;
-            color: rgba(255,255,255,0.95);
-            margin-bottom: 3rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.7;
-        }
-
-        .about-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .about-link {
-            background: var(--glass-hover);
-            padding: 2rem;
-            border-radius: 20px;
-            text-decoration: none;
-            color: white;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.3);
-            font-weight: 600;
-        }
-
-        .about-link:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        /* Messenger */
-        .messenger-icon {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 70px;
-            height: 70px;
-            background: #0084ff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,132,255,0.5);
-            z-index: 1000;
-            text-decoration: none;
-            color: white;
-            font-size: 1.8rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .messenger-icon:hover {
-            transform: scale(1.1) translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,132,255,0.7);
-        }
-
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            grid-column: 1 / -1;
-            padding: 6rem 3rem;
-            background: var(--glass);
-            border-radius: 24px;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 1.5rem;
-                padding: 1.5rem 1rem;
-            }
-            
-            .pdf-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            
-            .admin-buttons {
-                grid-template-columns: 1fr;
-            }
-            
-            .about-links {
-                grid-template-columns: 1fr;
-            }
+        .admin-panel{display:none;background:rgba(255,255,255,0.95);backdrop-filter:blur(25px);padding:4rem;border-radius:35px;margin:4rem 0;box-shadow:0 30px 60px rgba(0,0,0,0.2);border:2px solid rgba(255,255,255,0.4);}
+        .admin-title{text-align:center;font-size:3rem;margin-bottom:3rem;color:#2d3748;font-weight:900;text-shadow:0 2px 10px rgba(0,0,0,0.1);}
+        .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:3rem;}
+        .form-section{background:rgba(255,255,255,0.7);padding:2.5rem;border-radius:25px;border:1px solid rgba(255,255,255,0.3);}
+        .form-section h3{font-size:1.8rem;margin-bottom:2rem;color:#2d3748;font-weight:800;}
+        .form-group{margin-bottom:2rem;}
+        .form-label{display:block;margin-bottom:1rem;font-weight:800;color:#2d3748;font-size:1.2rem;}
+        .form-input{width:100%;padding:1.5rem;border:3px solid #e2e8f0;border-radius:20px;font-size:1.2rem;background:#f8fafc;transition:all 0.3s ease;box-shadow:0 5px 15px rgba(0,0,0,0.05);}
+        .form-input:focus{outline:none;border-color:#667eea;background:white;box-shadow:0 0 0 4px rgba(102,126,234,0.15);}
+        .admin-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;margin-top:3rem;}
+        .btn{padding:1.5rem 3rem;border:none;border-radius:50px;cursor:pointer;font-size:1.2rem;font-weight:900;transition:all 0.4s ease;box-shadow:0 15px 35px rgba(102,126,234,0.4);width:100%;text-transform:uppercase;}
+        .btn-primary{background:var(--primary);color:white;}
+        .btn-primary:hover{transform:translateY(-6px);box-shadow:0 25px 50px rgba(102,126,234,0.6);}
+        .btn-danger{background:var(--danger);color:white;box-shadow:0 15px 35px rgba(245,101,101,0.4);}
+        .btn-danger:hover{transform:translateY(-6px);box-shadow:0 25px 50px rgba(245,101,101,0.6);}
+        
+        /* Modal & Other Styles */
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(15px);z-index:3000;justify-content:center;align-items:center;}
+        .modal-content{background:white;padding:4rem;border-radius:35px;max-width:500px;width:90%;text-align:center;box-shadow:0 50px 100px rgba(0,0,0,0.5);}
+        .about-section{background:var(--glass);backdrop-filter:blur(25px);border-radius:35px;padding:5rem 4rem;border:2px solid rgba(255,255,255,0.3);text-align:center;margin:5rem 0;}
+        .about-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2.5rem;}
+        .about-link{background:rgba(255,255,255,0.25);padding:2.5rem;border-radius:25px;transition:all 0.4s ease;border:2px solid rgba(255,255,255,0.4);display:flex;align-items:center;gap:1.5rem;justify-content:center;font-weight:800;font-size:1.2rem;}
+        .about-link:hover{transform:translateY(-10px);box-shadow:0 40px 80px rgba(0,0,0,0.3);}
+        .messenger-icon{position:fixed;bottom:40px;right:40px;width:80px;height:80px;background:#0084ff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 40px rgba(0,132,255,0.5);z-index:1000;color:white;font-size:2rem;transition:all 0.3s ease;}
+        .messenger-icon:hover{transform:scale(1.15) translateY(-8px);box-shadow:0 30px 60px rgba(0,132,255,0.7);}
+        .empty-state{text-align:center;grid-column:1/-1;padding:8rem 4rem;background:var(--glass);border-radius:35px;}
+        
+        @media (max-width:768px){
+            .nav-tabs{padding:1rem;flex-direction:column;gap:1rem;}
+            .shop-grid,.pdf-grid{grid-template-columns:1fr;}
+            .form-grid{grid-template-columns:1fr;}
+            .admin-buttons{grid-template-columns:1fr;}
         }
     </style>
 </head>
 <body>
-    <!-- Official Meta Messenger Icon -->
-    <a href="https://m.me/" class="messenger-icon" target="_blank" rel="noopener">
-        💬
-    </a>
-
-    <!-- Header -->
-    <header class="header">
-        <div class="logo">eQro.sit</div>
-        <div class="search-container">
-            <span class="search-icon">🔍</span>
-            <input type="text" class="search-input" id="pdfSearch" placeholder="🔎 Search your PDFs...">
+    <a href="https://m.me/" class="messenger-icon" target="_blank"><i class="fab fa-facebook-messenger"></i></a>
+    
+    <!-- Premium Logo Header -->
+    <header class="logo-header">
+        <div class="main-logo">
+            <span class="logo-icon">📱</span>
+            eQro.sit
         </div>
-        <button class="settings-btn" onclick="toggleAdminModal()">
-            ⚙️ Admin Panel
-        </button>
+        <div style="position:relative;flex:1;max-width:500px;margin:0 2rem;">
+            <span style="position:absolute;left:1.5rem;top:50%;transform:translateY(-50%);font-size:1.4rem;color:#667eea;z-index:2;">🔍</span>
+            <input type="text" class="form-input" id="globalSearch" placeholder="🔎 PDFs / Products খুঁজুন..." style="width:100%;padding:1.3rem 1.3rem 1.3rem 4rem;border-radius:30px;box-shadow:0 10px 25px rgba(0,0,0,0.1);">
+        </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <h1 class="hero-title">📚 Q PDF Hub</h1>
-        
-        <div id="pdfGrid" class="pdf-grid">
-            <!-- Dynamic PDF cards will appear here -->
+    <!-- Premium Navigation Bar -->
+    <div class="nav-container">
+        <div class="nav-tabs">
+            <div class="nav-tab active" onclick="showSection('pdf')">
+                <i class="fas fa-file-pdf"></i> Q PDF Hub
+            </div>
+            <div class="nav-tab" onclick="showSection('shop')">
+                <i class="fas fa-store"></i> Q Shop
+            </div>
+            <div class="nav-tab" onclick="toggleAdminModal()">
+                <i class="fas fa-cog"></i> Admin Panel
+            </div>
         </div>
+    </div>
 
-        <!-- Admin Panel -->
-        <div id="adminPanel" class="admin-panel" style="display: none;">
-            <h2 class="admin-title">🔐 Admin Control Panel</h2>
-            
-            <div class="form-group">
-                <label class="form-label">📄 Select PDF File</label>
-                <input type="file" id="pdfFile" accept=".pdf" class="form-input">
+    <div class="main-content">
+        <!-- PDF Section -->
+        <section id="pdfSection" class="section active">
+            <h1 class="hero-title">📚 Q PDF Hub</h1>
+            <div id="pdfGrid" class="pdf-grid"></div>
+        </section>
+
+        <!-- Shop Section -->
+        <section id="shopSection" class="section">
+            <h1 class="hero-title">🛒 Q Shop</h1>
+            <div id="shopGrid" class="shop-grid"></div>
+        </section>
+
+        <!-- Enhanced Admin Panel -->
+        <div id="adminPanel" class="admin-panel" style="display:none;">
+            <h2 class="admin-title">🔐 Admin Control Center</h2>
+            <div class="form-grid">
+                <div class="form-section">
+                    <h3><i class="fas fa-file-pdf"></i> PDF Manager</h3>
+                    <div class="form-group">
+                        <label class="form-label">📄 PDF File</label>
+                        <input type="file" id="pdfFile" accept=".pdf" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">📝 Title</label>
+                        <input type="text" id="pdfTitle" placeholder="Document name" class="form-input">
+                    </div>
+                </div>
+                <div class="form-section">
+                    <h3><i class="fas fa-box"></i> Q Shop Manager</h3>
+                    <div class="form-group">
+                        <label class="form-label">🖼️ Product Photo</label>
+                        <input type="file" id="productImage" accept="image/*" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">📦 Product Name</label>
+                        <input type="text" id="productName" placeholder="Product name" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">💰 Price (৳)</label>
+                        <input type="number" id="productPrice" placeholder="Price" class="form-input">
+                    </div>
+                </div>
             </div>
-            
-            <div class="form-group">
-                <label class="form-label">📝 Document Title</label>
-                <input type="text" id="pdfTitle" placeholder="Enter document name..." class="form-input">
-            </div>
-            
             <div class="admin-buttons">
                 <button class="btn btn-primary" onclick="uploadPDF()">
-                    🚀 Upload PDF
+                    <i class="fas fa-upload"></i> Upload PDF
+                </button>
+                <button class="btn btn-primary" onclick="addProduct()">
+                    <i class="fas fa-plus"></i> Add Product
                 </button>
                 <button class="btn btn-danger" onclick="clearAllPDFs()">
-                    🗑️ Clear All
+                    <i class="fas fa-trash"></i> Clear PDFs
+                </button>
+                <button class="btn btn-danger" onclick="clearAllProducts()">
+                    <i class="fas fa-trash"></i> Clear Products
                 </button>
             </div>
         </div>
@@ -502,193 +222,113 @@
         <!-- About Section -->
         <section class="about-section">
             <h2 class="about-title">About eQro.sit</h2>
-            <p class="about-text">
-                Welcome to eQro.sit - Your ultimate destination for secure PDF sharing and management. 
-                Upload, organize, and share documents with ease.
+            <p style="font-size:1.4rem;color:rgba(255,255,255,0.95);margin-bottom:4rem;max-width:900px;margin-left:auto;margin-right:auto;line-height:1.8;">
+                আপনার সম্পূর্ণ PDF এবং Shopping platform
             </p>
-            
             <div class="about-links">
-                <a href="https://youtube.com/@shihabsharar-j4p?si=d2iAsMrWVwFo7f_k" target="_blank" rel="noopener">
-                    📺 YouTube Channel<br><strong>eQro.sit</strong>
+                <a href="https://youtube.com/@shihabsharar-j4p?si=d2iAsMrWVwFo7f_k" target="_blank">
+                    <i class="fab fa-youtube" style="font-size:3rem;color:#FF0000;"></i>
+                    eQro.sit YouTube
                 </a>
-                <a href="https://m.me/" target="_blank" rel="noopener">
-                    💬 Contact Us<br><strong>Meta Messenger</strong>
+                <a href="https://m.me/" target="_blank">
+                    <i class="fab fa-facebook-messenger" style="font-size:3rem;color:#0084ff;"></i>
+                    Messenger Contact
                 </a>
             </div>
         </section>
-    </main>
+    </div>
 
     <!-- Admin Login Modal -->
     <div id="adminModal" class="modal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeAdminModal()">&times;</span>
-            <h2>🔐 Admin Authentication</h2>
-            <p style="margin-bottom: 2rem; color: #666;">Enter password to access admin panel</p>
-            
+            <h2 style="font-size:2.5rem;margin-bottom:2rem;">🔐 Admin Login</h2>
             <div class="form-group">
                 <label class="form-label">Password</label>
-                <input type="password" id="adminPass" class="form-input" placeholder="Enter admin password">
+                <input type="password" id="adminPass" class="form-input" style="font-size:1.3rem;">
             </div>
-            
-            <button class="btn btn-primary" onclick="verifyAdmin()" style="margin-top: 1rem;">
-                🔑 Unlock Admin
-            </button>
+            <button class="btn btn-primary" onclick="verifyAdmin()" style="margin-top:2rem;padding:1.5rem 4rem;font-size:1.2rem;">🔑 Login</button>
         </div>
     </div>
 
     <script>
-        // Global state
-        let pdfLibrary = [
-            { id: 1, name: "Welcome Guide", size: "1.2 MB", demo: true },
-            { id: 2, name: "Sample Document", size: "2.8 MB", demo: true }
+        let pdfs=[{name:"Welcome Guide.pdf",size:"1.2 MB"},{name:"Sample Document.pdf",size:"2.8 MB"}];
+        let products=[
+            {name:"Premium T-Shirt",price:499,image:"👕"},
+            {name:"Phone Cover",price:299,image:"📱"},
+            {name:"Watch",price:1299,image:"⌚"}
         ];
+        const ADMIN_PASS="Shi567hab";
 
-        const ADMIN_PASSWORD = "Shi567hab";
-
-        // Initialize app
-        document.addEventListener('DOMContentLoaded', function() {
-            renderPDFs();
-            initSearch();
-        });
-
-        // Render PDF grid
-        function renderPDFs(pdfs = pdfLibrary) {
-            const grid = document.getElementById('pdfGrid');
-            
-            if (pdfs.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-state">
-                        <div style="font-size: 4rem; margin-bottom: 1rem;">📄</div>
-                        <h2>No PDFs Found</h2>
-                        <p>Upload your first document using the Admin Panel</p>
-                    </div>
-                `;
-                return;
-            }
-
-            grid.innerHTML = pdfs.map(pdf => `
-                <div class="pdf-card" data-name="${pdf.name.toLowerCase()}">
-                    <div class="pdf-icon">📄</div>
-                    <div class="pdf-name">${pdf.name}</div>
-                    <div class="pdf-size">${pdf.size}</div>
-                    <a href="#" class="pdf-download" onclick="handleDownload('${pdf.name}', '${pdf.size}')">
-                        📥 Download PDF
-                    </a>
-                </div>
-            `).join('');
+        function downloadPDF(filename){
+            const pdfContent=`%PDF-1.4
+1 0 obj
+<</Type/Catalog/Pages 2 0 R>>
+endobj
+2 0 obj
+<</Type/Pages/Kids[3 0 R]/Count 1>>
+endobj
+3 0 obj
+<</Type/Page/Parent 2 0 R/MediaBox[0 0 612 792]/Contents 4 0 R>>
+endobj
+4 0 obj
+<</Length 60>>
+stream
+BT /F1 24 Tf 150 700 Td (${filename}) Tj 150 650 Td (eQro.sit - Q PDF Hub) Tj ET
+endstream
+endobj
+xref
+0 5
+0000000000 65535 f 
+0000000010 00000 n 
+trailer<</Size 5/Root 1 0 R>>
+startxref
+300
+%%EOF`;
+            const blob=new Blob([pdfContent],{type:'application/pdf'});
+            const url=URL.createObjectURL(blob);
+            const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
         }
 
-        // Search functionality
-        function initSearch() {
-            const searchInput = document.getElementById('pdfSearch');
-            searchInput.addEventListener('input', function(e) {
-                const query = e.target.value.toLowerCase().trim();
-                const filtered = pdfLibrary.filter(pdf => 
-                    pdf.name.toLowerCase().includes(query)
-                );
-                renderPDFs(filtered);
+        document.addEventListener('DOMContentLoaded',()=>{
+            renderPDFs();renderProducts();initSearch();showSection('pdf');
+        });
+
+        function showSection(section){
+            document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+            document.getElementById(section+'Section').classList.add('active');
+            event.target.closest('.nav-tab').classList.add('active');
+            if(section==='pdf') renderPDFs();
+            else renderProducts();
+        }
+
+        function renderPDFs(){document.getElementById('pdfGrid').innerHTML=pdfs.length?pdfs.map(p=>`<div class="pdf-card"><div class="pdf-icon">📄</div><div class="pdf-name">${p.name}</div><div class="pdf-size">${p.size}</div><button class="pdf-download" onclick="downloadPDF('${p.name}')"><i class="fas fa-download"></i> Download PDF</button></div>`).join(''):`<div class="empty-state"><div style="font-size:6rem;margin-bottom:2rem">📄</div><h2>কোনো PDF নেই</h2><p>Admin Panel থেকে প্রথম PDF আপলোড করুন</p></div>`;}
+        function renderProducts(){document.getElementById('shopGrid').innerHTML=products.length?products.map(p=>`<div class="shop-card"><div class="shop-image">${p.image}</div><div class="shop-name">${p.name}</div><div class="shop-price">৳${p.price}</div><button class="messenger-contact" onclick="window.open('https://m.me/','_blank')"><i class="fab fa-facebook-messenger"></i> Messenger এ যোগাযোগ করুন</button></div>`).join(''):`<div class="empty-state"><div style="font-size:6rem;margin-bottom:2rem">🛒</div><h2>কোনো Product নেই</h2><p>Admin Panel থেকে প্রথম Product যোগ করুন</p></div>`;}
+
+        function initSearch(){
+            document.getElementById('globalSearch').addEventListener('input',e=>{
+                const q=e.target.value.toLowerCase();
+                const activeSection=document.querySelector('.section.active').id;
+                if(activeSection.includes('pdf')){
+                    renderPDFs(pdfs.filter(p=>p.name.toLowerCase().includes(q)));
+                }else{
+                    renderProducts(products.filter(p=>p.name.toLowerCase().includes(q)));
+                }
             });
         }
 
-        // Admin functions
-        function toggleAdminModal() {
-            document.getElementById('adminModal').style.display = 'flex';
-        }
+        function toggleAdminModal(){document.getElementById('adminModal').style.display='flex';}
+        function closeAdminModal(){document.getElementById('adminModal').style.display='none';document.getElementById('adminPass').value='';}
+        function verifyAdmin(){const pass=document.getElementById('adminPass').value;if(pass===ADMIN_PASS){closeAdminModal();document.getElementById('adminPanel').style.display='block';alert('✅ Admin Access Granted!');}else{alert('❌ Wrong Password!');document.getElementById('adminPass').value='';}}
 
-        function closeAdminModal() {
-            document.getElementById('adminModal').style.display = 'none';
-            document.getElementById('adminPass').value = '';
-        }
+        function uploadPDF(){const file=document.getElementById('pdfFile'),title=document.getElementById('pdfTitle');if(!file.files[0]||!title.value){alert('❌ PDF file ও Title দিন');return;}if(file.files[0].type!=='application/pdf'){alert('❌ শুধুমাত্র PDF file!');return;}pdfs.unshift({name:title.value,size:(file.files[0].size/1048576).toFixed(1)+' MB'});renderPDFs();file.value='';title.value='';alert('✅ PDF successfully যোগ হয়েছে!');}
+        function addProduct(){const img=document.getElementById('productImage'),name=document.getElementById('productName'),price=document.getElementById('productPrice');if(!name.value||!price.value){alert('❌ Product name ও Price দিন');return;}products.unshift({name:name.value,price:price.value,image:img.files[0]?'🖼️':(name.value.includes('shirt')?'👕':name.value.includes('phone')?'📱':'📦')});renderProducts();img.value='';name.value='';price.value='';alert('✅ Product successfully যোগ হয়েছে!');}
+        function clearAllPDFs(){if(confirm('🗑️ সব PDF মুছবেন?')){pdfs=[];renderPDFs();alert('✅ সব PDF মুছে ফেলা হয়েছে!');}}
+        function clearAllProducts(){if(confirm('🗑️ সব Product মুছবেন?')){products=[];renderProducts();alert('✅ সব Product মুছে ফেলা হয়েছে!');}}
 
-        function verifyAdmin() {
-            const password = document.getElementById('adminPass').value;
-            if (password === ADMIN_PASSWORD) {
-                closeAdminModal();
-                document.getElementById('adminPanel').style.display = 'block';
-                showNotification('✅ Admin access granted!', 'success');
-            } else {
-                showNotification('❌ Incorrect password!', 'error');
-                document.getElementById('adminPass').value = '';
-            }
-        }
-
-        // PDF upload
-        function uploadPDF() {
-            const fileInput = document.getElementById('pdfFile');
-            const titleInput = document.getElementById('pdfTitle');
-            
-            if (!fileInput.files[0]) {
-                showNotification('❌ Please select a PDF file', 'error');
-                return;
-            }
-            
-            if (!titleInput.value.trim()) {
-                showNotification('❌ Please enter document title', 'error');
-                return;
-            }
-
-            const file = fileInput.files[0];
-            if (file.type !== 'application/pdf') {
-                showNotification('❌ Please select a valid PDF file', 'error');
-                return;
-            }
-
-            // Create new PDF entry
-            const newPdf = {
-                id: Date.now(),
-                name: titleInput.value.trim(),
-                size: (file.size / (1024 * 1024)).toFixed(1) + ' MB',
-                demo: false
-            };
-
-            pdfLibrary.unshift(newPdf);
-            renderPDFs();
-            
-            // Reset form
-            fileInput.value = '';
-            titleInput.value = '';
-            
-            showNotification('✅ PDF uploaded successfully!', 'success');
-        }
-
-        // Download handler
-        function handleDownload(name, size) {
-            showNotification(`📥 Downloading: ${name} (${size})`, 'info');
-            // In production: trigger actual download
-        }
-
-        // Clear all PDFs
-        function clearAllPDFs() {
-            if (confirm('🗑️ Are you sure you want to delete ALL PDFs?')) {
-                pdfLibrary = [];
-                renderPDFs();
-                document.getElementById('adminPanel').style.display = 'none';
-                showNotification('✅ All PDFs cleared!', 'success');
-            }
-        }
-
-        // Notification system
-        function showNotification(message, type = 'info') {
-            // Simple alert replacement
-            const bg = type === 'success' ? '#48bb78' : 
-                      type === 'error' ? '#f56565' : '#667eea';
-            alert(`${message}`);
-        }
-
-        // Close modal on outside click
-        document.addEventListener('click', function(e) {
-            const modal = document.getElementById('adminModal');
-            if (e.target === modal) {
-                closeAdminModal();
-            }
-        });
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeAdminModal();
-            }
-        });
+        document.addEventListener('click',e=>{if(e.target.id==='adminModal')closeAdminModal();});
+        document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAdminModal();});
     </script>
 </body>
 </html>
