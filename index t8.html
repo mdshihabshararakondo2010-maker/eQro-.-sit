@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eQro.sit - Q PDF Hub</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:system-ui;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;color:#333;}
+        .header{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);padding:1.5rem 2rem;box-shadow:0 20px 40px rgba(0,0,0,0.1);position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:2rem;}
+        .logo{font-size:2.2rem;font-weight:900;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .search-container{flex:1;max-width:500px;position:relative;}
+        .search-input{width:100%;padding:1rem 1rem 1rem 3.5rem;border:2px solid transparent;border-radius:50px;font-size:1rem;background:rgba(255,255,255,0.8);backdrop-filter:blur(10px);transition:all 0.3s ease;}
+        .search-input:focus{outline:none;border-color:#667eea;box-shadow:0 0 0 4px rgba(102,126,234,0.1);transform:translateY(-2px);}
+        .search-icon{position:absolute;left:1.2rem;top:50%;transform:translateY(-50%);font-size:1.2rem;color:#667eea;}
+        .settings-btn{background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;padding:1rem 2rem;border-radius:50px;cursor:pointer;font-weight:600;font-size:1rem;transition:all 0.3s ease;box-shadow:0 10px 30px rgba(102,126,234,0.4);}
+        .settings-btn:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(102,126,234,0.6);}
+        .main-content{max-width:1400px;margin:3rem auto;padding:0 2rem;}
+        .hero-title{text-align:center;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;background:linear-gradient(45deg,white,rgba(255,255,255,0.8));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:3rem;}
+        .pdf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2rem;margin-bottom:4rem;}
+        .pdf-card{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-radius:24px;padding:2.5rem 2rem;box-shadow:0 20px 40px rgba(0,0,0,0.1);transition:all 0.4s ease;border:1px solid rgba(255,255,255,0.3);position:relative;overflow:hidden;}
+        .pdf-card::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(135deg,#667eea,#764ba2);}
+        .pdf-card:hover{transform:translateY(-12px) scale(1.02);box-shadow:0 30px 60px rgba(0,0,0,0.2);}
+        .pdf-icon{font-size:4rem;text-align:center;margin-bottom:1.5rem;}
+        .pdf-name{font-size:1.4rem;font-weight:800;margin-bottom:0.8rem;color:#1a202c;text-align:center;}
+        .pdf-size{color:#718096;font-size:1.1rem;text-align:center;margin-bottom:2rem;}
+        .pdf-download{width:100%;background:linear-gradient(135deg,#48bb78,#38a169);color:white;text-decoration:none;padding:1rem 2rem;border-radius:50px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;transition:all 0.3s ease;box-shadow:0 8px 25px rgba(72,187,120,0.4);}
+        .pdf-download:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(72,187,120,0.6);}
+        .admin-panel{display:none;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);padding:3rem;border-radius:24px;margin:3rem 0;box-shadow:0 20px 40px rgba(0,0,0,0.1);border:1px solid rgba(255,255,255,0.3);}
+        .admin-title{text-align:center;font-size:2.5rem;margin-bottom:2rem;color:#2d3748;}
+        .form-group{margin-bottom:2rem;}
+        .form-label{display:block;margin-bottom:0.8rem;font-weight:700;color:#2d3748;font-size:1.1rem;}
+        .form-input{width:100%;padding:1.2rem;border:2px solid #e2e8f0;border-radius:16px;font-size:1.1rem;background:#f7fafc;transition:all 0.3s ease;}
+        .form-input:focus{outline:none;border-color:#667eea;background:white;box-shadow:0 0 0 4px rgba(102,126,234,0.1);}
+        .admin-buttons{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+        .btn{padding:1.2rem 2rem;border:none;border-radius:50px;cursor:pointer;font-size:1.1rem;font-weight:700;transition:all 0.3s ease;box-shadow:0 10px 30px rgba(102,126,234,0.4);width:100%;}
+        .btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:white;}
+        .btn-primary:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(102,126,234,0.6);}
+        .btn-danger{background:linear-gradient(135deg,#f56565,#e53e3e);color:white;box-shadow:0 10px 30px rgba(245,101,101,0.4);}
+        .btn-danger:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(245,101,101,0.6);}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);z-index:2000;justify-content:center;align-items:center;}
+        .modal-content{background:white;padding:3rem;border-radius:24px;max-width:450px;width:90%;text-align:center;box-shadow:0 40px 80px rgba(0,0,0,0.4);}
+        .modal-close{position:absolute;right:1.5rem;top:1.5rem;font-size:2rem;cursor:pointer;color:#cbd5e0;}
+        .modal-close:hover{color:#2d3748;}
+        .about-section{background:rgba(255,255,255,0.1);backdrop-filter:blur(20px);border-radius:24px;padding:4rem 3rem;border:1px solid rgba(255,255,255,0.2);text-align:center;margin-top:4rem;}
+        .about-title{font-size:2.8rem;font-weight:900;background:linear-gradient(45deg,white,rgba(255,255,255,0.8));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:1.5rem;}
+        .about-text{font-size:1.3rem;color:rgba(255,255,255,0.95);margin-bottom:3rem;max-width:800px;margin-left:auto;margin-right:auto;line-height:1.7;}
+        .about-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;}
+        .about-link{background:rgba(255,255,255,0.2);padding:2rem;border-radius:20px;text-decoration:none;color:white;transition:all 0.3s ease;border:1px solid rgba(255,255,255,0.3);font-weight:600;}
+        .about-link:hover{background:rgba(255,255,255,0.25);transform:translateY(-8px);box-shadow:0 30px 60px rgba(0,0,0,0.2);}
+        .messenger-icon{position:fixed;bottom:30px;right:30px;width:70px;height:70px;background:#0084ff;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 10px 30px rgba(0,132,255,0.5);z-index:1000;color:white;font-size:1.8rem;transition:all 0.3s ease;text-decoration:none;}
+        .messenger-icon:hover{transform:scale(1.1) translateY(-5px);box-shadow:0 15px 40px rgba(0,132,255,0.7);}
+        .empty-state{text-align:center;grid-column:1/-1;padding:6rem 3rem;background:rgba(255,255,255,0.1);border-radius:24px;backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.2);color:white;}
+        @media (max-width:768px){.header{flex-direction:column;gap:1.5rem;padding:1.5rem 1rem;}.pdf-grid{grid-template-columns:1fr;}.admin-buttons,.about-links{grid-template-columns:1fr;}}
+    </style>
+</head>
+<body>
+    <a href="https://m.me/" class="messenger-icon" target="_blank">💬</a>
+    
+    <header class="header">
+        <div class="logo">eQro.sit</div>
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" id="pdfSearch" placeholder="🔎 Search PDFs...">
+        </div>
+        <button class="settings-btn" onclick="toggleAdminModal()">⚙️ Admin</button>
+    </header>
+
+    <main class="main-content">
+        <h1 class="hero-title">📚 Q PDF Hub</h1>
+        <div id="pdfGrid" class="pdf-grid"></div>
+        
+        <div id="adminPanel" class="admin-panel" style="display:none;">
+            <h2 class="admin-title">🔐 Admin Panel</h2>
+            <div class="form-group">
+                <label class="form-label">📄 PDF File</label>
+                <input type="file" id="pdfFile" accept=".pdf" class="form-input">
+            </div>
+            <div class="form-group">
+                <label class="form-label">📝 Title</label>
+                <input type="text" id="pdfTitle" placeholder="Document name" class="form-input">
+            </div>
+            <div class="admin-buttons">
+                <button class="btn btn-primary" onclick="uploadPDF()">🚀 Upload</button>
+                <button class="btn btn-danger" onclick="clearAll()">🗑️ Clear All</button>
+            </div>
+        </div>
+
+        <section class="about-section">
+            <h2 class="about-title">About Us</h2>
+            <p class="about-text">eQro.sit - Your PDF sharing platform</p>
+            <div class="about-links">
+                <a href="https://youtube.com/@shihabsharar-j4p?si=d2iAsMrWVwFo7f_k" target="_blank">📺 eQro.sit YouTube</a>
+                <a href="https://m.me/" target="_blank">💬 Messenger</a>
+            </div>
+        </section>
+    </main>
+
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeAdminModal()">&times;</span>
+            <h2>🔐 Admin Login</h2>
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input type="password" id="adminPass" class="form-input">
+            </div>
+            <button class="btn btn-primary" onclick="verifyAdmin()" style="margin-top:1rem;">Login</button>
+        </div>
+    </div>
+
+    <script>
+        let pdfs=[{name:"Welcome.pdf",size:"1.2 MB"},{name:"Sample.pdf",size:"2.8 MB"}];
+        const ADMIN_PASS="Shi567hab";
+        document.addEventListener('DOMContentLoaded',()=>{renderPDFs();initSearch();});
+        function renderPDFs(list=pdfs){const grid=document.getElementById('pdfGrid');if(!list.length){grid.innerHTML=`<div class="empty-state"><div style="font-size:4rem;margin-bottom:1rem">📄</div><h2>No PDFs</h2><p>Upload first document</p></div>`;return;}grid.innerHTML=list.map(p=>`<div class="pdf-card" data-name="${p.name.toLowerCase()}"><div class="pdf-icon">📄</div><div class="pdf-name">${p.name}</div><div class="pdf-size">${p.size}</div><a href="#" class="pdf-download" onclick="download('${p.name}')">📥 Download</a></div>`).join('');}
+        function initSearch(){document.getElementById('pdfSearch').addEventListener('input',e=>{const q=e.target.value.toLowerCase();renderPDFs(pdfs.filter(p=>p.name.toLowerCase().includes(q)));});}
+        function toggleAdminModal(){document.getElementById('adminModal').style.display='flex';}
+        function closeAdminModal(){document.getElementById('adminModal').style.display='none';document.getElementById('adminPass').value='';}
+        function verifyAdmin(){const pass=document.getElementById('adminPass').value;if(pass===ADMIN_PASS){closeAdminModal();document.getElementById('adminPanel').style.display='block';alert('✅ Admin Login Success!');}else{alert('❌ Wrong Password!');document.getElementById('adminPass').value='';}}
+        function uploadPDF(){const file=document.getElementById('pdfFile'),title=document.getElementById('pdfTitle');if(!file.files[0]||!title.value){alert('❌ Select file & enter title');return;}if(file.files[0].type!=='application/pdf'){alert('❌ PDF file only!');return;}const newPdf={name:title.value,size:(file.files[0].size/1048576).toFixed(1)+' MB'};pdfs.unshift(newPdf);renderPDFs();file.value='';title.value='';alert('✅ PDF Uploaded!');}
+        function download(name){alert(`📥 Downloading: ${name}`);}
+        function clearAll(){if(confirm('🗑️ Delete ALL PDFs?')){pdfs=[];renderPDFs();document.getElementById('adminPanel').style.display='none';alert('✅ Cleared!');}}
+        document.addEventListener('click',e=>{if(e.target.id==='adminModal')closeAdminModal();});
+        document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAdminModal();});
+    </script>
+</body>
+</html>
