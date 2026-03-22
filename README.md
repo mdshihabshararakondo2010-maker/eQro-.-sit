@@ -1,2 +1,2 @@
-# eQro-.-sit
+# eQro.sit
 It,s a study helper.
