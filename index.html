@@ -39,7 +39,7 @@
         .hero-title{text-align:center;font-size:clamp(2.8rem,6vw,5rem);font-weight:900;background:linear-gradient(45deg,white,rgba(255,255,255,0.8));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:3rem 0 4rem;}
         
         .pdf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:2.5rem;}
-        .pdf-card{background:var(--white-glass);backdrop-filter:blur(20px);border-radius:30px;padding:3rem 2rem;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,0.15);transition:all 0.4s ease;border:1px solid rgba(255,255,255,0.4);}
+        .pdf-card{background:var(--white-glass);backdrop-filter:blur(20px);border-radius:30px;padding:3rem 2rem;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,0.15);transition:all 0.4s ease;border:1px solid rgba(255,255,255,0.4);position:relative;}
         .pdf-card::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:var(--primary);}
         .pdf-card:hover{transform:translateY(-15px);box-shadow:0 40px 80px rgba(0,0,0,0.25);}
         .pdf-icon{font-size:5rem;margin-bottom:2rem;}
@@ -52,16 +52,17 @@
         .shop-card{background:var(--white-glass);backdrop-filter:blur(25px);border-radius:30px;padding:2.5rem;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,0.15);transition:all 0.4s ease;border:1px solid rgba(255,255,255,0.4);}
         .shop-card::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:var(--secondary);}
         .shop-card:hover{transform:translateY(-15px);box-shadow:0 40px 80px rgba(0,0,0,0.25);}
-        
-        /* FIXED Product Image */
-        .shop-image{ width:180px;height:180px;border-radius:20px;margin:0 auto 1.5rem;object-fit:cover;background:#f0f0f0;border:4px solid rgba(255,255,255,0.8);box-shadow:0 15px 30px rgba(0,0,0,0.2);transition:all 0.4s ease;}
+        .shop-image{width:180px;height:180px;border-radius:20px;margin:0 auto 1.5rem;object-fit:cover;background:#f0f0f0;border:4px solid rgba(255,255,255,0.8);box-shadow:0 15px 30px rgba(0,0,0,0.2);transition:all 0.4s ease;}
         .shop-image.emoji{font-size:5rem !important;display:flex;align-items:center;justify-content:center;border-radius:20px;background:linear-gradient(135deg,#f7fafc,#e2e8f0) !important;}
         .shop-card:hover .shop-image{transform:scale(1.05);}
-        
         .shop-name{font-size:1.5rem;font-weight:900;color:#1a202c;margin-bottom:0.8rem;}
         .shop-price{font-size:2.2rem;font-weight:900;color:#48bb78;margin-bottom:2rem;}
-        .messenger-contact{width:100%;background:#0084ff;color:white;border:none;padding:1.2rem 2rem;border-radius:50px;cursor:pointer;font-weight:800;font-size:1.1rem;transition:all 0.3s ease;box-shadow:0 10px 25px rgba(0,132,255,0.4);display:flex;align-items:center;justify-content:center;gap:1rem;text-decoration:none;}
-        .messenger-contact:hover{transform:translateY(-3px);box-shadow:0 20px 40px rgba(0,132,255,0.6);}
+        
+        /* ✅ WhatsApp Contact Button */
+        .whatsapp-contact{
+            width:100%;background:linear-gradient(135deg, #25D366 0%, #20BA5A 100%);color:white;border:none;padding:1.2rem 2rem;border-radius:50px;cursor:pointer;font-weight:800;font-size:1.1rem;transition:all 0.3s ease;box-shadow:0 10px 25px rgba(37,211,102,0.4);display:flex;align-items:center;justify-content:center;gap:1rem;text-decoration:none;
+        }
+        .whatsapp-contact:hover{transform:translateY(-3px);box-shadow:0 20px 40px rgba(37,211,102,0.6);}
         
         .admin-panel{display:none;background:var(--white-glass);backdrop-filter:blur(25px);padding:3rem;border-radius:30px;margin:3rem 0;box-shadow:0 30px 60px rgba(0,0,0,0.2);}
         .admin-title{text-align:center;font-size:2.5rem;margin-bottom:2rem;color:#2d3748;}
@@ -72,7 +73,7 @@
         .form-label{display:block;margin-bottom:0.5rem;font-weight:700;color:#2d3748;font-size:1.1rem;}
         .form-input{width:100%;padding:1rem;border:2px solid #e2e8f0;border-radius:12px;font-size:1rem;background:#f8fafc;transition:all 0.3s;}
         .form-input:focus{outline:none;border-color:#667eea;box-shadow:0 0 0 3px rgba(102,126,234,0.1);}
-        .image-preview{width:100px;height:100px;border-radius:10px;object-fit:cover;margin-top:0.5rem;display:none;border:2px solid #e2e8f0;}
+        .image-preview{width:120px;height:120px;border-radius:12px;object-fit:cover;margin-top:0.5rem;display:none;border:2px solid #e2e8f0;}
         .admin-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;}
         .btn{padding:1rem 2rem;border:none;border-radius:25px;cursor:pointer;font-weight:700;font-size:1rem;transition:all 0.3s;box-shadow:0 8px 20px rgba(0,0,0,0.15);}
         .btn-primary{background:var(--primary);color:white;}
@@ -83,8 +84,73 @@
         .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:3000;justify-content:center;align-items:center;}
         .modal-content{background:white;padding:3rem;border-radius:25px;max-width:450px;width:90%;text-align:center;box-shadow:0 30px 60px rgba(0,0,0,0.4);}
         .about-section{background:var(--glass);backdrop-filter:blur(20px);border-radius:25px;padding:3rem 2rem;margin:3rem 0;text-align:center;color:white;}
-        .messenger-icon{position:fixed;bottom:20px;right:20px;width:70px;height:70px;background:#0084ff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 25px rgba(0,132,255,0.4);z-index:1000;color:white;font-size:1.8rem;transition:all 0.3s;text-decoration:none;}
-        .messenger-icon:hover{transform:scale(1.1);box-shadow:0 15px 35px rgba(0,132,255,0.6);}
+        .about-links{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-top:2rem;}
+        .about-link{display:flex;flex-direction:column;gap:1rem;align-items:center;color:white;text-decoration:none;font-weight:700;padding:1.5rem;border-radius:20px;background:rgba(255,255,255,0.1);transition:all 0.3s;}
+        .about-link:hover{transform:translateY(-5px);background:rgba(255,255,255,0.2);}
+        
+        /* ✅ WhatsApp Floating Icon - PERFECT! */
+        .whatsapp-icon {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 75px;
+            height: 75px;
+            background: linear-gradient(135deg, #25D366 0%, #20BA5A 50%, #128C7E 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 12px 30px rgba(37,211,102,0.4),
+                0 4px 20px rgba(0,0,0,0.2),
+                inset 0 2px 0 rgba(255,255,255,0.3);
+            z-index: 2000;
+            color: white;
+            font-size: 2.2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            border: 4px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+        }
+        .whatsapp-icon::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            background: conic-gradient(from 0deg, transparent 0deg, rgba(37,211,102,0.3) 270deg, transparent 360deg);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .whatsapp-icon:hover {
+            transform: scale(1.15) translateY(-8px);
+            box-shadow: 
+                0 25px 50px rgba(37,211,102,0.5),
+                0 8px 30px rgba(0,0,0,0.3),
+                inset 0 3px 0 rgba(255,255,255,0.4);
+            border-color: rgba(255,255,255,0.6);
+        }
+        .whatsapp-icon:hover::before {
+            opacity: 1;
+            animation: rotate 2s linear infinite;
+        }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .whatsapp-icon:active {
+            transform: scale(0.95) translateY(-4px);
+        }
+        .whatsapp-icon i {
+            transition: transform 0.3s ease;
+        }
+        .whatsapp-icon:hover i {
+            transform: scale(1.2);
+        }
+        
         .empty-state{padding:6rem 2rem;background:var(--glass);border-radius:25px;text-align:center;color:white;}
         
         @media (max-width:768px){
@@ -92,26 +158,29 @@
             .pdf-grid,.shop-grid{grid-template-columns:1fr;}
             .form-grid{grid-template-columns:1fr;}
             .logo-header{flex-direction:column;gap:1rem;text-align:center;}
+            .about-links{flex-direction:column;gap:1.5rem;}
+            .whatsapp-icon{width:65px;height:65px;font-size:2rem;bottom:20px;right:20px;}
         }
     </style>
 </head>
 <body>
-    <a href="https://m.me/" class="messenger-icon" target="_blank"><i class="fab fa-facebook-messenger"></i></a>
+    <!-- ✅ WHATSAPP FLOATING ICON - YOUR NUMBER: +8801920037889 -->
+    <a href="https://wa.me/8801920037889?text=Hi%20eQro.sit%20order" class="whatsapp-icon" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i>
+    </a>
     
     <header class="logo-header">
-        <div class="main-logo">
-            <span class="logo-icon">📱</span>eQro.sit
-        </div>
+        <div class="main-logo"><span class="logo-icon">📱</span>eQro.sit</div>
         <div class="search-container">
             <span class="search-icon">🔍</span>
-            <input type="text" class="search-input" id="globalSearch" placeholder="🔎 Search PDFs / Products...">
+            <input type="text" class="search-input" id="globalSearch" placeholder="🔎 PDFs / Products খুঁজুন...">
         </div>
     </header>
 
     <div class="nav-container">
         <div class="nav-tabs">
-            <div class="nav-tab active" onclick="showSection('pdf')"><i class="fas fa-file-pdf"></i> Q PDF Hub</div>
-            <div class="nav-tab" onclick="showSection('shop')"><i class="fas fa-store"></i> Q Shop</div>
+            <div class="nav-tab active" data-section="pdf"><i class="fas fa-file-pdf"></i> Q PDF Hub</div>
+            <div class="nav-tab" data-section="shop"><i class="fas fa-store"></i> Q Shop</div>
             <div class="nav-tab" onclick="toggleAdminModal()"><i class="fas fa-cog"></i> Admin</div>
         </div>
     </div>
@@ -138,7 +207,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Title</label>
-                        <input type="text" id="pdfTitle" placeholder="Document Name" class="form-input">
+                        <input type="text" id="pdfTitle" placeholder="Exam Paper" class="form-input">
                     </div>
                 </div>
                 <div class="form-section">
@@ -150,7 +219,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Product Name</label>
-                        <input type="text" id="productName" placeholder="Product Name" class="form-input">
+                        <input type="text" id="productName" placeholder="Red T-Shirt" class="form-input">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Price (৳)</label>
@@ -167,14 +236,16 @@
         </div>
 
         <section class="about-section">
-            <h2 style="font-size:2rem;margin-bottom:1.5rem;">✅ সব Features Working</h2>
-            <p>🖼️ আসল Product Image • 📄 PDF Download • 💾 Local Storage Save</p>
-            <div style="display:flex;gap:1.5rem;justify-content:center;margin-top:2rem;flex-wrap:wrap;">
-                <a href="https://youtube.com/@shihabsharar-j4p" target="_blank" style="color:white;text-decoration:none;font-weight:600;">
-                    <i class="fab fa-youtube" style="font-size:2rem;color:#FF0000;"></i> YouTube
+            <h2 style="font-size:2.5rem;margin-bottom:2rem;">About eQro.sit</h2>
+            <p style="font-size:1.2rem;margin-bottom:3rem;">✅ PDF Upload + Download • ✅ Product Image • ✅ Local Storage Save</p>
+            <div class="about-links">
+                <a href="https://youtube.com/@shihabsharar-j4p?si=d2iAsMrWVwFo7f_k" target="_blank" class="about-link">
+                    <i class="fab fa-youtube" style="font-size:3rem;color:#FF0000;"></i>
+                    <span>eQro.sit YouTube</span>
                 </a>
-                <a href="https://m.me/" target="_blank" style="color:white;text-decoration:none;font-weight:600;">
-                    <i class="fab fa-facebook-messenger" style="font-size:2rem;color:#0084ff;"></i> Messenger
+                <a href="https://wa.me/8801920037889?text=Hi%20eQro.sit" target="_blank" class="about-link">
+                    <i class="fab fa-whatsapp" style="font-size:3rem;color:#25D366;"></i>
+                    <span>WhatsApp Contact</span>
                 </a>
             </div>
         </section>
@@ -185,196 +256,211 @@
             <span class="modal-close" onclick="closeAdminModal()">&times;</span>
             <h2>🔐 Admin Login</h2>
             <input type="password" id="adminPass" class="form-input" placeholder="Password" style="margin:1.5rem 0 2rem;font-size:1.2rem;">
-            <button class="btn btn-primary" onclick="verifyAdmin()" style="padding:1rem 3rem;">Login</button>
+            <button class="btn btn-primary" onclick="verifyAdmin()" style="padding:1rem 3rem;">🔑 Login</button>
         </div>
     </div>
 
     <script>
         const ADMIN_PASS = "Shi567hab";
-        let pdfs = JSON.parse(localStorage.getItem('eqro_pdfs')) || [{name:"Sample.pdf",size:"1.2 MB"}];
-        let products = JSON.parse(localStorage.getItem('eqro_products')) || [{name:"T-Shirt",price:499,image:"👕"}];
-
-        function saveData() {
-            localStorage.setItem('eqro_pdfs', JSON.stringify(pdfs));
-            localStorage.setItem('eqro_products', JSON.stringify(products));
+        
+        // Storage functions
+        function getData(key, defaultData = []) {
+            try {
+                const data = localStorage.getItem(key);
+                return data ? JSON.parse(data) : defaultData;
+            } catch(e) { return defaultData; }
+        }
+        function saveData(key, data) {
+            try { localStorage.setItem(key, JSON.stringify(data)); } catch(e) {}
         }
 
-        // FIXED PDF Download - Real PDF
-        function downloadPDF(filename) {
-            const pdfContent = `%PDF-1.3
-1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj
-2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1>>endobj
-3 0 obj<</Type/Page/Parent 2 0 R/MediaBox[0 0 612 792]/Contents 4 0 R/Resources<</Font<</F1 5 0 R>>>>>endobj
-4 0 obj<</Length 100>>stream
-BT/F1 24 Tf 100 700 Td(${filename})Tj 100 650 Td(eQro.sit PDF)Tj ET
-endstream endobj
-5 0 obj<</Type/Font/Subtype/Type1/BaseFont/Helvetica>>endobj
-xref
-0 6
-0000000000 65535 f 
-0000000010 00000 n 
-0000000074 00000 n 
-0000000118 00000 n 
-0000000220 00000 n 
-0000000305 00000 n 
-trailer<</Size 6/Root 1 0 R>>
-startxref
-450
-%%EOF`;
-            
-            const blob = new Blob([pdfContent], {type: 'application/pdf'});
+        let pdfs = getData('eqro_pdfs', [{id:1,name:"Sample PDF.pdf",size:"1.2 MB",fileData:null}]);
+        let products = getData('eqro_products', [{id:1,name:"T-Shirt",price:499,image:"👕"}]);
+
+        function downloadPDF(id) {
+            const pdf = pdfs.find(p => p.id == id);
+            if(!pdf || !pdf.fileData) {
+                alert('❌ PDF file data নেই! আবার upload করুন।');
+                return;
+            }
+            const blob = new Blob([pdf.fileData], {type: 'application/pdf'});
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = filename;
+            a.download = pdf.name;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
+            alert(`✅ "${pdf.name}" Downloaded! (${pdf.size})`);
         }
 
         function showSection(section) {
-            document.querySelectorAll('.section, .nav-tab').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
             document.getElementById(section+'Section').classList.add('active');
-            event.target.classList.add('active');
-            if(section === 'pdf') renderPDFs();
+            event.target.closest('.nav-tab').classList.add('active');
+            if(section==='pdf') renderPDFs();
             else renderProducts();
         }
 
         function renderPDFs(filter='') {
             const filtered = pdfs.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()));
-            document.getElementById('pdfGrid').innerHTML = filtered.length ? 
-            filtered.map(p => `
-                <div class="pdf-card" style="position:relative;">
+            const grid = document.getElementById('pdfGrid');
+            if(!filtered.length){
+                grid.innerHTML = `<div class="empty-state"><div style="font-size:5rem;margin-bottom:2rem">📄</div><h2>কোনো PDF নেই</h2><p>Admin থেকে upload করুন</p></div>`;
+                return;
+            }
+            grid.innerHTML = filtered.map(pdf => `
+                <div class="pdf-card">
                     <div class="pdf-icon">📄</div>
-                    <div class="pdf-name">${p.name}</div>
-                    <div class="pdf-size">${p.size}</div>
-                    <button class="pdf-download" onclick="downloadPDF('${p.name}')">
+                    <div class="pdf-name">${pdf.name}</div>
+                    <div class="pdf-size">${pdf.size}</div>
+                    <button class="pdf-download" onclick="downloadPDF(${pdf.id})">
                         <i class="fas fa-download"></i> Download PDF
                     </button>
-                </div>`).join('') : 
-            `<div class="empty-state"><div style="font-size:4rem;margin-bottom:1rem">📄</div><h3>কোনো PDF নেই</h3></div>`;
+                </div>
+            `).join('');
         }
 
-        // FIXED Product Image Display
         function renderProducts(filter='') {
             const filtered = products.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()));
-            document.getElementById('shopGrid').innerHTML = filtered.length ? 
-            filtered.map(p => {
-                const imgSrc = p.image.startsWith('data:image/') ? p.image : '';
-                return `
-                <div class="shop-card" style="position:relative;">
-                    ${imgSrc ? 
-                        `<img src="${imgSrc}" alt="${p.name}" class="shop-image" onerror="this.outerHTML='<div class=\\'shop-image emoji\\'>${p.image || '📦'}</div>'">` :
+            const grid = document.getElementById('shopGrid');
+            if(!filtered.length){
+                grid.innerHTML = `<div class="empty-state"><div style="font-size:5rem;margin-bottom:2rem">🛒</div><h2>কোনো Product নেই</h2></div>`;
+                return;
+            }
+            grid.innerHTML = filtered.map(p => `
+                <div class="shop-card">
+                    ${p.image && p.image.startsWith('data:image/') ? 
+                        `<img src="${p.image}" alt="${p.name}" class="shop-image" onerror="this.outerHTML='<div class=\\'shop-image emoji\\'>📦</div>'">` : 
                         `<div class="shop-image emoji">${p.image || '📦'}</div>`
                     }
                     <div class="shop-name">${p.name}</div>
                     <div class="shop-price">৳${p.price}</div>
-                    <a href="https://m.me/" target="_blank" class="messenger-contact">
-                        <i class="fab fa-facebook-messenger"></i> Messenger Order
+                    <a href="https://wa.me/8801920037889?text=Hi%20eQro.sit%20-%20${p.name}%20order%20%7C%20Price:%20${p.price}৳" target="_blank" class="whatsapp-contact">
+                        <i class="fab fa-whatsapp"></i> Order করুন
                     </a>
-                </div>`;
-            }).join('') : 
-            `<div class="empty-state"><div style="font-size:4rem;margin-bottom:1rem">🛒</div><h3>কোনো Product নেই</h3></div>`;
+                </div>
+            `).join('');
         }
 
         function previewImage(input) {
             const preview = document.getElementById('imagePreview');
-            if (input.files && input.files[0]) {
+            if(input.files[0]){
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = e => {
                     preview.src = e.target.result;
                     preview.style.display = 'block';
-                }
+                };
                 reader.readAsDataURL(input.files[0]);
             }
         }
 
         function uploadPDF() {
             const file = document.getElementById('pdfFile').files[0];
-            const title = document.getElementById('pdfTitle').value;
-            if (!file || !title) return alert('❌ PDF + Title দিন');
-            if (file.type !== 'application/pdf') return alert('❌ PDF file হতে হবে');
+            const title = document.getElementById('pdfTitle').value.trim();
             
-            pdfs.unshift({name: title, size: (file.size/1024/1024).toFixed(1) + ' MB'});
-            saveData();
-            renderPDFs();
-            document.getElementById('pdfFile').value = '';
-            document.getElementById('pdfTitle').value = '';
-            alert('✅ PDF Saved!');
+            if(!file) return alert('❌ PDF file select করুন');
+            if(!title) return alert('❌ Title দিন');
+            if(file.type !== 'application/pdf') return alert('❌ PDF file হতে হবে!');
+            
+            const sizeMB = (file.size / 1024 / 1024).toFixed(1);
+            const sizeDisplay = sizeMB > 1 ? `${sizeMB} MB` : `${(file.size / 1024).toFixed(1)} KB`;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const newPDF = {
+                    id: Date.now(),
+                    name: title + '.pdf',
+                    size: sizeDisplay,
+                    fileData: e.target.result
+                };
+                
+                pdfs.unshift(newPDF);
+                saveData('eqro_pdfs', pdfs);
+                renderPDFs();
+                
+                document.getElementById('pdfFile').value = '';
+                document.getElementById('pdfTitle').value = '';
+                alert(`✅ "${newPDF.name}" uploaded!
+📏 Size: ${newPDF.size}`);
+            };
+            reader.readAsArrayBuffer(file);
         }
 
         async function addProduct() {
             const imgFile = document.getElementById('productImage').files[0];
-            const name = document.getElementById('productName').value;
+            const name = document.getElementById('productName').value.trim();
             const price = document.getElementById('productPrice').value;
             
-            if (!name || !price) return alert('❌ Name + Price দিন');
+            if(!name || !price) return alert('❌ Name + Price দিন');
             
-            let imageData = '📦';
-            if (imgFile) {
-                imageData = await new Promise(resolve => {
+            let imageData = '👕';
+            if(imgFile){
+                imageData = await new Promise(r=> {
                     const reader = new FileReader();
-                    reader.onload = () => resolve(reader.result);
+                    reader.onload = ()=>r(reader.result);
                     reader.readAsDataURL(imgFile);
                 });
             }
             
-            products.unshift({name, price, image: imageData});
-            saveData();
+            products.unshift({id: Date.now(), name, price, image: imageData});
+            saveData('eqro_products', products);
             renderProducts();
             
             document.getElementById('productImage').value = '';
             document.getElementById('productName').value = '';
             document.getElementById('productPrice').value = '';
             document.getElementById('imagePreview').style.display = 'none';
-            alert('✅ Product + Image Saved!');
+            alert(`✅ "${name}" added!`);
         }
 
         function clearAllPDFs() {
             if(confirm('সব PDF মুছবেন?')) {
-                pdfs = [];
-                saveData();
-                renderPDFs();
-                alert('✅ PDFs cleared!');
+                pdfs = []; saveData('eqro_pdfs', pdfs); renderPDFs(); alert('✅ PDFs cleared!');
             }
         }
 
         function clearAllProducts() {
             if(confirm('সব Product মুছবেন?')) {
-                products = [];
-                saveData();
-                renderProducts();
-                alert('✅ Products cleared!');
+                products = []; saveData('eqro_products', products); renderProducts(); alert('✅ Products cleared!');
             }
         }
 
-        function toggleAdminModal() { document.getElementById('adminModal').style.display = 'flex'; }
-        function closeAdminModal() { document.getElementById('adminModal').style.display = 'none'; document.getElementById('adminPass').value = ''; }
-        function verifyAdmin() {
-            if(document.getElementById('adminPass').value === ADMIN_PASS) {
+        function toggleAdminModal(){document.getElementById('adminModal').style.display='flex';}
+        function closeAdminModal(){document.getElementById('adminModal').style.display='none';document.getElementById('adminPass').value='';}
+        function verifyAdmin(){
+            if(document.getElementById('adminPass').value===ADMIN_PASS){
                 closeAdminModal();
-                document.getElementById('adminPanel').style.display = 'block';
-                alert('✅ Admin Login Success!');
-            } else {
+                document.getElementById('adminPanel').style.display='block';
+                alert('✅ Admin Login!');
+            }else{
                 alert('❌ Wrong Password!');
-                document.getElementById('adminPass').value = '';
+                document.getElementById('adminPass').value='';
             }
         }
 
-        // Search + Init
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded',()=>{
             renderPDFs();
             renderProducts();
-            document.getElementById('globalSearch').addEventListener('input', e => {
+            
+            document.querySelectorAll('.nav-tab[data-section]').forEach(tab=>{
+                tab.addEventListener('click', function(){
+                    showSection(this.dataset.section);
+                });
+            });
+            
+            document.getElementById('globalSearch').addEventListener('input',e=>{
                 const q = e.target.value;
-                const active = document.querySelector('.section.active').id;
-                active.includes('pdf') ? renderPDFs(q) : renderProducts(q);
+                const activeSection = document.querySelector('.section.active').id;
+                if(activeSection.includes('pdf')) renderPDFs(q);
+                else renderProducts(q);
             });
         });
 
-        document.addEventListener('click', e => e.target.id === 'adminModal' && closeAdminModal());
-        document.addEventListener('keydown', e => e.key === 'Escape' && closeAdminModal());
+        document.addEventListener('click',e=>e.target.id==='adminModal'&&closeAdminModal());
+        document.addEventListener('keydown',e=>e.key==='Escape'&&closeAdminModal());
     </script>
 </body>
 </html>
