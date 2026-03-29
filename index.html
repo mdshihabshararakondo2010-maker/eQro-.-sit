@@ -145,7 +145,7 @@
         }
         
         .empty-state{padding:6rem 2rem;background:var(--glass);border-radius:25px;text-align:center;color:white;}
-        .notification{position:fixed;top:20px;right:20px;background:var(--secondary);color:white;padding:1rem 2rem;border-radius:15px;box-shadow:0 10px 30px rgba(72,187,120,0.4);z-index:4000;transform:translateX(500px);transition:all 0.4s ease; max-width: 80%;}
+        .notification{position:fixed;top:20px;right:20px;background:var(--secondary);color:white;padding:1rem 2rem;border-radius:15px;box-shadow:0 10px 30px rgba(72,187,120,0.4);z-index:4000;transform:translateX(400px);transition:all 0.4s ease;}
         .notification.show{transform:translateX(0);}
         .notification.error{background:var(--danger);}
         
@@ -218,7 +218,7 @@
 
         <!-- Admin Panel -->
         <div id="adminPanel" class="admin-panel" style="display:none;">
-            <h2 class="admin-title">🔒 Admin Panel v2.0</h2>
+            <h2 class="admin-title">🔐 Admin Panel v2.0</h2>
             <div class="form-grid">
                 <div class="form-section">
                     <h3>📄 PDF Upload</h3>
@@ -278,7 +278,7 @@
     <div id="adminModal" class="modal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeAdminModal()" style="position:absolute;top:1rem;right:1.5rem;font-size:2rem;cursor:pointer;color:#666;">&times;</span>
-            <h2>🔒 Admin Login</h2>
+            <h2>🔐 Admin Login</h2>
             <input type="password" id="adminPass" class="form-input" placeholder="Password" style="margin:1.5rem 0 2rem;font-size:1.2rem;">
             <button class="btn btn-primary" onclick="verifyAdmin()" style="padding:1rem 3rem;">🔑 Login</button>
         </div>
@@ -287,10 +287,10 @@
     <script>
         // Supabase Initialization
         const supabaseUrl = 'https://uvzfysltddqchrhetqdk.supabase.co';
-        const supabaseKey = 'sb_publishable_m1Tx8CbWcCOtaEmFkJMIIw_Jbb88gPE';
-        const supabaseClient = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpqa3poeXp2cnVsZW1kd3B6bG1vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MTQ0MTgsImV4cCI6MjA5MDI5MDQxOH0.iu3hd7jIOQ9Bq8NUeL6gZSLv53vxRDf0JjkINfdyIMA(supabaseUrl, supabaseKey);
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV2emZ5c2x0dGJxY2hyaGV0cWRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NzY1MTUsImV4cCI6MjA4OTA1MjUxNX0.0Uxdde7kE5t4agNT2Zb5VknB-QTBDLDA17El-B_V_2s';
+        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-        const ADMIN_PASS = "Sh567hab";
+        const ADMIN_PASS = "Shi567hab";
         let pdfs = [];
         let products = [];
 
@@ -299,7 +299,7 @@
             const notif = document.getElementById('notification');
             notif.textContent = message;
             notif.className = `notification ${type} show`;
-            setTimeout(() => notif.classList.remove('show'), 6000); // 6 seconds for better reading of errors
+            setTimeout(() => notif.classList.remove('show'), 4000);
         }
 
         function updateStats() {
@@ -313,17 +313,11 @@
         async function fetchSupabaseData() {
             try {
                 const { data: pdfData, error: pdfError } = await supabaseClient.from('pdfs').select('*').order('id', { ascending: false });
-                if (pdfError) {
-                    console.error("Error fetching PDFs:", pdfError);
-                    showNotification("DB Error: " + pdfError.message, "error");
-                }
+                if (pdfError) console.error("Error fetching PDFs:", pdfError);
                 else pdfs = pdfData || [];
 
                 const { data: productData, error: productError } = await supabaseClient.from('products').select('*').order('id', { ascending: false });
-                if (productError) {
-                    console.error("Error fetching Products:", productError);
-                    showNotification("DB Error: " + productError.message, "error");
-                }
+                if (productError) console.error("Error fetching Products:", productError);
                 else products = productData || [];
 
                 renderPDFs();
@@ -450,14 +444,13 @@
             if(!file) return showNotification('❌ PDF file select করুন', 'error');
             if(!title) return showNotification('❌ Title দিন', 'error');
             if(file.type !== 'application/pdf') return showNotification('❌ PDF file হতে হবে!', 'error');
-            // Changed limit to 3MB because Base64 encoding inflates size and often crashes Supabase payload limits
-            if(file.size > 3 * 1024 * 1024) return showNotification('❌ 3MB এর কম PDF দিন (DB Limit)', 'error'); 
+            if(file.size > 5 * 1024 * 1024) return showNotification('❌ 5MB এর কম PDF দিন (Base64 Limit)', 'error'); // Lowered check for base64
             
             const sizeMB = (file.size / 1024 / 1024).toFixed(1);
             const sizeDisplay = sizeMB > 1 ? `${sizeMB} MB` : `${(file.size / 1024).toFixed(1)} KB`;
             
             btn.disabled = true;
-            btn.innerHTML = '⏳ Uploading...';
+            btn.innerHTML = '⏳ Uploading to Supabase...';
             
             const reader = new FileReader();
             reader.onload = async function(e) {
@@ -471,16 +464,9 @@
                 // Insert to Supabase Table 'pdfs'
                 const { data, error } = await supabaseClient.from('pdfs').insert([newPDF]).select();
                 
-                btn.disabled = false;
-                btn.innerHTML = '📥 Upload PDF';
-
                 if (error) {
-                    console.error("Supabase Error:", error);
-                    // Detailed Error Handling for Debugging
-                    if(error.message.includes('row-level security') || error.message.includes('RLS')) {
-                        alert("Database RLS Error! \nআপনার Supabase Table এর Security Policies (RLS) Enable করা আছে যার কারণে ডাটা Insert হচ্ছে না। \nSupabase এ গিয়ে Table এর RLS Disable করুন বা Insert Policy Add করুন।");
-                    }
-                    showNotification('❌ Error: ' + error.message, 'error');
+                    console.error(error);
+                    showNotification('❌ Upload to DB failed!', 'error');
                 } else if (data) {
                     pdfs.unshift(data[0]);
                     renderPDFs();
@@ -488,6 +474,9 @@
                     document.getElementById('pdfTitle').value = '';
                     showNotification(`✅ "${newPDF.name}" uploaded!`);
                 }
+                
+                btn.disabled = false;
+                btn.innerHTML = '📥 Upload PDF';
             };
             
             reader.onerror = () => {
@@ -496,7 +485,7 @@
                 showNotification('❌ File Read failed!', 'error');
             };
             
-            reader.readAsDataURL(file); 
+            reader.readAsDataURL(file); // Convert to base64 string directly
         }
 
         // SUPABASE ADD PRODUCT
@@ -509,7 +498,6 @@
             
             let imageData = '👕';
             if(imgFile) {
-                if(imgFile.size > 2 * 1024 * 1024) return showNotification('❌ Image 2MB এর কম হতে হবে', 'error');
                 imageData = await new Promise((resolve, reject) => {
                     const reader = new FileReader();
                     reader.onload = () => resolve(reader.result);
@@ -524,11 +512,8 @@
             const { data, error } = await supabaseClient.from('products').insert([newProduct]).select();
 
             if(error) {
-                console.error("Supabase Error:", error);
-                if(error.message.includes('row-level security') || error.message.includes('RLS')) {
-                    alert("Database RLS Error! \nSupabase এ গিয়ে 'products' Table এর RLS Disable করুন বা Insert Policy Add করুন।");
-                }
-                showNotification('❌ Error: ' + error.message, 'error');
+                console.error(error);
+                showNotification('❌ Product Add Failed', 'error');
             } else if (data) {
                 products.unshift(data[0]);
                 renderProducts();
@@ -562,7 +547,7 @@
             if(confirm('⚠️ সব PDF ডাটাবেস থেকে মুছবেন?')) {
                 const { error } = await supabaseClient.from('pdfs').delete().neq('id', 0);
                 if(error) {
-                    showNotification('❌ Delete Failed: ' + error.message, 'error');
+                    showNotification('❌ Failed to clear', 'error');
                 } else {
                     pdfs = []; 
                     renderPDFs(); 
@@ -575,7 +560,7 @@
             if(confirm('⚠️ সব Product ডাটাবেস থেকে মুছবেন?')) {
                 const { error } = await supabaseClient.from('products').delete().neq('id', 0);
                 if(error) {
-                    showNotification('❌ Delete Failed: ' + error.message, 'error');
+                    showNotification('❌ Failed to clear', 'error');
                 } else {
                     products = []; 
                     renderProducts(); 
