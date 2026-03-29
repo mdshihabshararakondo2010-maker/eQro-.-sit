@@ -2,11 +2,12 @@
 <html lang="bn">
 <meta name="google-site-verification" content="15CTDcpQEtUOfzzYeD0XdfRpOXxoyuQmu74PrwZ5rkg" />
 <head>
-<meta name="google-site-verification" content="15CTDcpQEtUOfzzYeD0XdfRpOXxoyuQmu74PrwZ5rkg" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🚀 eQro.sit - Q PDF Hub & Q Shop (REVISION 2.0)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
             --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -144,7 +145,7 @@
         }
         
         .empty-state{padding:6rem 2rem;background:var(--glass);border-radius:25px;text-align:center;color:white;}
-        .notification{position:fixed;top:20px;right:20px;background:var(--secondary);color:white;padding:1rem 2rem;border-radius:15px;box-shadow:0 10px 30px rgba(72,187,120,0.4);z-index:4000;transform:translateX(400px);transition:all 0.4s ease;}
+        .notification{position:fixed;top:20px;right:20px;background:var(--secondary);color:white;padding:1rem 2rem;border-radius:15px;box-shadow:0 10px 30px rgba(72,187,120,0.4);z-index:4000;transform:translateX(500px);transition:all 0.4s ease; max-width: 80%;}
         .notification.show{transform:translateX(0);}
         .notification.error{background:var(--danger);}
         
@@ -172,7 +173,7 @@
         <div class="main-logo"><span class="logo-icon">📱</span>eQro.sit</div>
         <div class="search-container">
             <span class="search-icon">🔍</span>
-            <input type="text" class="search-input" id="globalSearch" placeholder="🔎 PDFs / Products খুঁজুন...">
+            <input type="text" class="search-input" id="globalSearch" placeholder="🔍 PDFs / Products খুঁজুন...">
         </div>
     </header>
 
@@ -203,17 +204,21 @@
 
         <section id="pdfSection" class="section active">
             <h1 class="hero-title">📚 Q PDF Hub</h1>
-            <div id="pdfGrid" class="pdf-grid"></div>
+            <div id="pdfGrid" class="pdf-grid">
+                <div class="empty-state"><h2>⏳ Loading Data...</h2></div>
+            </div>
         </section>
 
         <section id="shopSection" class="section">
             <h1 class="hero-title">🛒 Q Shop</h1>
-            <div id="shopGrid" class="shop-grid"></div>
+            <div id="shopGrid" class="shop-grid">
+                <div class="empty-state"><h2>⏳ Loading Data...</h2></div>
+            </div>
         </section>
 
         <!-- Admin Panel -->
         <div id="adminPanel" class="admin-panel" style="display:none;">
-            <h2 class="admin-title">🔐 Admin Panel v2.0</h2>
+            <h2 class="admin-title">🔒 Admin Panel v2.0</h2>
             <div class="form-grid">
                 <div class="form-section">
                     <h3>📄 PDF Upload</h3>
@@ -244,7 +249,7 @@
                 </div>
             </div>
             <div class="admin-buttons">
-                <button class="btn btn-primary" onclick="uploadPDF(event)">📤 Upload PDF</button>
+                <button class="btn btn-primary" onclick="uploadPDF(event)">📥 Upload PDF</button>
                 <button class="btn btn-primary" onclick="addProduct()">➕ Add Product</button>
                 <button class="btn btn-warning" onclick="exportData()">💾 Export Data</button>
                 <button class="btn btn-danger" onclick="clearAllPDFs()">🗑️ Clear PDFs</button>
@@ -255,7 +260,7 @@
         <!-- About Section -->
         <section class="about-section">
             <h2 style="font-size:2.5rem;margin-bottom:2rem;">About eQro.sit v2.0</h2>
-            <p style="font-size:1.2rem;margin-bottom:3rem;">✅ 100% PDF Download Fixed • ✅ Live Stats • ✅ Export Data • ✅ Better UX</p>
+            <p style="font-size:1.2rem;margin-bottom:3rem;">✅ Supabase Database ✅ Live Stats • ✅ Export Data • ✅ Better UX</p>
             <div class="about-links">
                 <a href="https://youtube.com/@shihabsharar-j4p?si=d2iAsMrWVwFo7f_k" target="_blank" class="about-link">
                     <i class="fab fa-youtube" style="font-size:3rem;color:#FF0000;"></i>
@@ -273,32 +278,30 @@
     <div id="adminModal" class="modal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeAdminModal()" style="position:absolute;top:1rem;right:1.5rem;font-size:2rem;cursor:pointer;color:#666;">&times;</span>
-            <h2>🔐 Admin Login</h2>
+            <h2>🔒 Admin Login</h2>
             <input type="password" id="adminPass" class="form-input" placeholder="Password" style="margin:1.5rem 0 2rem;font-size:1.2rem;">
             <button class="btn btn-primary" onclick="verifyAdmin()" style="padding:1rem 3rem;">🔑 Login</button>
         </div>
     </div>
 
     <script>
-        const ADMIN_PASS = "Shi567hab";
-        
-        // Storage & Notification Functions
-        function getData(key, defaultData = []) {
-            try {
-                const data = localStorage.getItem(key);
-                return data ? JSON.parse(data) : defaultData;
-            } catch(e) { return defaultData; }
-        }
-        function saveData(key, data) {
-            try { localStorage.setItem(key, JSON.stringify(data)); return true; } 
-            catch(e) { showNotification('Storage Error!', 'error'); return false; }
-        }
+        // Supabase Initialization
+        const supabaseUrl = 'https://uvzfysltddqchrhetqdk.supabase.co';
+        const supabaseKey = 'sb_publishable_m1Tx8CbWcCOtaEmFkJMIIw_Jbb88gPE';
+        const supabaseClient = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpqa3poeXp2cnVsZW1kd3B6bG1vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MTQ0MTgsImV4cCI6MjA5MDI5MDQxOH0.iu3hd7jIOQ9Bq8NUeL6gZSLv53vxRDf0JjkINfdyIMA(supabaseUrl, supabaseKey);
+
+        const ADMIN_PASS = "Sh567hab";
+        let pdfs = [];
+        let products = [];
+
+        // Notification System
         function showNotification(message, type = 'success') {
             const notif = document.getElementById('notification');
             notif.textContent = message;
             notif.className = `notification ${type} show`;
-            setTimeout(() => notif.classList.remove('show'), 4000);
+            setTimeout(() => notif.classList.remove('show'), 6000); // 6 seconds for better reading of errors
         }
+
         function updateStats() {
             document.getElementById('totalPDFs').textContent = pdfs.length;
             document.getElementById('totalProducts').textContent = products.length;
@@ -306,10 +309,32 @@
             document.getElementById('storageUsed').textContent = (totalSize/1024/1024).toFixed(1) + ' MB';
         }
 
-        let pdfs = getData('eqro_pdfs', []);
-        let products = getData('eqro_products', [{id:1,name:"T-Shirt",price:499,image:"👕"}]);
+        // Fetch Data from Supabase
+        async function fetchSupabaseData() {
+            try {
+                const { data: pdfData, error: pdfError } = await supabaseClient.from('pdfs').select('*').order('id', { ascending: false });
+                if (pdfError) {
+                    console.error("Error fetching PDFs:", pdfError);
+                    showNotification("DB Error: " + pdfError.message, "error");
+                }
+                else pdfs = pdfData || [];
 
-        // 🚀 PERFECT DOWNLOAD FUNCTION
+                const { data: productData, error: productError } = await supabaseClient.from('products').select('*').order('id', { ascending: false });
+                if (productError) {
+                    console.error("Error fetching Products:", productError);
+                    showNotification("DB Error: " + productError.message, "error");
+                }
+                else products = productData || [];
+
+                renderPDFs();
+                renderProducts();
+            } catch (err) {
+                console.error("Connection Error:", err);
+                showNotification("Failed to load DB data", "error");
+            }
+        }
+
+        // PERFECT DOWNLOAD FUNCTION
         function downloadPDF(id) {
             const pdf = pdfs.find(p => p.id == id);
             if(!pdf || !pdf.fileData) {
@@ -322,7 +347,7 @@
                 if (pdf.fileData instanceof ArrayBuffer) {
                     blob = new Blob([pdf.fileData], { type: 'application/pdf' });
                 } else {
-                    const base64Data = pdf.fileData.split(',')[1];
+                    const base64Data = pdf.fileData.includes(',') ? pdf.fileData.split(',')[1] : pdf.fileData;
                     const binaryString = atob(base64Data);
                     const bytes = new Uint8Array(binaryString.length);
                     for (let i = 0; i < binaryString.length; i++) {
@@ -340,7 +365,7 @@
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
                 
-                showNotification(`✅ "${pdf.name}" Downloaded! (${pdf.size})`);
+                showNotification(`✅ "${pdf.name}" Downloaded!`);
             } catch(error) {
                 console.error('Download error:', error);
                 showNotification('❌ Download failed!', 'error');
@@ -351,7 +376,13 @@
             const pdf = pdfs.find(p => p.id == id);
             if(pdf && pdf.fileData) {
                 try {
-                    let blob = new Blob([pdf.fileData], {type: 'application/pdf'});
+                    const base64Data = pdf.fileData.includes(',') ? pdf.fileData.split(',')[1] : pdf.fileData;
+                    const binaryString = atob(base64Data);
+                    const bytes = new Uint8Array(binaryString.length);
+                    for (let i = 0; i < binaryString.length; i++) {
+                        bytes[i] = binaryString.charCodeAt(i);
+                    }
+                    let blob = new Blob([bytes], {type: 'application/pdf'});
                     const url = URL.createObjectURL(blob);
                     window.open(url, '_blank');
                 } catch(error) {
@@ -365,6 +396,7 @@
             const grid = document.getElementById('pdfGrid');
             if(!filtered.length){
                 grid.innerHTML = `<div class="empty-state"><div style="font-size:5rem;margin-bottom:2rem">📄</div><h2>কোনো PDF নেই</h2><p>Admin থেকে upload করুন</p></div>`;
+                updateStats();
                 return;
             }
             grid.innerHTML = filtered.map(pdf => `
@@ -390,6 +422,7 @@
             const grid = document.getElementById('shopGrid');
             if(!filtered.length){
                 grid.innerHTML = `<div class="empty-state"><div style="font-size:5rem;margin-bottom:2rem">🛒</div><h2>কোনো Product নেই</h2></div>`;
+                updateStats();
                 return;
             }
             grid.innerHTML = filtered.map(p => `
@@ -408,7 +441,7 @@
             updateStats();
         }
 
-        // 🚀 REVISED UPLOAD FUNCTION
+        // SUPABASE UPLOAD PDF
         function uploadPDF(event) {
             const file = document.getElementById('pdfFile').files[0];
             const title = document.getElementById('pdfTitle').value.trim();
@@ -417,7 +450,8 @@
             if(!file) return showNotification('❌ PDF file select করুন', 'error');
             if(!title) return showNotification('❌ Title দিন', 'error');
             if(file.type !== 'application/pdf') return showNotification('❌ PDF file হতে হবে!', 'error');
-            if(file.size > 50 * 1024 * 1024) return showNotification('❌ 50MB এর কম PDF দিন', 'error');
+            // Changed limit to 3MB because Base64 encoding inflates size and often crashes Supabase payload limits
+            if(file.size > 3 * 1024 * 1024) return showNotification('❌ 3MB এর কম PDF দিন (DB Limit)', 'error'); 
             
             const sizeMB = (file.size / 1024 / 1024).toFixed(1);
             const sizeDisplay = sizeMB > 1 ? `${sizeMB} MB` : `${(file.size / 1024).toFixed(1)} KB`;
@@ -426,37 +460,46 @@
             btn.innerHTML = '⏳ Uploading...';
             
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = async function(e) {
                 const newPDF = {
-                    id: Date.now(),
                     name: title + '.pdf',
                     size: sizeDisplay,
                     fileSize: file.size,
-                    fileData: e.target.result
+                    fileData: e.target.result // Assuming fileData column expects string
                 };
                 
-                pdfs.unshift(newPDF);
-                if(saveData('eqro_pdfs', pdfs)) {
+                // Insert to Supabase Table 'pdfs'
+                const { data, error } = await supabaseClient.from('pdfs').insert([newPDF]).select();
+                
+                btn.disabled = false;
+                btn.innerHTML = '📥 Upload PDF';
+
+                if (error) {
+                    console.error("Supabase Error:", error);
+                    // Detailed Error Handling for Debugging
+                    if(error.message.includes('row-level security') || error.message.includes('RLS')) {
+                        alert("Database RLS Error! \nআপনার Supabase Table এর Security Policies (RLS) Enable করা আছে যার কারণে ডাটা Insert হচ্ছে না। \nSupabase এ গিয়ে Table এর RLS Disable করুন বা Insert Policy Add করুন।");
+                    }
+                    showNotification('❌ Error: ' + error.message, 'error');
+                } else if (data) {
+                    pdfs.unshift(data[0]);
                     renderPDFs();
                     document.getElementById('pdfFile').value = '';
                     document.getElementById('pdfTitle').value = '';
-                    showNotification(`✅ "${newPDF.name}" uploaded!
-📏 ${newPDF.size}`);
+                    showNotification(`✅ "${newPDF.name}" uploaded!`);
                 }
-                
-                btn.disabled = false;
-                btn.innerHTML = '📤 Upload PDF';
             };
             
             reader.onerror = () => {
                 btn.disabled = false;
-                btn.innerHTML = '📤 Upload PDF';
-                showNotification('❌ Upload failed!', 'error');
+                btn.innerHTML = '📥 Upload PDF';
+                showNotification('❌ File Read failed!', 'error');
             };
             
-            reader.readAsArrayBuffer(file);
+            reader.readAsDataURL(file); 
         }
 
+        // SUPABASE ADD PRODUCT
         async function addProduct() {
             const imgFile = document.getElementById('productImage').files[0];
             const name = document.getElementById('productName').value.trim();
@@ -466,6 +509,7 @@
             
             let imageData = '👕';
             if(imgFile) {
+                if(imgFile.size > 2 * 1024 * 1024) return showNotification('❌ Image 2MB এর কম হতে হবে', 'error');
                 imageData = await new Promise((resolve, reject) => {
                     const reader = new FileReader();
                     reader.onload = () => resolve(reader.result);
@@ -474,10 +518,19 @@
                 });
             }
             
-            const newProduct = {id: Date.now(), name, price, image: imageData};
-            products.unshift(newProduct);
+            const newProduct = { name, price, image: imageData };
             
-            if(saveData('eqro_products', products)) {
+            // Insert to Supabase Table 'products'
+            const { data, error } = await supabaseClient.from('products').insert([newProduct]).select();
+
+            if(error) {
+                console.error("Supabase Error:", error);
+                if(error.message.includes('row-level security') || error.message.includes('RLS')) {
+                    alert("Database RLS Error! \nSupabase এ গিয়ে 'products' Table এর RLS Disable করুন বা Insert Policy Add করুন।");
+                }
+                showNotification('❌ Error: ' + error.message, 'error');
+            } else if (data) {
+                products.unshift(data[0]);
                 renderProducts();
                 document.getElementById('productImage').value = '';
                 document.getElementById('productName').value = '';
@@ -505,21 +558,29 @@
             showNotification('✅ Data exported!');
         }
 
-        function clearAllPDFs() {
-            if(confirm('⚠️ সব PDF মুছবেন?')) {
-                pdfs = []; 
-                saveData('eqro_pdfs', pdfs); 
-                renderPDFs(); 
-                showNotification('✅ All PDFs cleared!');
+        async function clearAllPDFs() {
+            if(confirm('⚠️ সব PDF ডাটাবেস থেকে মুছবেন?')) {
+                const { error } = await supabaseClient.from('pdfs').delete().neq('id', 0);
+                if(error) {
+                    showNotification('❌ Delete Failed: ' + error.message, 'error');
+                } else {
+                    pdfs = []; 
+                    renderPDFs(); 
+                    showNotification('✅ All PDFs cleared from DB!');
+                }
             }
         }
 
-        function clearAllProducts() {
-            if(confirm('⚠️ সব Product মুছবেন?')) {
-                products = []; 
-                saveData('eqro_products', products); 
-                renderProducts(); 
-                showNotification('✅ All Products cleared!');
+        async function clearAllProducts() {
+            if(confirm('⚠️ সব Product ডাটাবেস থেকে মুছবেন?')) {
+                const { error } = await supabaseClient.from('products').delete().neq('id', 0);
+                if(error) {
+                    showNotification('❌ Delete Failed: ' + error.message, 'error');
+                } else {
+                    products = []; 
+                    renderProducts(); 
+                    showNotification('✅ All Products cleared from DB!');
+                }
             }
         }
 
@@ -563,11 +624,10 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            updateStats();
-            renderPDFs();
+            fetchSupabaseData(); // Loads real data from database instead of localStorage
             
             document.querySelectorAll('.nav-tab[data-section]').forEach(tab => {
-                tab.addEventListener('click', function() {
+                tab.addEventListener('click', function(event) {
                     showSection(this.dataset.section);
                 });
             });
