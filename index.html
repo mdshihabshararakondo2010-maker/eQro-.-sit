@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🚀 eQro.sit - Q PDF Hub & Q Shop (REVISION 2.0)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Add Supabase JS SDK -->
+    
+    <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <style>
         :root {
             --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -173,7 +175,7 @@
         <div class="main-logo"><span class="logo-icon">📱</span>eQro.sit</div>
         <div class="search-container">
             <span class="search-icon">🔍</span>
-            <input type="text" class="search-input" id="globalSearch" placeholder="🔍 PDFs / Products খুঁজুন...">
+            <input type="text" class="search-input" id="globalSearch" placeholder="🔎 PDFs / Products খুঁজুন...">
         </div>
     </header>
 
@@ -204,16 +206,12 @@
 
         <section id="pdfSection" class="section active">
             <h1 class="hero-title">📚 Q PDF Hub</h1>
-            <div id="pdfGrid" class="pdf-grid">
-                <div class="empty-state"><h2>⏳ Loading Data...</h2></div>
-            </div>
+            <div id="pdfGrid" class="pdf-grid"></div>
         </section>
 
         <section id="shopSection" class="section">
             <h1 class="hero-title">🛒 Q Shop</h1>
-            <div id="shopGrid" class="shop-grid">
-                <div class="empty-state"><h2>⏳ Loading Data...</h2></div>
-            </div>
+            <div id="shopGrid" class="shop-grid"></div>
         </section>
 
         <!-- Admin Panel -->
@@ -249,8 +247,8 @@
                 </div>
             </div>
             <div class="admin-buttons">
-                <button class="btn btn-primary" onclick="uploadPDF(event)">📥 Upload PDF</button>
-                <button class="btn btn-primary" onclick="addProduct()">➕ Add Product</button>
+                <button class="btn btn-primary" onclick="uploadPDF(event)">📤 Upload PDF</button>
+                <button class="btn btn-primary" onclick="addProduct(event)">➕ Add Product</button>
                 <button class="btn btn-warning" onclick="exportData()">💾 Export Data</button>
                 <button class="btn btn-danger" onclick="clearAllPDFs()">🗑️ Clear PDFs</button>
                 <button class="btn btn-danger" onclick="clearAllProducts()">🗑️ Clear Products</button>
@@ -260,7 +258,7 @@
         <!-- About Section -->
         <section class="about-section">
             <h2 style="font-size:2.5rem;margin-bottom:2rem;">About eQro.sit v2.0</h2>
-            <p style="font-size:1.2rem;margin-bottom:3rem;">✅ Supabase Database ✅ Live Stats • ✅ Export Data • ✅ Better UX</p>
+            <p style="font-size:1.2rem;margin-bottom:3rem;">✅ Database Connected • ✅ Real-time Sync • ✅ Export Data • ✅ Better UX</p>
             <div class="about-links">
                 <a href="https://youtube.com/@shihabsharar-j4p?si=d2iAsMrWVwFo7f_k" target="_blank" class="about-link">
                     <i class="fab fa-youtube" style="font-size:3rem;color:#FF0000;"></i>
@@ -285,23 +283,44 @@
     </div>
 
     <script>
-        // Supabase Initialization
-        const supabaseUrl = 'https://uvzfysltddqchrhetqdk.supabase.co';
+        // Supabase Setup
+        const { createClient } = supabase;
+        const supabaseUrl = 'https://uvzfyslttbqchrhetqdk.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV2emZ5c2x0dGJxY2hyaGV0cWRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NzY1MTUsImV4cCI6MjA4OTA1MjUxNX0.0Uxdde7kE5t4agNT2Zb5VknB-QTBDLDA17El-B_V_2s';
-        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+        const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
         const ADMIN_PASS = "Shi567hab";
+        
         let pdfs = [];
         let products = [];
 
-        // Notification System
+        // Fetch Data from Supabase on Load
+        async function fetchInitialData() {
+            try {
+                // Fetch PDFs
+                const { data: pdfData, error: pdfError } = await supabaseClient.from('pdfs').select('*').order('id', { ascending: false });
+                if (pdfError) throw pdfError;
+                pdfs = pdfData || [];
+                renderPDFs();
+
+                // Fetch Products
+                const { data: prodData, error: prodError } = await supabaseClient.from('products').select('*').order('id', { ascending: false });
+                if (prodError) throw prodError;
+                products = prodData || [];
+                renderProducts();
+            } catch (err) {
+                console.error("Fetch Error:", err);
+                showNotification('ডেটা লোড করতে সমস্যা হয়েছে!', 'error');
+            }
+        }
+        
+        // Notifications & Stats
         function showNotification(message, type = 'success') {
             const notif = document.getElementById('notification');
             notif.textContent = message;
             notif.className = `notification ${type} show`;
             setTimeout(() => notif.classList.remove('show'), 4000);
         }
-
         function updateStats() {
             document.getElementById('totalPDFs').textContent = pdfs.length;
             document.getElementById('totalProducts').textContent = products.length;
@@ -309,26 +328,7 @@
             document.getElementById('storageUsed').textContent = (totalSize/1024/1024).toFixed(1) + ' MB';
         }
 
-        // Fetch Data from Supabase
-        async function fetchSupabaseData() {
-            try {
-                const { data: pdfData, error: pdfError } = await supabaseClient.from('pdfs').select('*').order('id', { ascending: false });
-                if (pdfError) console.error("Error fetching PDFs:", pdfError);
-                else pdfs = pdfData || [];
-
-                const { data: productData, error: productError } = await supabaseClient.from('products').select('*').order('id', { ascending: false });
-                if (productError) console.error("Error fetching Products:", productError);
-                else products = productData || [];
-
-                renderPDFs();
-                renderProducts();
-            } catch (err) {
-                console.error("Connection Error:", err);
-                showNotification("Failed to load DB data", "error");
-            }
-        }
-
-        // PERFECT DOWNLOAD FUNCTION
+        // 🚀 PDF Download & Preview
         function downloadPDF(id) {
             const pdf = pdfs.find(p => p.id == id);
             if(!pdf || !pdf.fileData) {
@@ -337,29 +337,20 @@
             }
             
             try {
-                let blob;
-                if (pdf.fileData instanceof ArrayBuffer) {
-                    blob = new Blob([pdf.fileData], { type: 'application/pdf' });
-                } else {
-                    const base64Data = pdf.fileData.includes(',') ? pdf.fileData.split(',')[1] : pdf.fileData;
-                    const binaryString = atob(base64Data);
-                    const bytes = new Uint8Array(binaryString.length);
-                    for (let i = 0; i < binaryString.length; i++) {
-                        bytes[i] = binaryString.charCodeAt(i);
-                    }
-                    blob = new Blob([bytes], { type: 'application/pdf' });
-                }
-                
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = pdf.name;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-                
-                showNotification(`✅ "${pdf.name}" Downloaded!`);
+                // Fetch the base64 string directly as a blob for clean downloading
+                fetch(pdf.fileData)
+                    .then(res => res.blob())
+                    .then(blob => {
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = pdf.name;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                        showNotification(`✅ "${pdf.name}" Downloaded! (${pdf.size})`);
+                    });
             } catch(error) {
                 console.error('Download error:', error);
                 showNotification('❌ Download failed!', 'error');
@@ -370,21 +361,19 @@
             const pdf = pdfs.find(p => p.id == id);
             if(pdf && pdf.fileData) {
                 try {
-                    const base64Data = pdf.fileData.includes(',') ? pdf.fileData.split(',')[1] : pdf.fileData;
-                    const binaryString = atob(base64Data);
-                    const bytes = new Uint8Array(binaryString.length);
-                    for (let i = 0; i < binaryString.length; i++) {
-                        bytes[i] = binaryString.charCodeAt(i);
-                    }
-                    let blob = new Blob([bytes], {type: 'application/pdf'});
-                    const url = URL.createObjectURL(blob);
-                    window.open(url, '_blank');
+                    fetch(pdf.fileData)
+                        .then(res => res.blob())
+                        .then(blob => {
+                            const url = URL.createObjectURL(blob);
+                            window.open(url, '_blank');
+                        });
                 } catch(error) {
                     showNotification('❌ Preview failed!', 'error');
                 }
             }
         }
 
+        // Renders
         function renderPDFs(filter='') {
             const filtered = pdfs.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()));
             const grid = document.getElementById('pdfGrid');
@@ -435,8 +424,8 @@
             updateStats();
         }
 
-        // SUPABASE UPLOAD PDF
-        function uploadPDF(event) {
+        // 🚀 DATABASE UPLOAD FUNCTION
+        async function uploadPDF(event) {
             const file = document.getElementById('pdfFile').files[0];
             const title = document.getElementById('pdfTitle').value.trim();
             const btn = event.target;
@@ -444,58 +433,64 @@
             if(!file) return showNotification('❌ PDF file select করুন', 'error');
             if(!title) return showNotification('❌ Title দিন', 'error');
             if(file.type !== 'application/pdf') return showNotification('❌ PDF file হতে হবে!', 'error');
-            if(file.size > 5 * 1024 * 1024) return showNotification('❌ 5MB এর কম PDF দিন (Base64 Limit)', 'error'); // Lowered check for base64
+            // Keep limit smaller for base64 Database storage safety
+            if(file.size > 20 * 1024 * 1024) return showNotification('❌ 20MB এর কম PDF দিন (Database limit)', 'error');
             
             const sizeMB = (file.size / 1024 / 1024).toFixed(1);
             const sizeDisplay = sizeMB > 1 ? `${sizeMB} MB` : `${(file.size / 1024).toFixed(1)} KB`;
             
             btn.disabled = true;
-            btn.innerHTML = '⏳ Uploading to Supabase...';
+            btn.innerHTML = '⏳ Uploading...';
             
             const reader = new FileReader();
             reader.onload = async function(e) {
                 const newPDF = {
+                    id: Date.now(),
                     name: title + '.pdf',
                     size: sizeDisplay,
                     fileSize: file.size,
-                    fileData: e.target.result // Assuming fileData column expects string
+                    fileData: e.target.result // base64 string
                 };
                 
-                // Insert to Supabase Table 'pdfs'
-                const { data, error } = await supabaseClient.from('pdfs').insert([newPDF]).select();
+                // Save to Supabase
+                const { error } = await supabaseClient.from('pdfs').insert([newPDF]);
                 
-                if (error) {
+                if(error) {
+                    showNotification('❌ Database Upload failed!', 'error');
                     console.error(error);
-                    showNotification('❌ Upload to DB failed!', 'error');
-                } else if (data) {
-                    pdfs.unshift(data[0]);
+                } else {
+                    pdfs.unshift(newPDF);
                     renderPDFs();
                     document.getElementById('pdfFile').value = '';
                     document.getElementById('pdfTitle').value = '';
-                    showNotification(`✅ "${newPDF.name}" uploaded!`);
+                    showNotification(`✅ "${newPDF.name}" uploaded to Database!\n📏 ${newPDF.size}`);
                 }
                 
                 btn.disabled = false;
-                btn.innerHTML = '📥 Upload PDF';
+                btn.innerHTML = '📤 Upload PDF';
             };
             
             reader.onerror = () => {
                 btn.disabled = false;
-                btn.innerHTML = '📥 Upload PDF';
-                showNotification('❌ File Read failed!', 'error');
+                btn.innerHTML = '📤 Upload PDF';
+                showNotification('❌ File reading failed!', 'error');
             };
             
-            reader.readAsDataURL(file); // Convert to base64 string directly
+            // Read as Data URL to store in Database easily
+            reader.readAsDataURL(file);
         }
 
-        // SUPABASE ADD PRODUCT
-        async function addProduct() {
+        async function addProduct(event) {
             const imgFile = document.getElementById('productImage').files[0];
             const name = document.getElementById('productName').value.trim();
             const price = parseInt(document.getElementById('productPrice').value);
+            const btn = event.target;
             
             if(!name || !price || price <= 0) return showNotification('❌ Name + Valid Price দিন', 'error');
             
+            btn.disabled = true;
+            btn.innerHTML = '⏳ Adding...';
+
             let imageData = '👕';
             if(imgFile) {
                 imageData = await new Promise((resolve, reject) => {
@@ -506,16 +501,16 @@
                 });
             }
             
-            const newProduct = { name, price, image: imageData };
+            const newProduct = {id: Date.now(), name, price, image: imageData};
             
-            // Insert to Supabase Table 'products'
-            const { data, error } = await supabaseClient.from('products').insert([newProduct]).select();
+            // Save to Supabase
+            const { error } = await supabaseClient.from('products').insert([newProduct]);
 
             if(error) {
+                showNotification('❌ Failed to add product to database', 'error');
                 console.error(error);
-                showNotification('❌ Product Add Failed', 'error');
-            } else if (data) {
-                products.unshift(data[0]);
+            } else {
+                products.unshift(newProduct);
                 renderProducts();
                 document.getElementById('productImage').value = '';
                 document.getElementById('productName').value = '';
@@ -523,11 +518,13 @@
                 document.getElementById('imagePreview').style.display = 'none';
                 showNotification(`✅ "${name}" added! ৳${price}`);
             }
+            btn.disabled = false;
+            btn.innerHTML = '➕ Add Product';
         }
 
         function exportData() {
             const data = {
-                pdfs: pdfs.map(p => ({...p, fileData: '[FILE_DATA]'})), // Don't export actual files
+                pdfs: pdfs.map(p => ({...p, fileData: '[FILE_DATA]'})),
                 products: products,
                 timestamp: new Date().toISOString(),
                 totalPDFs: pdfs.length,
@@ -544,27 +541,27 @@
         }
 
         async function clearAllPDFs() {
-            if(confirm('⚠️ সব PDF ডাটাবেস থেকে মুছবেন?')) {
-                const { error } = await supabaseClient.from('pdfs').delete().neq('id', 0);
+            if(confirm('⚠️ সব PDF ডাটাবেস থেকে মুছবেন? (This is permanent)')) {
+                const { error } = await supabaseClient.from('pdfs').delete().gt('id', 0);
                 if(error) {
-                    showNotification('❌ Failed to clear', 'error');
+                    showNotification('❌ Failed to clear PDFs', 'error');
                 } else {
                     pdfs = []; 
                     renderPDFs(); 
-                    showNotification('✅ All PDFs cleared from DB!');
+                    showNotification('✅ All PDFs cleared from Database!');
                 }
             }
         }
 
         async function clearAllProducts() {
-            if(confirm('⚠️ সব Product ডাটাবেস থেকে মুছবেন?')) {
-                const { error } = await supabaseClient.from('products').delete().neq('id', 0);
+            if(confirm('⚠️ সব Product ডাটাবেস থেকে মুছবেন? (This is permanent)')) {
+                const { error } = await supabaseClient.from('products').delete().gt('id', 0);
                 if(error) {
-                    showNotification('❌ Failed to clear', 'error');
+                    showNotification('❌ Failed to clear Products', 'error');
                 } else {
                     products = []; 
                     renderProducts(); 
-                    showNotification('✅ All Products cleared from DB!');
+                    showNotification('✅ All Products cleared from Database!');
                 }
             }
         }
@@ -607,12 +604,13 @@
             else renderProducts();
         }
 
-        // Initialize
+        // Initialize On Page Load
         document.addEventListener('DOMContentLoaded', () => {
-            fetchSupabaseData(); // Loads real data from database instead of localStorage
+            // Fetch live data from Supabase
+            fetchInitialData();
             
             document.querySelectorAll('.nav-tab[data-section]').forEach(tab => {
-                tab.addEventListener('click', function(event) {
+                tab.addEventListener('click', function() {
                     showSection(this.dataset.section);
                 });
             });
