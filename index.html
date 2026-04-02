@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html lang="bn">
-<meta name="google-site-verification" content="15CTDcpQEtUOfzzYeD0XdfRpOXxoyuQmu74PrwZ5rkg" />
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 eQro.sit - Q PDF Hub & Q Shop (REVISION 2.0)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="google-site-verification" content="15CTDcpQEtUOfzzYeD0XdfRpOXxoyuQmu74PrwZ5rkg" />
+    
+    <!-- === SEO & GOOGLE RANKING TAGS === -->
+    <title>eQro.sit - The Complete Platform for Resources & Culture</title>
+    <meta name="description" content="Welcome to eQro.sit - Your ultimate hub for premium PDFs, exclusive shop products, and rich cultural insights. Read, buy, and explore in one seamless platform.">
+    <meta name="keywords" content="eQro, eQro.sit, PDF Hub, Buy Products, Culture, Blog, Resources, Bangladesh, Online Store">
+    <meta name="author" content="eQro.sit">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://eqro.sit/">
+    
+    <!-- Open Graph (Facebook, WhatsApp, LinkedIn sharing) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://eqro.sit/">
+    <meta property="og:title" content="eQro.sit - Complete Platform">
+    <meta property="og:description" content="Your ultimate hub for premium PDFs, exclusive shop products, and rich cultural insights.">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630?text=eQro.sit+Platform">
+    
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="eQro.sit - Complete Platform">
+    <meta name="twitter:description" content="Your ultimate hub for premium PDFs, exclusive shop products, and rich cultural insights.">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Supabase CDN -->
@@ -12,624 +32,694 @@
     
     <style>
         :root {
-            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-            --danger: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
-            --warning: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
-            --glass: rgba(255,255,255,0.1);
-            --white-glass: rgba(255,255,255,0.95);
-        }
-        *{margin:0;padding:0;box-sizing:border-box;}
-        body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--primary);min-height:100vh;color:#333;overflow-x:hidden;}
-        
-        .logo-header{background:var(--white-glass);backdrop-filter:blur(30px);padding:1.2rem 2rem;box-shadow:0 15px 35px rgba(0,0,0,0.15);position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;}
-        .main-logo{font-size:2.8rem;font-weight:900;background:var(--primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:flex;align-items:center;gap:1rem;}
-        .logo-icon{font-size:3.5rem;animation:pulse 2s infinite;}
-        @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
-        
-        .search-container{position:relative;flex:1;max-width:500px;margin:0 2rem;}
-        .search-input{width:100%;padding:1.3rem 1.3rem 1.3rem 4.5rem;border:3px solid transparent;border-radius:30px;font-size:1.1rem;background:rgba(255,255,255,0.9);transition:all 0.3s ease;box-shadow:0 10px 25px rgba(0,0,0,0.1);}
-        .search-input:focus{outline:none;border-color:#667eea;box-shadow:0 0 0 4px rgba(102,126,234,0.15);}
-        .search-icon{position:absolute;left:1.5rem;top:50%;transform:translateY(-50%);font-size:1.4rem;color:#667eea;}
-        
-        .nav-container{background:var(--white-glass);backdrop-filter:blur(25px);margin:2rem 0;border-radius:25px;box-shadow:0 20px 40px rgba(0,0,0,0.1);border:1px solid rgba(255,255,255,0.3);}
-        .nav-tabs{display:flex;justify-content:center;padding:1.5rem;}
-        .nav-tab{padding:1.2rem 2.8rem;margin:0 0.5rem;border-radius:50px;font-weight:800;cursor:pointer;transition:all 0.4s ease;color:#4a5568;border:3px solid transparent;background:rgba(255,255,255,0.7);position:relative;display:flex;align-items:center;gap:0.8rem;}
-        .nav-tab::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--primary);transition:left 0.4s ease;z-index:-1;border-radius:50px;}
-        .nav-tab.active::before,.nav-tab:hover::before{left:0;}
-        .nav-tab.active,.nav-tab:hover{color:white!important;transform:translateY(-5px);border-color:#667eea;box-shadow:0 20px 40px rgba(102,126,234,0.4);}
-        
-        .main-content{max-width:1400px;margin:0 auto;padding:0 2rem;}
-        .section{display:none;}
-        .section.active{display:block;}
-        .hero-title{text-align:center;font-size:clamp(2.8rem,6vw,5rem);font-weight:900;background:linear-gradient(45deg,white,rgba(255,255,255,0.8));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:3rem 0 4rem;}
-        
-        .stats-bar{background:var(--white-glass);backdrop-filter:blur(20px);border-radius:20px;padding:1.5rem;margin-bottom:2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;text-align:center;}
-        .stat-item{color:#2d3748;font-weight:700;}
-        .stat-number{font-size:2rem;font-weight:900;color:#667eea;}
-        
-        .pdf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:2.5rem;}
-        .pdf-card{background:var(--white-glass);backdrop-filter:blur(20px);border-radius:30px;padding:3rem 2rem;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,0.15);transition:all 0.4s ease;border:1px solid rgba(255,255,255,0.4);position:relative;}
-        .pdf-card::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:var(--primary);}
-        .pdf-card:hover{transform:translateY(-15px);box-shadow:0 40px 80px rgba(0,0,0,0.25);}
-        .pdf-icon{font-size:5rem;margin-bottom:2rem;}
-        .pdf-name{font-size:1.6rem;font-weight:900;margin-bottom:1rem;color:#1a202c;}
-        .pdf-size{color:#718096;font-size:1.2rem;margin-bottom:2.5rem;font-weight:600;}
-        .pdf-buttons{display:flex;flex-direction:column;gap:0.8rem;}
-        .pdf-download{width:100%;background:var(--secondary);color:white;border:none;padding:1.2rem 2rem;border-radius:25px;cursor:pointer;font-weight:800;font-size:1rem;transition:all 0.3s ease;box-shadow:0 10px 25px rgba(72,187,120,0.4);}
-        .pdf-download:hover{transform:translateY(-3px);box-shadow:0 20px 40px rgba(72,187,120,0.6);}
-        .pdf-preview{width:100%;background:#4299e1;color:white;border:none;padding:1rem 2rem;border-radius:20px;cursor:pointer;font-weight:700;font-size:1rem;transition:all 0.3s ease;box-shadow:0 5px 15px rgba(66,153,225,0.4);}
-        .pdf-preview:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(66,153,225,0.6);}
-        
-        .shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:3rem;}
-        .shop-card{background:var(--white-glass);backdrop-filter:blur(25px);border-radius:30px;padding:2.5rem;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,0.15);transition:all 0.4s ease;border:1px solid rgba(255,255,255,0.4);}
-        .shop-card::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:var(--secondary);}
-        .shop-card:hover{transform:translateY(-15px);box-shadow:0 40px 80px rgba(0,0,0,0.25);}
-        .shop-image{width:180px;height:180px;border-radius:20px;margin:0 auto 1.5rem;object-fit:cover;background:#f0f0f0;border:4px solid rgba(255,255,255,0.8);box-shadow:0 15px 30px rgba(0,0,0,0.2);transition:all 0.4s ease;}
-        .shop-image.emoji{font-size:5rem !important;display:flex;align-items:center;justify-content:center;border-radius:20px;background:linear-gradient(135deg,#f7fafc,#e2e8f0) !important;}
-        .shop-card:hover .shop-image{transform:scale(1.05);}
-        .shop-name{font-size:1.5rem;font-weight:900;color:#1a202c;margin-bottom:0.8rem;}
-        .shop-price{font-size:2.2rem;font-weight:900;color:#48bb78;margin-bottom:2rem;}
-        
-        .whatsapp-contact{
-            width:100%;background:linear-gradient(135deg, #25D366 0%, #20BA5A 100%);color:white;border:none;padding:1.2rem 2rem;border-radius:50px;cursor:pointer;font-weight:800;font-size:1.1rem;transition:all 0.3s ease;box-shadow:0 10px 25px rgba(37,211,102,0.4);display:flex;align-items:center;justify-content:center;gap:1rem;text-decoration:none;
-        }
-        .whatsapp-contact:hover{transform:translateY(-3px);box-shadow:0 20px 40px rgba(37,211,102,0.6);}
-        
-        .admin-panel{display:none;background:var(--white-glass);backdrop-filter:blur(25px);padding:3rem;border-radius:30px;margin:3rem 0;box-shadow:0 30px 60px rgba(0,0,0,0.2);}
-        .admin-title{text-align:center;font-size:2.5rem;margin-bottom:2rem;color:#2d3748;}
-        .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem;}
-        .form-section{background:rgba(255,255,255,0.8);padding:2rem;border-radius:20px;}
-        .form-section h3{font-size:1.6rem;margin-bottom:1.5rem;color:#2d3748;}
-        .form-group{margin-bottom:1.5rem;}
-        .form-label{display:block;margin-bottom:0.5rem;font-weight:700;color:#2d3748;font-size:1.1rem;}
-        .form-input{width:100%;padding:1rem;border:2px solid #e2e8f0;border-radius:12px;font-size:1rem;background:#f8fafc;transition:all 0.3s;}
-        .form-input:focus{outline:none;border-color:#667eea;box-shadow:0 0 0 3px rgba(102,126,234,0.1);}
-        .image-preview{width:120px;height:120px;border-radius:12px;object-fit:cover;margin-top:0.5rem;display:none;border:2px solid #e2e8f0;}
-        .admin-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;}
-        .btn{padding:1rem 2rem;border:none;border-radius:25px;cursor:pointer;font-weight:700;font-size:1rem;transition:all 0.3s;box-shadow:0 8px 20px rgba(0,0,0,0.15);}
-        .btn-primary{background:var(--primary);color:white;}
-        .btn-primary:hover,.btn-primary:active{transform:translateY(-2px);box-shadow:0 15px 30px rgba(102,126,234,0.4);}
-        .btn-danger{background:var(--danger);color:white;}
-        .btn-danger:hover,.btn-danger:active{transform:translateY(-2px);box-shadow:0 15px 30px rgba(245,101,101,0.4);}
-        .btn-warning{background:var(--warning);color:white;}
-        
-        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:3000;justify-content:center;align-items:center;}
-        .modal-content{background:white;padding:3rem;border-radius:25px;max-width:450px;width:90%;text-align:center;box-shadow:0 30px 60px rgba(0,0,0,0.4);}
-        .about-section{background:var(--glass);backdrop-filter:blur(20px);border-radius:25px;padding:3rem 2rem;margin:3rem 0;text-align:center;color:white;}
-        .about-links{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-top:2rem;}
-        .about-link{display:flex;flex-direction:column;gap:1rem;align-items:center;color:white;text-decoration:none;font-weight:700;padding:1.5rem;border-radius:20px;background:rgba(255,255,255,0.1);transition:all 0.3s;}
-        .about-link:hover{transform:translateY(-5px);background:rgba(255,255,255,0.2);}
-        
-        .whatsapp-icon {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 75px;
-            height: 75px;
-            background: linear-gradient(135deg, #25D366 0%, #20BA5A 50%, #128C7E 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 
-                0 12px 30px rgba(37,211,102,0.4),
-                0 4px 20px rgba(0,0,0,0.2),
-                inset 0 2px 0 rgba(255,255,255,0.3);
-            z-index: 2000;
-            color: white;
-            font-size: 2.2rem;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-decoration: none;
-            border: 4px solid rgba(255,255,255,0.3);
-            backdrop-filter: blur(10px);
-        }
-        .whatsapp-icon::before {
-            content: '';
-            position: absolute;
-            top: -8px;
-            left: -8px;
-            right: -8px;
-            bottom: -8px;
-            background: conic-gradient(from 0deg, transparent 0deg, rgba(37,211,102,0.3) 270deg, transparent 360deg);
-            border-radius: 50%;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        .whatsapp-icon:hover {
-            transform: scale(1.15) translateY(-8px);
-            box-shadow: 
-                0 25px 50px rgba(37,211,102,0.5),
-                0 8px 30px rgba(0,0,0,0.3),
-                inset 0 3px 0 rgba(255,255,255,0.4);
-            border-color: rgba(255,255,255,0.6);
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #f59e0b;
+            --bg-color: #f0f2f5; 
+            --surface: #ffffff;
+            --text-main: #050505;
+            --text-muted: #65676b;
+            --danger: #ef4444;
         }
         
-        .empty-state{padding:6rem 2rem;background:var(--glass);border-radius:25px;text-align:center;color:white;}
-        .notification{position:fixed;top:20px;right:20px;background:var(--secondary);color:white;padding:1rem 2rem;border-radius:15px;box-shadow:0 10px 30px rgba(72,187,120,0.4);z-index:4000;transform:translateX(400px);transition:all 0.4s ease;}
-        .notification.show{transform:translateX(0);}
-        .notification.error{background:var(--danger);}
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
         
-        @media (max-width:768px){
-            .nav-tabs{flex-direction:column;padding:1rem;}
-            .pdf-grid,.shop-grid{grid-template-columns:1fr;}
-            .form-grid{grid-template-columns:1fr;}
-            .logo-header{flex-direction:column;gap:1rem;text-align:center;}
-            .about-links{flex-direction:column;gap:1.5rem;}
-            .whatsapp-icon{width:65px;height:65px;font-size:2rem;bottom:20px;right:20px;}
-            .pdf-buttons{flex-direction:column;}
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding-bottom: 80px; 
+            overflow-x: hidden;
         }
+
+        /* --- Full Screen Q Book Loader --- */
+        #loader-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(17, 24, 39, 0.95);
+            z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        #loader-overlay.hidden { opacity: 0; visibility: hidden; }
+
+        .q-loader {
+            position: relative; width: 90px; height: 90px;
+            border: 6px solid rgba(255, 255, 255, 0.8); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 20px rgba(255,255,255,0.1);
+        }
+        .q-loader::after {
+            content: ''; position: absolute; bottom: -6px; right: -6px;
+            width: 25px; height: 6px; background: rgba(255, 255, 255, 0.8);
+            transform: rotate(45deg); border-radius: 3px;
+        }
+
+        .book-wrapper {
+            position: relative; width: 36px; height: 28px;
+            border: 2px solid rgba(255, 255, 255, 0.6); border-radius: 2px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .book-wrapper::before {
+            content: ''; position: absolute; width: 2px; height: 100%;
+            background: rgba(255, 255, 255, 0.7); left: 50%; transform: translateX(-50%);
+        }
+        .book-page {
+            position: absolute; width: 16px; height: 24px;
+            background: rgba(255, 255, 255, 0.9); right: 1px;
+            transform-origin: left center;
+            animation: flipPage 0.6s infinite ease-in-out; /* FASTER ANIMATION */
+            border-radius: 1px;
+        }
+
+        @keyframes flipPage {
+            0% { transform: perspective(150px) rotateY(0deg); background: rgba(255, 255, 255, 0.9); }
+            50% { background: rgba(255, 255, 255, 0.6); }
+            100% { transform: perspective(150px) rotateY(-180deg); background: rgba(255, 255, 255, 0.9); }
+        }
+
+        .loader-text {
+            margin-top: 25px; color: rgba(255, 255, 255, 0.8);
+            font-weight: 600; letter-spacing: 2px; font-size: 0.9rem;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+        /* --- Header & Banner --- */
+        .app-header {
+            background: var(--surface); padding: 10px 20px; display: flex; align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; gap: 15px;
+        }
+        .header-logo { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 1px solid #ddd; }
+        .header-title { font-size: 1.4rem; font-weight: 800; color: var(--primary-dark); }
+
+        .banner-container { width: 100%; height: 180px; background: #ddd; position: relative; overflow: hidden; }
+        .banner-img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease-in-out; }
+
+        .search-container { padding: 15px; background: var(--surface); margin: 0 auto; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        .search-box { display: flex; align-items: center; background: #f0f2f5; border-radius: 30px; padding: 5px 15px; }
+        .search-box i { color: var(--text-muted); }
+        .search-box input { flex: 1; border: none; outline: none; background: transparent; padding: 10px; font-size: 1rem; }
+
+        /* --- Sections & Grids --- */
+        #mainContainer { max-width: 1200px; margin: 0 auto; padding-top: 15px; }
+        .section { display: none; padding: 0 15px 15px; }
+        .section.active { display: block; }
+        .section-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 20px; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+        .mixed-grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
+
+        /* --- Standard Cards --- */
+        .card { background: var(--surface); border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; flex-direction: column; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-3px); }
+        .card-img { width: 100%; height: 140px; object-fit: cover; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: #94a3b8; }
+        .card-content { padding: 12px; display: flex; flex-direction: column; flex: 1; }
+        .card-badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; margin-bottom: 8px; width: max-content; }
+        .badge-pdf { background: #fee2e2; color: #dc2626; }
+        .badge-product { background: #e0e7ff; color: #4f46e5; }
+        
+        .card-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 5px; color: #050505; }
+        .card-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; flex: 1; }
+        .card-price { font-size: 1.1rem; font-weight: 800; color: var(--secondary); margin-bottom: 10px; }
+        
+        .btn { padding: 8px 15px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.9rem; margin-top: 5px; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-whatsapp { background: #25D366; color: white; text-decoration: none; }
+
+        /* --- FACEBOOK STYLE CULTURE FEED --- */
+        .fb-feed { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
+        .fb-card { background: var(--surface); border-radius: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; }
+        .fb-header { padding: 12px 15px; display: flex; align-items: center; gap: 10px; }
+        .fb-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid #e4e6eb; }
+        .fb-title-area { display: flex; flex-direction: column; }
+        .fb-page-name { font-weight: 600; font-size: 0.95rem; color: #050505; }
+        .fb-post-title { font-size: 0.8rem; color: #65676b; }
+        .fb-text { padding: 0 15px 12px; font-size: 0.95rem; line-height: 1.4; color: #050505; white-space: pre-wrap; }
+        .fb-img-container { width: 100%; background: #000; display: flex; justify-content: center; align-items: center; }
+        .fb-img { width: 100%; max-height: 600px; object-fit: contain; }
+        .fb-actions { display: flex; padding: 4px 15px; border-top: 1px solid #e4e6eb; }
+        .fb-btn { flex: 1; background: transparent; border: none; padding: 8px 0; font-size: 0.95rem; color: #65676b; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; border-radius: 4px; }
+        .fb-btn:hover { background: #f0f2f5; }
+
+        /* --- Floating WhatsApp Button --- */
+        .floating-wa { position: fixed; bottom: 80px; right: 20px; background-color: #25D366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 2000; text-decoration: none; }
+
+        /* --- Admin Panel --- */
+        .admin-box { background: var(--surface); padding: 20px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .admin-section { border: 1px solid #e4e6eb; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
+        .admin-section h4 { color: var(--primary); margin-bottom: 15px; border-bottom: 2px solid #e4e6eb; padding-bottom: 5px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem; }
+        .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; }
+        .admin-list-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+        .admin-list-item img { width: 40px; height: 40px; border-radius: 5px; object-fit: cover; margin-right: 10px; }
+
+        /* --- Bottom Navigation --- */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--surface); display: flex; justify-content: space-around; padding: 10px 0 15px; box-shadow: 0 -1px 5px rgba(0,0,0,0.05); z-index: 1000; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-muted); font-size: 0.75rem; cursor: pointer; width: 20%; }
+        .nav-item i { font-size: 1.3rem; margin-bottom: 4px; }
+        .nav-item.active { color: var(--primary); font-weight: 600; }
+
+        @media (min-width: 768px) {
+            .banner-container { height: 350px; }
+            .grid-container { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+            .mixed-grid-container { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+        }
+
+        /* --- Notifications --- */
+        .notification { position: fixed; top: 20px; right: 20px; background: #10b981; color: white; padding: 15px 20px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 4000; transform: translateX(400px); transition: transform 0.3s ease; font-weight: 600; }
+        .notification.show { transform: translateX(0); }
+        .notification.error { background: var(--danger); }
+        .notification.info { background: var(--primary); }
     </style>
 </head>
 <body>
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/8801920037889?text=Hi%20eQro.sit%20order" class="whatsapp-icon" target="_blank" rel="noopener">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+
+    <!-- Loader Overlay -->
+    <div id="loader-overlay">
+        <div class="q-loader">
+            <div class="book-wrapper">
+                <div class="book-page"></div>
+            </div>
+        </div>
+        <div class="loader-text">LOADING DATA...</div>
+    </div>
     
-    <!-- Notification System -->
     <div id="notification" class="notification"></div>
 
-    <header class="logo-header">
-        <div class="main-logo"><span class="logo-icon">📱</span>eQro.sit</div>
-        <div class="search-container">
-            <span class="search-icon">🔍</span>
-            <input type="text" class="search-input" id="globalSearch" placeholder="🔎 PDFs / Products খুঁজুন...">
-        </div>
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/8801920037889" class="floating-wa" id="floatingWaBtn" target="_blank" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Header -->
+    <header class="app-header">
+        <img id="siteLogo" src="https://via.placeholder.com/50?text=Logo" alt="eQro Logo" class="header-logo">
+        <div class="header-title">eQro.sit</div>
     </header>
 
-    <div class="nav-container">
-        <div class="nav-tabs">
-            <div class="nav-tab active" data-section="pdf"><i class="fas fa-file-pdf"></i> Q PDF Hub</div>
-            <div class="nav-tab" data-section="shop"><i class="fas fa-store"></i> Q Shop</div>
-            <div class="nav-tab" onclick="toggleAdminModal()"><i class="fas fa-cog"></i> Admin</div>
+    <!-- Rotating Banner -->
+    <div class="banner-container">
+        <img id="bannerImage" src="https://via.placeholder.com/800x300?text=Welcome+to+eQro.sit" class="banner-img" alt="Promotional Banner">
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="globalSearch" placeholder="Search resources, products, culture..." aria-label="Search" onkeyup="handleSearch()">
         </div>
     </div>
 
-    <div class="main-content">
-        <!-- Stats Bar -->
-        <div class="stats-bar" id="statsBar">
-            <div class="stat-item">
-                <div class="stat-number" id="totalPDFs">0</div>
-                <div>Total PDFs</div>
+    <!-- MAIN SECTIONS (Changed to semantic HTML for SEO) -->
+    <main id="mainContainer">
+        
+        <!-- HOME SECTION -->
+        <section id="homeSection" class="section active">
+            <h2 class="section-title">Latest Updates</h2>
+            <div id="homeMixedGrid" class="mixed-grid-container"></div>
+            
+            <div class="admin-box" style="text-align: center; margin-top: 40px; background: transparent; box-shadow: none;">
+                <h2 style="margin-bottom: 10px;">About eQro.sit</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Welcome to the next generation Hub for resources, shopping, and culture.</p>
+                <div style="display: flex; justify-content: center; gap: 20px;">
+                    <a href="https://youtube.com/@shihabsharar-j4p" target="_blank" style="color: #ff0000; font-size: 2rem;" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://wa.me/8801920037889" target="_blank" style="color: #25D366; font-size: 2rem;" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number" id="totalProducts">0</div>
-                <div>Total Products</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" id="storageUsed">0 MB</div>
-                <div>Storage Used</div>
-            </div>
-        </div>
-
-        <section id="pdfSection" class="section active">
-            <h1 class="hero-title">📚 Q PDF Hub</h1>
-            <div id="pdfGrid" class="pdf-grid"></div>
         </section>
 
+        <!-- PDF SECTION -->
+        <section id="pdfSection" class="section">
+            <h2 class="section-title">Q PDF Hub</h2>
+            <div id="pdfGrid" class="grid-container"></div>
+        </section>
+
+        <!-- SHOP SECTION -->
         <section id="shopSection" class="section">
-            <h1 class="hero-title">🛒 Q Shop</h1>
-            <div id="shopGrid" class="shop-grid"></div>
+            <h2 class="section-title">Q Shop</h2>
+            <div id="shopGrid" class="grid-container"></div>
         </section>
 
-        <!-- Admin Panel -->
-        <div id="adminPanel" class="admin-panel" style="display:none;">
-            <h2 class="admin-title">🔐 Admin Panel v2.0</h2>
-            <div class="form-grid">
-                <div class="form-section">
-                    <h3>📄 PDF Upload</h3>
-                    <div class="form-group">
-                        <label class="form-label">PDF File</label>
-                        <input type="file" id="pdfFile" accept=".pdf" class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Title</label>
-                        <input type="text" id="pdfTitle" placeholder="Exam Paper" class="form-input">
-                    </div>
-                </div>
-                <div class="form-section">
-                    <h3>🛒 Product Add</h3>
-                    <div class="form-group">
-                        <label class="form-label">Product Image</label>
-                        <input type="file" id="productImage" accept="image/*" class="form-input" onchange="previewImage(this)">
-                        <img id="imagePreview" class="image-preview" alt="Preview">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Product Name</label>
-                        <input type="text" id="productName" placeholder="Red T-Shirt" class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Price (৳)</label>
-                        <input type="number" id="productPrice" placeholder="500" class="form-input">
-                    </div>
-                </div>
-            </div>
-            <div class="admin-buttons">
-                <button class="btn btn-primary" onclick="uploadPDF(event)">📤 Upload PDF</button>
-                <button class="btn btn-primary" onclick="addProduct(event)">➕ Add Product</button>
-                <button class="btn btn-warning" onclick="exportData()">💾 Export Data</button>
-                <button class="btn btn-danger" onclick="clearAllPDFs()">🗑️ Clear PDFs</button>
-                <button class="btn btn-danger" onclick="clearAllProducts()">🗑️ Clear Products</button>
-            </div>
-        </div>
+        <!-- CULTURE SECTION (Facebook Style) -->
+        <section id="cultureSection" class="section">
+            <div id="cultureGrid" class="fb-feed"></div>
+        </section>
 
-        <!-- About Section -->
-        <section class="about-section">
-            <h2 style="font-size:2.5rem;margin-bottom:2rem;">About eQro.sit v2.0</h2>
-            <p style="font-size:1.2rem;margin-bottom:3rem;">✅ Database Connected • ✅ Real-time Sync • ✅ Export Data • ✅ Better UX</p>
-            <div class="about-links">
-                <a href="https://youtube.com/@shihabsharar-j4p?si=d2iAsMrWVwFo7f_k" target="_blank" class="about-link">
-                    <i class="fab fa-youtube" style="font-size:3rem;color:#FF0000;"></i>
-                    <span>eQro.sit YouTube</span>
-                </a>
-                <a href="https://wa.me/8801920037889?text=Hi%20eQro.sit" target="_blank" class="about-link">
-                    <i class="fab fa-whatsapp" style="font-size:3rem;color:#25D366;"></i>
-                    <span>WhatsApp Contact</span>
-                </a>
+        <!-- ADMIN SECTION -->
+        <section id="adminSection" class="section">
+            <div class="admin-box" id="adminLoginBox">
+                <h3><i class="fas fa-user-shield"></i> Admin Access</h3>
+                <input type="password" id="adminPass" placeholder="Enter Admin Password" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; margin: 15px 0;">
+                <button class="btn btn-primary" onclick="verifyAdmin()" style="width: 100%">Login to Dashboard</button>
+            </div>
+
+            <!-- ADMIN DASHBOARD -->
+            <div class="admin-box" id="adminDashboard" style="display: none;">
+                <h3 style="margin-bottom: 20px; color: var(--primary-dark);"><i class="fas fa-cogs"></i> Admin Dashboard</h3>
+                
+                <div class="admin-section" style="background: #fffbeeb3; border-color: var(--secondary);">
+                    <h4><i class="fas fa-search"></i> Delete Data</h4>
+                    <input type="text" id="adminDeleteSearch" placeholder="Search data by title..." onkeyup="renderAdminLists()" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc;">
+                </div>
+
+                <div class="admin-section">
+                    <h4><i class="fas fa-paint-brush"></i> Identity & Banners</h4>
+                    <div class="form-group">
+                        <label>Update Site Logo</label>
+                        <input type="file" id="adminLogoFile" accept="image/*">
+                        <button class="btn btn-primary" onclick="updateLogo()">Upload Logo</button>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Add Banner Image</label>
+                        <input type="file" id="adminBannerFile" accept="image/*">
+                        <button class="btn btn-primary" onclick="addBanner()">Upload Banner</button>
+                    </div>
+                    <div id="adminBannersList" style="margin-top: 15px;"></div>
+                </div>
+                
+                <!-- NEW PASSWORD CHANGER -->
+                <div class="admin-section">
+                    <h4><i class="fas fa-key"></i> Security Settings</h4>
+                    <div class="form-group"><label>Change Admin Password</label><input type="password" id="newAdminPass" placeholder="Enter new secure password"></div>
+                    <button class="btn btn-danger" onclick="changeAdminPassword()">Update Password</button>
+                </div>
+
+                <div class="admin-section">
+                    <h4><i class="fas fa-book"></i> Upload PDF</h4>
+                    <div class="form-group"><label>Title</label><input type="text" id="pdfTitle"></div>
+                    <div class="form-group"><label>PDF File</label><input type="file" id="pdfFile" accept=".pdf"></div>
+                    <div class="form-group"><label>Cover Image (Optional)</label><input type="file" id="pdfCover" accept="image/*"></div>
+                    <button class="btn btn-primary" onclick="uploadPDF(event)">Upload PDF</button>
+                    <div id="adminPdfsList" style="margin-top: 15px;"></div>
+                </div>
+
+                <div class="admin-section">
+                    <h4><i class="fas fa-box"></i> Add Product</h4>
+                    <div class="form-group"><label>Product Name</label><input type="text" id="prodName"></div>
+                    <div class="form-group"><label>Price (৳)</label><input type="number" id="prodPrice"></div>
+                    <div class="form-group"><label>Image</label><input type="file" id="prodImg" accept="image/*"></div>
+                    <button class="btn btn-primary" onclick="addProduct(event)">Add Product</button>
+                    <div id="adminProductsList" style="margin-top: 15px;"></div>
+                </div>
+
+                <div class="admin-section">
+                    <h4><i class="fas fa-landmark"></i> Publish Culture Post</h4>
+                    <div class="form-group"><label>Title (Context/Topic)</label><input type="text" id="cultTitle"></div>
+                    <div class="form-group"><label>Description / Text</label><textarea id="cultDesc" rows="4"></textarea></div>
+                    <div class="form-group"><label>Post Image (Optional)</label><input type="file" id="cultImg" accept="image/*"></div>
+                    <button class="btn btn-primary" onclick="addCulture(event)">Publish Post</button>
+                    <div id="adminCultureList" style="margin-top: 15px;"></div>
+                </div>
             </div>
         </section>
-    </div>
+    </main>
 
-    <!-- Admin Login Modal -->
-    <div id="adminModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeAdminModal()" style="position:absolute;top:1rem;right:1.5rem;font-size:2rem;cursor:pointer;color:#666;">&times;</span>
-            <h2>🔐 Admin Login</h2>
-            <input type="password" id="adminPass" class="form-input" placeholder="Password" style="margin:1.5rem 0 2rem;font-size:1.2rem;">
-            <button class="btn btn-primary" onclick="verifyAdmin()" style="padding:1rem 3rem;">🔑 Login</button>
-        </div>
-    </div>
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-item active" data-target="home"><i class="fas fa-home"></i><span>Home</span></div>
+        <div class="nav-item" data-target="pdf"><i class="fas fa-book"></i><span>PDF Hub</span></div>
+        <div class="nav-item" data-target="shop"><i class="fas fa-shopping-bag"></i><span>Shop</span></div>
+        <div class="nav-item" data-target="culture"><i class="fas fa-globe"></i><span>Culture</span></div>
+        <div class="nav-item" data-target="admin"><i class="fas fa-user-cog"></i><span>Admin</span></div>
+    </nav>
 
     <script>
-        // Supabase Setup
+        // --- SAFE LOCAL DATABASE CACHING ---
+        const dbPromise = new Promise((resolve, reject) => {
+            try {
+                const req = indexedDB.open('eQroDB_Cache', 1);
+                req.onupgradeneeded = e => {
+                    const db = e.target.result;
+                    if(!db.objectStoreNames.contains('store')) db.createObjectStore('store');
+                };
+                req.onsuccess = e => resolve(e.target.result);
+                req.onerror = e => reject(e);
+            } catch(e) { reject(e); }
+        });
+
+        async function saveLocalData(key, data) {
+            try {
+                const db = await dbPromise;
+                return new Promise((resolve) => {
+                    const tx = db.transaction('store', 'readwrite');
+                    tx.objectStore('store').put(data, key);
+                    tx.oncomplete = () => resolve();
+                    tx.onerror = () => resolve(); // Fail gracefully
+                });
+            } catch(e) {
+                // Fallback to localStorage if IndexedDB fails (e.g. Incognito mode)
+                try { localStorage.setItem(key, JSON.stringify(data)); } catch(err){}
+            }
+        }
+
+        async function loadLocalData(key) {
+            try {
+                const db = await dbPromise;
+                return new Promise((resolve) => {
+                    const tx = db.transaction('store', 'readonly');
+                    const req = tx.objectStore('store').get(key);
+                    req.onsuccess = () => resolve(req.result);
+                    req.onerror = () => resolve(null); // Fail gracefully
+                });
+            } catch(e) {
+                try { return JSON.parse(localStorage.getItem(key)); } catch(err){ return null; }
+            }
+        }
+
+        // Supabase Configuration
         const { createClient } = supabase;
         const supabaseUrl = 'https://uvzfyslttbqchrhetqdk.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV2emZ5c2x0dGJxY2hyaGV0cWRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NzY1MTUsImV4cCI6MjA4OTA1MjUxNX0.0Uxdde7kE5t4agNT2Zb5VknB-QTBDLDA17El-B_V_2s';
         const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
-        const ADMIN_PASS = "Shi567hab";
-        
-        let pdfs = [];
-        let products = [];
+        let CURRENT_ADMIN_PASS = "Shi567hab"; // Fallback default
+        let pdfs = [], products = [], cultures = [], banners = [], siteLogo = "";
+        let currentActiveTab = 'home'; 
 
-        // Fetch Data from Supabase on Load
-        async function fetchInitialData() {
-            try {
-                // Fetch PDFs
-                const { data: pdfData, error: pdfError } = await supabaseClient.from('pdfs').select('*').order('id', { ascending: false });
-                if (pdfError) throw pdfError;
-                pdfs = pdfData || [];
-                renderPDFs();
+        // UI Logic
+        document.querySelectorAll('.nav-item').forEach(nav => {
+            nav.addEventListener('click', () => switchTab(nav.dataset.target));
+        });
 
-                // Fetch Products
-                const { data: prodData, error: prodError } = await supabaseClient.from('products').select('*').order('id', { ascending: false });
-                if (prodError) throw prodError;
-                products = prodData || [];
-                renderProducts();
-            } catch (err) {
-                console.error("Fetch Error:", err);
-                showNotification('ডেটা লোড করতে সমস্যা হয়েছে!', 'error');
-            }
+        function switchTab(targetId) {
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.querySelector(`.nav-item[data-target="${targetId}"]`).classList.add('active');
+
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            const targetSection = document.getElementById(targetId + 'Section');
+            if(targetSection) targetSection.classList.add('active');
+
+            currentActiveTab = targetId;
+            const waBtn = document.getElementById('floatingWaBtn');
+            if(waBtn) waBtn.style.display = (targetId === 'home' || targetId === 'shop') ? 'flex' : 'none';
+            
+            const searchObj = document.getElementById('globalSearch');
+            if(searchObj) searchObj.value = '';
+            renderActiveView(''); 
         }
-        
-        // Notifications & Stats
+
+        function handleSearch() {
+            const q = document.getElementById('globalSearch')?.value.toLowerCase() || '';
+            renderActiveView(q);
+        }
+
+        const fileToBase64 = (file) => new Promise((resolve, reject) => {
+            if (!file) return resolve(null);
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => resolve(null); // resolve null to prevent crash
+        });
+
         function showNotification(message, type = 'success') {
             const notif = document.getElementById('notification');
+            if(!notif) return;
             notif.textContent = message;
             notif.className = `notification ${type} show`;
-            setTimeout(() => notif.classList.remove('show'), 4000);
-        }
-        function updateStats() {
-            document.getElementById('totalPDFs').textContent = pdfs.length;
-            document.getElementById('totalProducts').textContent = products.length;
-            const totalSize = pdfs.reduce((sum, p) => sum + (p.fileSize || 0), 0);
-            document.getElementById('storageUsed').textContent = (totalSize/1024/1024).toFixed(1) + ' MB';
+            setTimeout(() => notif.classList.remove('show'), 3000);
         }
 
-        // 🚀 PDF Download & Preview
-        function downloadPDF(id) {
-            const pdf = pdfs.find(p => p.id == id);
-            if(!pdf || !pdf.fileData) {
-                showNotification('❌ PDF file data নেই!', 'error');
-                return;
+        function hideLoader() {
+            const loader = document.getElementById('loader-overlay');
+            if(loader) {
+                loader.classList.add('hidden');
+                setTimeout(() => { loader.style.display = 'none'; }, 500);
             }
-            
+        }
+
+        // --- Fetch Data safely ---
+        async function fetchInitialData() {
             try {
-                // Fetch the base64 string directly as a blob for clean downloading
-                fetch(pdf.fileData)
-                    .then(res => res.blob())
-                    .then(blob => {
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = pdf.name;
-                        document.body.appendChild(a);
-                        a.click();
-                        document.body.removeChild(a);
-                        URL.revokeObjectURL(url);
-                        showNotification(`✅ "${pdf.name}" Downloaded! (${pdf.size})`);
-                    });
-            } catch(error) {
-                console.error('Download error:', error);
-                showNotification('❌ Download failed!', 'error');
-            }
-        }
-
-        function previewPDF(id) {
-            const pdf = pdfs.find(p => p.id == id);
-            if(pdf && pdf.fileData) {
-                try {
-                    fetch(pdf.fileData)
-                        .then(res => res.blob())
-                        .then(blob => {
-                            const url = URL.createObjectURL(blob);
-                            window.open(url, '_blank');
-                        });
-                } catch(error) {
-                    showNotification('❌ Preview failed!', 'error');
-                }
-            }
-        }
-
-        // Renders
-        function renderPDFs(filter='') {
-            const filtered = pdfs.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()));
-            const grid = document.getElementById('pdfGrid');
-            if(!filtered.length){
-                grid.innerHTML = `<div class="empty-state"><div style="font-size:5rem;margin-bottom:2rem">📄</div><h2>কোনো PDF নেই</h2><p>Admin থেকে upload করুন</p></div>`;
-                updateStats();
-                return;
-            }
-            grid.innerHTML = filtered.map(pdf => `
-                <div class="pdf-card">
-                    <div class="pdf-icon">📄</div>
-                    <div class="pdf-name">${pdf.name}</div>
-                    <div class="pdf-size">${pdf.size}</div>
-                    <div class="pdf-buttons">
-                        <button class="pdf-preview" onclick="previewPDF(${pdf.id})">
-                            👁️ Preview
-                        </button>
-                        <button class="pdf-download" onclick="downloadPDF(${pdf.id})">
-                            <i class="fas fa-download"></i> Download
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-            updateStats();
-        }
-
-        function renderProducts(filter='') {
-            const filtered = products.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()));
-            const grid = document.getElementById('shopGrid');
-            if(!filtered.length){
-                grid.innerHTML = `<div class="empty-state"><div style="font-size:5rem;margin-bottom:2rem">🛒</div><h2>কোনো Product নেই</h2></div>`;
-                updateStats();
-                return;
-            }
-            grid.innerHTML = filtered.map(p => `
-                <div class="shop-card">
-                    ${p.image && p.image.startsWith('data:image/') ? 
-                        `<img src="${p.image}" alt="${p.name}" class="shop-image" onerror="this.outerHTML='<div class=\\'shop-image emoji\\'>📦</div>'">` : 
-                        `<div class="shop-image emoji">${p.image || '📦'}</div>`
+                // 1. Check for custom admin password + Logo
+                const { data: settingsData } = await supabaseClient.from('settings').select('*');
+                if (settingsData && Array.isArray(settingsData)) {
+                    const passRow = settingsData.find(s => s.key === 'admin_pass');
+                    if (passRow?.value) CURRENT_ADMIN_PASS = passRow.value;
+                    else {
+                        const localPass = await loadLocalData('admin_pass');
+                        if (localPass) CURRENT_ADMIN_PASS = localPass;
                     }
-                    <div class="shop-name">${p.name}</div>
-                    <div class="shop-price">৳${p.price}</div>
-                    <a href="https://wa.me/8801920037889?text=Hi%20eQro.sit%20-%20${p.name}%20order%20%7C%20Price:%20${p.price}৳" target="_blank" class="whatsapp-contact">
-                        <i class="fab fa-whatsapp"></i> Order করুন
-                    </a>
-                </div>
-            `).join('');
-            updateStats();
-        }
 
-        // 🚀 DATABASE UPLOAD FUNCTION
-        async function uploadPDF(event) {
-            const file = document.getElementById('pdfFile').files[0];
-            const title = document.getElementById('pdfTitle').value.trim();
-            const btn = event.target;
-            
-            if(!file) return showNotification('❌ PDF file select করুন', 'error');
-            if(!title) return showNotification('❌ Title দিন', 'error');
-            if(file.type !== 'application/pdf') return showNotification('❌ PDF file হতে হবে!', 'error');
-            // Keep limit smaller for base64 Database storage safety
-            if(file.size > 20 * 1024 * 1024) return showNotification('❌ 20MB এর কম PDF দিন (Database limit)', 'error');
-            
-            const sizeMB = (file.size / 1024 / 1024).toFixed(1);
-            const sizeDisplay = sizeMB > 1 ? `${sizeMB} MB` : `${(file.size / 1024).toFixed(1)} KB`;
-            
-            btn.disabled = true;
-            btn.innerHTML = '⏳ Uploading...';
-            
-            const reader = new FileReader();
-            reader.onload = async function(e) {
-                const newPDF = {
-                    id: Date.now(),
-                    name: title + '.pdf',
-                    size: sizeDisplay,
-                    fileSize: file.size,
-                    fileData: e.target.result // base64 string
-                };
-                
-                // Save to Supabase
-                const { error } = await supabaseClient.from('pdfs').insert([newPDF]);
-                
-                if(error) {
-                    showNotification('❌ Database Upload failed!', 'error');
-                    console.error(error);
-                } else {
-                    pdfs.unshift(newPDF);
-                    renderPDFs();
-                    document.getElementById('pdfFile').value = '';
-                    document.getElementById('pdfTitle').value = '';
-                    showNotification(`✅ "${newPDF.name}" uploaded to Database!\n📏 ${newPDF.size}`);
+                    const logoRow = settingsData.find(s => s.key === 'logo');
+                    if (logoRow?.value) {
+                        siteLogo = logoRow.value;
+                        const el = document.getElementById('siteLogo');
+                        if(el) el.src = siteLogo;
+                        saveLocalData('siteLogo', siteLogo);
+                    }
                 }
-                
-                btn.disabled = false;
-                btn.innerHTML = '📤 Upload PDF';
-            };
-            
-            reader.onerror = () => {
-                btn.disabled = false;
-                btn.innerHTML = '📤 Upload PDF';
-                showNotification('❌ File reading failed!', 'error');
-            };
-            
-            // Read as Data URL to store in Database easily
-            reader.readAsDataURL(file);
-        }
 
-        async function addProduct(event) {
-            const imgFile = document.getElementById('productImage').files[0];
-            const name = document.getElementById('productName').value.trim();
-            const price = parseInt(document.getElementById('productPrice').value);
-            const btn = event.target;
-            
-            if(!name || !price || price <= 0) return showNotification('❌ Name + Valid Price দিন', 'error');
-            
-            btn.disabled = true;
-            btn.innerHTML = '⏳ Adding...';
+                // 2. Fetch limited DB rows
+                const [banRes, pdfData, prodData, cultData] = await Promise.all([
+                    supabaseClient.from('banners').select('*').limit(10),
+                    supabaseClient.from('pdfs').select('id, name, size, coverImage, fileSize').order('id', { ascending: false }).limit(20),
+                    supabaseClient.from('products').select('*').order('id', { ascending: false }).limit(20),
+                    supabaseClient.from('culture').select('*').order('id', { ascending: false }).limit(20)
+                ]);
 
-            let imageData = '👕';
-            if(imgFile) {
-                imageData = await new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.onload = () => resolve(reader.result);
-                    reader.onerror = reject;
-                    reader.readAsDataURL(imgFile);
-                });
+                banners = banRes.data || (await loadLocalData('banners')) || [];
+                pdfs = pdfData.data || (await loadLocalData('pdfs')) || [];
+                products = prodData.data || (await loadLocalData('products')) || [];
+                cultures = cultData.data || (await loadLocalData('culture')) || [];
+
+                startBannerRotation();
+                renderActiveView('');
+            } catch (err) { 
+                console.error("Fetch Error, using Local Cache", err); 
+                banners = (await loadLocalData('banners')) || [];
+                pdfs = (await loadLocalData('pdfs')) || [];
+                products = (await loadLocalData('products')) || [];
+                cultures = (await loadLocalData('culture')) || [];
+                startBannerRotation(); 
+                renderActiveView(''); 
+            } finally {
+                hideLoader();
             }
-            
-            const newProduct = {id: Date.now(), name, price, image: imageData};
-            
-            // Save to Supabase
-            const { error } = await supabaseClient.from('products').insert([newProduct]);
-
-            if(error) {
-                showNotification('❌ Failed to add product to database', 'error');
-                console.error(error);
-            } else {
-                products.unshift(newProduct);
-                renderProducts();
-                document.getElementById('productImage').value = '';
-                document.getElementById('productName').value = '';
-                document.getElementById('productPrice').value = '';
-                document.getElementById('imagePreview').style.display = 'none';
-                showNotification(`✅ "${name}" added! ৳${price}`);
-            }
-            btn.disabled = false;
-            btn.innerHTML = '➕ Add Product';
         }
 
-        function exportData() {
-            const data = {
-                pdfs: pdfs.map(p => ({...p, fileData: '[FILE_DATA]'})),
-                products: products,
-                timestamp: new Date().toISOString(),
-                totalPDFs: pdfs.length,
-                totalProducts: products.length
-            };
-            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `eqro_backup_${new Date().toISOString().split('T')[0]}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-            showNotification('✅ Data exported!');
+        let currentBannerIdx = 0, bannerInterval;
+        function startBannerRotation() {
+            let validBanners = banners.filter(b => b && b.image);
+            if(validBanners.length === 0) validBanners = [{ id: 1, image: 'https://via.placeholder.com/800x300/2563eb/ffffff?text=eQro.sit' }];
+            const banEl = document.getElementById('bannerImage');
+            if(!banEl) return;
+            banEl.src = validBanners[0].image;
+            clearInterval(bannerInterval);
+            bannerInterval = setInterval(() => {
+                currentBannerIdx = (currentBannerIdx + 1) % validBanners.length;
+                banEl.src = validBanners[currentBannerIdx].image;
+            }, 4000);
         }
 
-        async function clearAllPDFs() {
-            if(confirm('⚠️ সব PDF ডাটাবেস থেকে মুছবেন? (This is permanent)')) {
-                const { error } = await supabaseClient.from('pdfs').delete().gt('id', 0);
-                if(error) {
-                    showNotification('❌ Failed to clear PDFs', 'error');
-                } else {
-                    pdfs = []; 
-                    renderPDFs(); 
-                    showNotification('✅ All PDFs cleared from Database!');
+        // View Gens
+        function getPdfHtml(pdf) {
+            if(!pdf) return '';
+            return `<div class="card">
+                ${pdf.coverImage ? `<img src="${pdf.coverImage}" class="card-img" alt="PDF Cover" loading="lazy">` : `<div class="card-img"><i class="fas fa-file-pdf"></i></div>`}
+                <div class="card-content">
+                    <span class="card-badge badge-pdf">PDF Document</span>
+                    <div class="card-title">${pdf.name || 'Unknown'}</div>
+                    <div class="card-subtitle">Size: ${pdf.size || 'N/A'}</div>
+                    <button class="btn btn-outline" onclick="fetchAndActionPDF(${pdf.id}, 'preview')"><i class="fas fa-eye"></i> Read</button>
+                    <button class="btn btn-primary" onclick="fetchAndActionPDF(${pdf.id}, 'download')"><i class="fas fa-download"></i> Download</button>
+                </div></div>`;
+        }
+
+        function getProductHtml(p) {
+            if(!p) return '';
+            return `<div class="card">
+                ${p.image ? `<img src="${p.image}" class="card-img" alt="Product" loading="lazy">` : `<div class="card-img"><i class="fas fa-box"></i></div>`}
+                <div class="card-content">
+                    <span class="card-badge badge-product">Product</span>
+                    <div class="card-title">${p.name || 'Unknown'}</div>
+                    <div class="card-price">৳${p.price || 0}</div>
+                    <a href="https://wa.me/8801920037889?text=Hi%20Order:%20${p.name}" target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Buy Now</a>
+                </div></div>`;
+        }
+
+        function getCultureHtml(c) {
+            if(!c) return '';
+            const avatar = siteLogo || 'https://via.placeholder.com/40';
+            return `<div class="fb-card">
+                <div class="fb-header"><img src="${avatar}" class="fb-avatar" alt="Page"><div class="fb-title-area"><span class="fb-page-name">eQro.sit Hub</span><span class="fb-post-title">${c.title || ''}</span></div></div>
+                <div class="fb-text">${c.description || ''}</div>
+                ${c.image ? `<div class="fb-img-container"><img src="${c.image}" class="fb-img" alt="Culture Post" loading="lazy"></div>` : ''}
+                <div class="fb-actions">
+                    <button class="fb-btn" onclick="showNotification('Liked!', 'success')"><i class="far fa-thumbs-up"></i> Like</button>
+                    <button class="fb-btn" onclick="showNotification('Comments opening soon!', 'info')"><i class="far fa-comment"></i> Comment</button>
+                    <button class="fb-btn" onclick="showNotification('Link copied!', 'success')"><i class="fas fa-share"></i> Share</button>
+                </div></div>`;
+        }
+
+        function renderActiveView(filter) {
+            try {
+                if (currentActiveTab === 'home') {
+                    let mixed = [...pdfs.map(p => ({...p, itemType: 'pdf'})), ...products.map(p => ({...p, itemType: 'product'}))];
+                    mixed.sort((a, b) => b.id - a.id);
+                    if(filter) mixed = mixed.filter(item => (item.name||item.title||'').toLowerCase().includes(filter));
+                    const el = document.getElementById('homeMixedGrid');
+                    if(el) el.innerHTML = mixed.slice(0,16).map(item => item.itemType==='pdf'?getPdfHtml(item):getProductHtml(item)).join('') || '<p>No updates.</p>';
                 }
-            }
-        }
-
-        async function clearAllProducts() {
-            if(confirm('⚠️ সব Product ডাটাবেস থেকে মুছবেন? (This is permanent)')) {
-                const { error } = await supabaseClient.from('products').delete().gt('id', 0);
-                if(error) {
-                    showNotification('❌ Failed to clear Products', 'error');
-                } else {
-                    products = []; 
-                    renderProducts(); 
-                    showNotification('✅ All Products cleared from Database!');
+                else if (currentActiveTab === 'pdf') {
+                    const f = pdfs.filter(p => (p.name||'').toLowerCase().includes(filter));
+                    const el = document.getElementById('pdfGrid');
+                    if(el) el.innerHTML = f.length ? f.map(getPdfHtml).join('') : '<p>No PDFs found.</p>';
                 }
-            }
+                else if (currentActiveTab === 'shop') {
+                    const f = products.filter(p => (p.name||'').toLowerCase().includes(filter));
+                    const el = document.getElementById('shopGrid');
+                    if(el) el.innerHTML = f.length ? f.map(getProductHtml).join('') : '<p>No Products found.</p>';
+                }
+                else if (currentActiveTab === 'culture') {
+                    const f = cultures.filter(c => ((c.title||'') + ' ' + (c.description||'')).toLowerCase().includes(filter));
+                    const el = document.getElementById('cultureGrid');
+                    if(el) el.innerHTML = f.length ? f.map(getCultureHtml).join('') : '<p>No culture posts.</p>';
+                }
+                else if (currentActiveTab === 'admin') renderAdminLists();
+            } catch(err) { console.error("Render UI Error:", err); }
         }
 
-        // Modal Functions
-        function toggleAdminModal() { document.getElementById('adminModal').style.display = 'flex'; }
-        function closeAdminModal() { 
-            document.getElementById('adminModal').style.display = 'none'; 
-            document.getElementById('adminPass').value = ''; 
+        async function fetchAndActionPDF(id, actionType) {
+            showNotification('Preparing file...', 'info');
+            try {
+                const { data, error } = await supabaseClient.from('pdfs').select('fileData').eq('id', id).single();
+                if(error || !data || !data.fileData) throw new Error("File not found");
+
+                const pdf = pdfs.find(p => p.id == id);
+                fetch(data.fileData).then(res => res.blob()).then(blob => {
+                    const blobUrl = URL.createObjectURL(blob);
+                    if(actionType === 'download') {
+                        const a = document.createElement('a');
+                        a.href = blobUrl; a.download = pdf?.name || 'document.pdf'; a.click();
+                        showNotification('Download Started!');
+                    } else {
+                        window.open(blobUrl, '_blank');
+                        showNotification('Opening PDF...');
+                    }
+                }).catch(()=>showNotification('Error rendering file', 'error'));
+            } catch (err) { showNotification('Failed to load PDF file', 'error'); }
         }
+
+        // --- Admin ---
         function verifyAdmin() {
-            if(document.getElementById('adminPass').value === ADMIN_PASS) {
-                closeAdminModal();
-                document.getElementById('adminPanel').style.display = 'block';
-                showNotification('✅ Admin Login Successful!');
-            } else {
-                showNotification('❌ Wrong Password!', 'error');
-                document.getElementById('adminPass').value = '';
-            }
+            const val = document.getElementById('adminPass')?.value || '';
+            if(val === CURRENT_ADMIN_PASS) {
+                document.getElementById('adminLoginBox').style.display = 'none';
+                document.getElementById('adminDashboard').style.display = 'block';
+                showNotification('Admin Logged In!');
+                renderAdminLists();
+            } else { showNotification('Wrong Password', 'error'); }
         }
 
-        function previewImage(input) {
-            const preview = document.getElementById('imagePreview');
-            if(input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = e => {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        function showSection(section) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(section + 'Section').classList.add('active');
-            event.target.closest('.nav-tab').classList.add('active');
-            if(section === 'pdf') renderPDFs();
-            else renderProducts();
-        }
-
-        // Initialize On Page Load
-        document.addEventListener('DOMContentLoaded', () => {
-            // Fetch live data from Supabase
-            fetchInitialData();
+        async function changeAdminPassword() {
+            const newPass = document.getElementById('newAdminPass').value;
+            if(!newPass || newPass.length < 4) return showNotification('Password too short (Min 4 chars)', 'error');
             
-            document.querySelectorAll('.nav-tab[data-section]').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    showSection(this.dataset.section);
-                });
-            });
+            CURRENT_ADMIN_PASS = newPass;
+            await saveLocalData('admin_pass', newPass);
+            try { await supabaseClient.from('settings').upsert({ key: 'admin_pass', value: newPass }); } catch(e){}
             
-            document.getElementById('globalSearch').addEventListener('input', e => {
-                const q = e.target.value;
-                const activeSection = document.querySelector('.section.active').id;
-                if(activeSection.includes('pdf')) renderPDFs(q);
-                else renderProducts(q);
-            });
-        });
+            document.getElementById('newAdminPass').value = '';
+            showNotification('Password Changed Securely!', 'success');
+        }
 
-        // Global Event Listeners
-        document.addEventListener('click', e => {
-            if(e.target.id === 'adminModal') closeAdminModal();
-        });
-        document.addEventListener('keydown', e => {
-            if(e.key === 'Escape') closeAdminModal();
-        });
+        async function updateLogo() {
+            const file = document.getElementById('adminLogoFile')?.files[0];
+            if(!file) return;
+            const base64 = await fileToBase64(file);
+            if(!base64) return showNotification('Error reading image', 'error');
+            siteLogo = base64; 
+            const el = document.getElementById('siteLogo'); if(el) el.src = base64;
+            await saveLocalData('siteLogo', base64);
+            try { await supabaseClient.from('settings').upsert({ key: 'logo', value: base64 }); } catch(e){}
+            showNotification('Logo Updated!');
+        }
+
+        async function addBanner() {
+            const file = document.getElementById('adminBannerFile')?.files[0];
+            if(!file) return;
+            const base64 = await fileToBase64(file);
+            if(!base64) return;
+            const newBan = { id: Date.now(), image: base64 };
+            try { await supabaseClient.from('banners').insert([newBan]); } catch(e){}
+            banners.push(newBan); await saveLocalData('banners', banners);
+            startBannerRotation(); if (currentActiveTab === 'admin') renderAdminLists();
+            showNotification('Banner Added!');
+        }
+
+        async function uploadPDF(e) {
+            const title = document.getElementById('pdfTitle')?.value;
+            const pdfF = document.getElementById('pdfFile')?.files[0];
+            const covF = document.getElementById('pdfCover')?.files[0];
+            if(!title || !pdfF) return showNotification('Title & File required', 'error');
+            
+            e.target.innerText = "Uploading...";
+            const pdfData = await fileToBase64(pdfF);
+            const coverData = await fileToBase64(covF);
+            if(!pdfData) { e.target.innerText = "Upload PDF"; return showNotification('Error reading PDF', 'error'); }
+            
+            const newObj = { id: Date.now(), name: title + '.pdf', size: (pdfF.size/1024/1024).toFixed(1)+' MB', fileSize: pdfF.size, fileData: pdfData, coverImage: coverData };
+            try { await supabaseClient.from('pdfs').insert([newObj]); } catch(err) {}
+            
+            const cachedObj = {...newObj}; delete cachedObj.fileData;
+            pdfs.unshift(cachedObj); await saveLocalData('pdfs', pdfs);
+            if (currentActiveTab === 'admin') renderAdminLists();
+            e.target.innerText = "Upload PDF"; showNotification('PDF Uploaded!');
+        }
+
+        async function addProduct(e) {
+            const name = document.getElementById('prodName')?.value, price = document.getElementById('prodPrice')?.value, img = document.getElementById('prodImg')?.files[0];
+            if(!name || !price) return showNotification('Required fields missing', 'error');
+            e.target.innerText = "Adding...";
+            const imgData = await fileToBase64(img);
+            const newObj = { id: Date.now(), name, price: parseInt(price), image: imgData };
+            try { await supabaseClient.from('products').insert([newObj]); } catch(err){}
+            products.unshift(newObj); await saveLocalData('products', products);
+            if (currentActiveTab === 'admin') renderAdminLists();
+            e.target.innerText = "Add Product"; showNotification('Product Added!');
+        }
+
+        async function addCulture(e) {
+            const title = document.getElementById('cultTitle')?.value, desc = document.getElementById('cultDesc')?.value, img = document.getElementById('cultImg')?.files[0];
+            if(!title || !desc) return showNotification('Required fields missing', 'error');
+            e.target.innerText = "Publishing...";
+            const imgData = await fileToBase64(img);
+            const newObj = { id: Date.now(), title, description: desc, image: imgData };
+            try { await supabaseClient.from('culture').insert([newObj]); } catch(err){}
+            cultures.unshift(newObj); await saveLocalData('culture', cultures);
+            if (currentActiveTab === 'admin') renderAdminLists();
+            e.target.innerText = "Publish Post"; showNotification('Published!');
+        }
+
+        function renderAdminLists() {
+            try {
+                const q = (document.getElementById('adminDeleteSearch')?.value || '').toLowerCase();
+                const fBanners = banners.filter(b => !q || b.id.toString().includes(q)); 
+                const fPdfs = pdfs.filter(p => !q || (p.name||'').toLowerCase().includes(q));
+                const fProducts = products.filter(p => !q || (p.name||'').toLowerCase().includes(q));
+                const fCultures = cultures.filter(c => !q || (c.title||'').toLowerCase().includes(q));
+
+                const bList = document.getElementById('adminBannersList'); if(bList) bList.innerHTML = fBanners.map(b => `<div class="admin-list-item"><img src="${b.image}" alt="ban"> ID: ${b.id} <button class="btn btn-danger" onclick="deleteItem('banners', ${b.id})"><i class="fas fa-trash"></i></button></div>`).join('');
+                const pList = document.getElementById('adminPdfsList'); if(pList) pList.innerHTML = fPdfs.map(p => `<div class="admin-list-item"><span>${p.name}</span> <button class="btn btn-danger" onclick="deleteItem('pdfs', ${p.id})"><i class="fas fa-trash"></i></button></div>`).join('');
+                const prList = document.getElementById('adminProductsList'); if(prList) prList.innerHTML = fProducts.map(p => `<div class="admin-list-item"><span>${p.name} (৳${p.price})</span> <button class="btn btn-danger" onclick="deleteItem('products', ${p.id})"><i class="fas fa-trash"></i></button></div>`).join('');
+                const cList = document.getElementById('adminCultureList'); if(cList) cList.innerHTML = fCultures.map(c => `<div class="admin-list-item"><span>${c.title}</span> <button class="btn btn-danger" onclick="deleteItem('culture', ${c.id})"><i class="fas fa-trash"></i></button></div>`).join('');
+            } catch(e) {}
+        }
+
+        async function deleteItem(table, id) {
+            if(!confirm('Delete this item?')) return;
+            try { await supabaseClient.from(table).delete().eq('id', id); } catch(err){}
+            if(table==='banners') { banners = banners.filter(x => x.id !== id); await saveLocalData('banners', banners); startBannerRotation(); }
+            if(table==='pdfs') { pdfs = pdfs.filter(x => x.id !== id); await saveLocalData('pdfs', pdfs); }
+            if(table==='products') { products = products.filter(x => x.id !== id); await saveLocalData('products', products); }
+            if(table==='culture') { cultures = cultures.filter(x => x.id !== id); await saveLocalData('culture', cultures); }
+            if (currentActiveTab === 'admin') renderAdminLists();
+            showNotification('Deleted');
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchInitialData);
     </script>
 </body>
 </html>
