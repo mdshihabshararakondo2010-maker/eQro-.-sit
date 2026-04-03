@@ -473,8 +473,40 @@
             }
         }
 
-        // --- Fetch Data safely ---
+        // --- Fetch Data safely & FAST (Stale-While-Revalidate) ---
         async function fetchInitialData() {
+            // 1. FAST INITIAL LOAD: Try loading from local cache first
+            try {
+                const [cachedBanners, cachedPdfs, cachedProducts, cachedCultures, cachedLogo] = await Promise.all([
+                    loadLocalData('banners'),
+                    loadLocalData('pdfs'),
+                    loadLocalData('products'),
+                    loadLocalData('culture'),
+                    loadLocalData('siteLogo')
+                ]);
+
+                if (cachedBanners) banners = cachedBanners;
+                if (cachedPdfs) pdfs = cachedPdfs;
+                if (cachedProducts) products = cachedProducts;
+                if (cachedCultures) cultures = cachedCultures;
+                
+                if (cachedLogo) {
+                    siteLogo = cachedLogo;
+                    const el = document.getElementById('siteLogo');
+                    if(el) el.src = siteLogo;
+                }
+
+                // If we have cached data, render UI and hide loader INSTANTLY
+                if (banners.length || pdfs.length || products.length || cultures.length) {
+                    startBannerRotation();
+                    renderActiveView('');
+                    hideLoader();
+                }
+            } catch(err) {
+                console.error("Cache load error", err);
+            }
+
+            // 2. BACKGROUND FETCH: Get fresh data from Supabase silently
             try {
                 const { data: settingsData } = await supabaseClient.from('settings').select('*');
                 if (settingsData && Array.isArray(settingsData)) {
@@ -486,7 +518,7 @@
                     }
 
                     const logoRow = settingsData.find(s => s.key === 'logo');
-                    if (logoRow?.value) {
+                    if (logoRow?.value && logoRow.value !== siteLogo) {
                         siteLogo = logoRow.value;
                         const el = document.getElementById('siteLogo');
                         if(el) el.src = siteLogo;
@@ -501,22 +533,19 @@
                     supabaseClient.from('culture').select('*').order('id', { ascending: false }).limit(20)
                 ]);
 
-                banners = banRes.data || (await loadLocalData('banners')) || [];
-                pdfs = pdfData.data || (await loadLocalData('pdfs')) || [];
-                products = prodData.data || (await loadLocalData('products')) || [];
-                cultures = cultData.data || (await loadLocalData('culture')) || [];
+                // Update variables and cache with fresh data
+                if (banRes.data) { banners = banRes.data; saveLocalData('banners', banners); }
+                if (pdfData.data) { pdfs = pdfData.data; saveLocalData('pdfs', pdfs); }
+                if (prodData.data) { products = prodData.data; saveLocalData('products', products); }
+                if (cultData.data) { cultures = cultData.data; saveLocalData('culture', cultures); }
 
+                // Re-render UI with fresh data
                 startBannerRotation();
                 renderActiveView('');
             } catch (err) { 
-                console.error("Fetch Error, using Local Cache", err); 
-                banners = (await loadLocalData('banners')) || [];
-                pdfs = (await loadLocalData('pdfs')) || [];
-                products = (await loadLocalData('products')) || [];
-                cultures = (await loadLocalData('culture')) || [];
-                startBannerRotation(); 
-                renderActiveView(''); 
+                console.error("Supabase Fetch Error", err); 
             } finally {
+                // Ensure loader is hidden even if it's the user's first time visiting (no cache)
                 hideLoader();
             }
         }
