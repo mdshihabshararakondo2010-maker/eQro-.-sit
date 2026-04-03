@@ -40,6 +40,7 @@
             --text-main: #050505;
             --text-muted: #65676b;
             --danger: #ef4444;
+            --fade-sky-blue: #87cefa;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
@@ -51,7 +52,7 @@
             overflow-x: hidden;
         }
 
-        /* --- Full Screen Q Book Loader --- */
+        /* --- Full Screen Bird & Q Loader --- */
         #loader-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(17, 24, 39, 0.95);
@@ -61,47 +62,73 @@
         }
         #loader-overlay.hidden { opacity: 0; visibility: hidden; }
 
-        .q-loader {
-            position: relative; width: 90px; height: 90px;
-            border: 6px solid rgba(255, 255, 255, 0.8); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 20px rgba(255,255,255,0.1);
+        .bird-loader {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
         }
-        .q-loader::after {
-            content: ''; position: absolute; bottom: -6px; right: -6px;
-            width: 25px; height: 6px; background: rgba(255, 255, 255, 0.8);
-            transform: rotate(45deg); border-radius: 3px;
+        
+        .wings {
+            display: flex;
+            gap: 5px;
+            margin-bottom: -10px;
+            z-index: 2;
+        }
+        
+        .wing {
+            width: 45px;
+            height: 18px;
+            background: var(--fade-sky-blue);
+            border-radius: 50px 50px 0 50px;
+            transform-origin: bottom right;
+            animation: flapLeft 3.5s ease-in-out infinite;
+        }
+        
+        .wing.right {
+            border-radius: 50px 50px 50px 0;
+            transform-origin: bottom left;
+            animation: flapRight 3.5s ease-in-out infinite;
+        }
+        
+        .q-mark {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--fade-sky-blue);
+            animation: floatQ 3.5s ease-in-out infinite;
+        }
+        
+        .loader-text-new {
+            color: var(--fade-sky-blue);
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-align: center;
+            opacity: 0;
+            animation: smoothFadeLine 3.5s ease-in-out infinite;
         }
 
-        .book-wrapper {
-            position: relative; width: 36px; height: 28px;
-            border: 2px solid rgba(255, 255, 255, 0.6); border-radius: 2px;
-            display: flex; align-items: center; justify-content: center;
+        @keyframes flapLeft {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(40deg); }
         }
-        .book-wrapper::before {
-            content: ''; position: absolute; width: 2px; height: 100%;
-            background: rgba(255, 255, 255, 0.7); left: 50%; transform: translateX(-50%);
+        
+        @keyframes flapRight {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(-40deg); }
         }
-        .book-page {
-            position: absolute; width: 16px; height: 24px;
-            background: rgba(255, 255, 255, 0.9); right: 1px;
-            transform-origin: left center;
-            animation: flipPage 0.6s infinite ease-in-out; /* FASTER ANIMATION */
-            border-radius: 1px;
+        
+        @keyframes floatQ {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(12px); }
         }
-
-        @keyframes flipPage {
-            0% { transform: perspective(150px) rotateY(0deg); background: rgba(255, 255, 255, 0.9); }
-            50% { background: rgba(255, 255, 255, 0.6); }
-            100% { transform: perspective(150px) rotateY(-180deg); background: rgba(255, 255, 255, 0.9); }
+        
+        @keyframes smoothFadeLine {
+            0% { opacity: 0; transform: translateY(10px); }
+            20% { opacity: 1; transform: translateY(0); }
+            80% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-10px); }
         }
-
-        .loader-text {
-            margin-top: 25px; color: rgba(255, 255, 255, 0.8);
-            font-weight: 600; letter-spacing: 2px; font-size: 0.9rem;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 
         /* --- Header & Banner --- */
         .app-header {
@@ -151,16 +178,13 @@
         .fb-feed { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
         .fb-card { background: var(--surface); border-radius: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; }
         .fb-header { padding: 12px 15px; display: flex; align-items: center; gap: 10px; }
-        .fb-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid #e4e6eb; }
+        .fb-avatar-emoji { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #f0f2f5; font-size: 22px; border: 1px solid #e4e6eb; }
         .fb-title-area { display: flex; flex-direction: column; }
         .fb-page-name { font-weight: 600; font-size: 0.95rem; color: #050505; }
         .fb-post-title { font-size: 0.8rem; color: #65676b; }
         .fb-text { padding: 0 15px 12px; font-size: 0.95rem; line-height: 1.4; color: #050505; white-space: pre-wrap; }
         .fb-img-container { width: 100%; background: #000; display: flex; justify-content: center; align-items: center; }
         .fb-img { width: 100%; max-height: 600px; object-fit: contain; }
-        .fb-actions { display: flex; padding: 4px 15px; border-top: 1px solid #e4e6eb; }
-        .fb-btn { flex: 1; background: transparent; border: none; padding: 8px 0; font-size: 0.95rem; color: #65676b; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; border-radius: 4px; }
-        .fb-btn:hover { background: #f0f2f5; }
 
         /* --- Floating WhatsApp Button --- */
         .floating-wa { position: fixed; bottom: 80px; right: 20px; background-color: #25D366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 2000; text-decoration: none; }
@@ -196,14 +220,16 @@
 </head>
 <body>
 
-    <!-- Loader Overlay -->
+    <!-- Loader Overlay with Wing Animation -->
     <div id="loader-overlay">
-        <div class="q-loader">
-            <div class="book-wrapper">
-                <div class="book-page"></div>
+        <div class="bird-loader">
+            <div class="wings">
+                <div class="wing left"></div>
+                <div class="wing right"></div>
             </div>
+            <div class="q-mark">Q</div>
         </div>
-        <div class="loader-text">LOADING DATA...</div>
+        <div class="loader-text-new">এগিয়ে যাই লক্ষ্য চিত্তে! eQro.sit</div>
     </div>
     
     <div id="notification" class="notification"></div>
@@ -228,11 +254,11 @@
     <div class="search-container">
         <div class="search-box">
             <i class="fas fa-search"></i>
-            <input type="text" id="globalSearch" placeholder="Search resources, products, culture..." aria-label="Search" onkeyup="handleSearch()">
+            <input type="text" id="globalSearch" placeholder="Search resources, products, QhUb..." aria-label="Search" onkeyup="handleSearch()">
         </div>
     </div>
 
-    <!-- MAIN SECTIONS (Changed to semantic HTML for SEO) -->
+    <!-- MAIN SECTIONS -->
     <main id="mainContainer">
         
         <!-- HOME SECTION -->
@@ -262,7 +288,7 @@
             <div id="shopGrid" class="grid-container"></div>
         </section>
 
-        <!-- CULTURE SECTION (Facebook Style) -->
+        <!-- QhUb SECTION -->
         <section id="cultureSection" class="section">
             <div id="cultureGrid" class="fb-feed"></div>
         </section>
@@ -299,7 +325,6 @@
                     <div id="adminBannersList" style="margin-top: 15px;"></div>
                 </div>
                 
-                <!-- NEW PASSWORD CHANGER -->
                 <div class="admin-section">
                     <h4><i class="fas fa-key"></i> Security Settings</h4>
                     <div class="form-group"><label>Change Admin Password</label><input type="password" id="newAdminPass" placeholder="Enter new secure password"></div>
@@ -325,7 +350,7 @@
                 </div>
 
                 <div class="admin-section">
-                    <h4><i class="fas fa-landmark"></i> Publish Culture Post</h4>
+                    <h4><i class="fas fa-landmark"></i> Publish QhUb Post</h4>
                     <div class="form-group"><label>Title (Context/Topic)</label><input type="text" id="cultTitle"></div>
                     <div class="form-group"><label>Description / Text</label><textarea id="cultDesc" rows="4"></textarea></div>
                     <div class="form-group"><label>Post Image (Optional)</label><input type="file" id="cultImg" accept="image/*"></div>
@@ -341,7 +366,7 @@
         <div class="nav-item active" data-target="home"><i class="fas fa-home"></i><span>Home</span></div>
         <div class="nav-item" data-target="pdf"><i class="fas fa-book"></i><span>PDF Hub</span></div>
         <div class="nav-item" data-target="shop"><i class="fas fa-shopping-bag"></i><span>Shop</span></div>
-        <div class="nav-item" data-target="culture"><i class="fas fa-globe"></i><span>Culture</span></div>
+        <div class="nav-item" data-target="culture"><i class="fas fa-globe"></i><span>QhUb</span></div>
         <div class="nav-item" data-target="admin"><i class="fas fa-user-cog"></i><span>Admin</span></div>
     </nav>
 
@@ -366,10 +391,9 @@
                     const tx = db.transaction('store', 'readwrite');
                     tx.objectStore('store').put(data, key);
                     tx.oncomplete = () => resolve();
-                    tx.onerror = () => resolve(); // Fail gracefully
+                    tx.onerror = () => resolve(); 
                 });
             } catch(e) {
-                // Fallback to localStorage if IndexedDB fails (e.g. Incognito mode)
                 try { localStorage.setItem(key, JSON.stringify(data)); } catch(err){}
             }
         }
@@ -381,7 +405,7 @@
                     const tx = db.transaction('store', 'readonly');
                     const req = tx.objectStore('store').get(key);
                     req.onsuccess = () => resolve(req.result);
-                    req.onerror = () => resolve(null); // Fail gracefully
+                    req.onerror = () => resolve(null); 
                 });
             } catch(e) {
                 try { return JSON.parse(localStorage.getItem(key)); } catch(err){ return null; }
@@ -394,7 +418,7 @@
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV2emZ5c2x0dGJxY2hyaGV0cWRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NzY1MTUsImV4cCI6MjA4OTA1MjUxNX0.0Uxdde7kE5t4agNT2Zb5VknB-QTBDLDA17El-B_V_2s';
         const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
-        let CURRENT_ADMIN_PASS = "Shi567hab"; // Fallback default
+        let CURRENT_ADMIN_PASS = "Shi567hab"; 
         let pdfs = [], products = [], cultures = [], banners = [], siteLogo = "";
         let currentActiveTab = 'home'; 
 
@@ -430,7 +454,7 @@
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = () => resolve(reader.result);
-            reader.onerror = error => resolve(null); // resolve null to prevent crash
+            reader.onerror = error => resolve(null); 
         });
 
         function showNotification(message, type = 'success') {
@@ -452,7 +476,6 @@
         // --- Fetch Data safely ---
         async function fetchInitialData() {
             try {
-                // 1. Check for custom admin password + Logo
                 const { data: settingsData } = await supabaseClient.from('settings').select('*');
                 if (settingsData && Array.isArray(settingsData)) {
                     const passRow = settingsData.find(s => s.key === 'admin_pass');
@@ -471,7 +494,6 @@
                     }
                 }
 
-                // 2. Fetch limited DB rows
                 const [banRes, pdfData, prodData, cultData] = await Promise.all([
                     supabaseClient.from('banners').select('*').limit(10),
                     supabaseClient.from('pdfs').select('id, name, size, coverImage, fileSize').order('id', { ascending: false }).limit(20),
@@ -541,16 +563,18 @@
 
         function getCultureHtml(c) {
             if(!c) return '';
-            const avatar = siteLogo || 'https://via.placeholder.com/40';
+            // Change page name to QhUb and logo to 🪐 with like, comment, share options removed.
             return `<div class="fb-card">
-                <div class="fb-header"><img src="${avatar}" class="fb-avatar" alt="Page"><div class="fb-title-area"><span class="fb-page-name">eQro.sit Hub</span><span class="fb-post-title">${c.title || ''}</span></div></div>
+                <div class="fb-header">
+                    <div class="fb-avatar-emoji">🪐</div>
+                    <div class="fb-title-area">
+                        <span class="fb-page-name">QhUb</span>
+                        <span class="fb-post-title">${c.title || ''}</span>
+                    </div>
+                </div>
                 <div class="fb-text">${c.description || ''}</div>
                 ${c.image ? `<div class="fb-img-container"><img src="${c.image}" class="fb-img" alt="Culture Post" loading="lazy"></div>` : ''}
-                <div class="fb-actions">
-                    <button class="fb-btn" onclick="showNotification('Liked!', 'success')"><i class="far fa-thumbs-up"></i> Like</button>
-                    <button class="fb-btn" onclick="showNotification('Comments opening soon!', 'info')"><i class="far fa-comment"></i> Comment</button>
-                    <button class="fb-btn" onclick="showNotification('Link copied!', 'success')"><i class="fas fa-share"></i> Share</button>
-                </div></div>`;
+            </div>`;
         }
 
         function renderActiveView(filter) {
@@ -575,7 +599,7 @@
                 else if (currentActiveTab === 'culture') {
                     const f = cultures.filter(c => ((c.title||'') + ' ' + (c.description||'')).toLowerCase().includes(filter));
                     const el = document.getElementById('cultureGrid');
-                    if(el) el.innerHTML = f.length ? f.map(getCultureHtml).join('') : '<p>No culture posts.</p>';
+                    if(el) el.innerHTML = f.length ? f.map(getCultureHtml).join('') : '<p>No QhUb posts.</p>';
                 }
                 else if (currentActiveTab === 'admin') renderAdminLists();
             } catch(err) { console.error("Render UI Error:", err); }
