@@ -24,6 +24,20 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="eQro.sit - Complete Platform">
     <meta name="twitter:description" content="Your ultimate hub for premium PDFs, exclusive shop products, and rich cultural insights.">
+
+    <!-- JSON-LD Structured Data for Google Search Logo Indexing -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "eQro.sit",
+      "url": "https://eqro.sit/",
+      "logo": "https://eqro.sit/logo.png",
+      "sameAs": [
+        "https://youtube.com/@shihabsharar-j4p"
+      ]
+    }
+    </script>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -41,6 +55,7 @@
             --text-muted: #65676b;
             --danger: #ef4444;
             --fade-sky-blue: #87cefa;
+            --glow-color: rgba(135, 206, 250, 0.6);
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
@@ -52,13 +67,13 @@
             overflow-x: hidden;
         }
 
-        /* --- Full Screen Bird & Q Loader --- */
+        /* --- Enhanced Full Screen Loader --- */
         #loader-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(17, 24, 39, 0.95);
+            background: radial-gradient(circle at center, #1e293b 0%, #050505 100%);
             z-index: 9999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
         }
         #loader-overlay.hidden { opacity: 0; visibility: hidden; }
 
@@ -66,68 +81,110 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 50px;
+            position: relative;
         }
         
+        /* Smooth floating wrapper */
+        .flying-wrapper {
+            position: absolute;
+            top: -40px;
+            animation: majesticFly 4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+            z-index: 3;
+            filter: drop-shadow(0 0 10px var(--glow-color));
+        }
+
         .wings {
             display: flex;
-            gap: 5px;
-            margin-bottom: -10px;
-            z-index: 2;
+            gap: 6px;
         }
         
         .wing {
-            width: 45px;
-            height: 18px;
-            background: var(--fade-sky-blue);
+            width: 65px;
+            height: 28px;
+            background: linear-gradient(135deg, #ffffff, var(--fade-sky-blue));
             border-radius: 50px 50px 0 50px;
             transform-origin: bottom right;
-            animation: flapLeft 3.5s ease-in-out infinite;
+            animation: flapLeft 0.5s ease-in-out infinite alternate;
+            box-shadow: 0 0 20px var(--glow-color);
         }
         
         .wing.right {
             border-radius: 50px 50px 50px 0;
             transform-origin: bottom left;
-            animation: flapRight 3.5s ease-in-out infinite;
+            animation: flapRight 0.5s ease-in-out infinite alternate;
         }
         
+        /* Enhanced Q Mark */
         .q-mark {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: var(--fade-sky-blue);
-            animation: floatQ 3.5s ease-in-out infinite;
+            font-size: 8rem;
+            font-weight: 900;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--fade-sky-blue);
+            text-shadow: 0 0 40px var(--glow-color), 0 0 80px rgba(135, 206, 250, 0.3);
+            animation: pulseQ 2s ease-in-out infinite alternate;
+            margin-top: 20px;
+            position: relative;
         }
-        
-        .loader-text-new {
-            color: var(--fade-sky-blue);
-            font-size: 1.15rem;
+
+        /* Enhanced Tag Paper Lines */
+        .loader-tags {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            width: 90%;
+            max-width: 420px;
+            perspective: 1000px;
+        }
+
+        .tag-line {
+            background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.03));
+            border-left: 4px solid var(--fade-sky-blue);
+            border-right: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            padding: 14px 22px;
+            border-radius: 8px;
+            font-size: 1.05rem;
             font-weight: 600;
-            letter-spacing: 1px;
-            text-align: center;
+            width: 100%;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
             opacity: 0;
-            animation: smoothFadeLine 3.5s ease-in-out infinite;
+            transform: translateX(-50px) rotateX(20deg);
+            animation: tagDynamicBecome 4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation-delay: var(--delay);
+            backdrop-filter: blur(8px);
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes majesticFly {
+            0% { transform: translate(-120px, 30px) scale(0.8) rotate(-20deg); }
+            50% { transform: translate(0px, -50px) scale(1.3) rotate(0deg); }
+            100% { transform: translate(120px, 30px) scale(0.8) rotate(20deg); }
         }
 
         @keyframes flapLeft {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(40deg); }
+            0% { transform: rotate(15deg); }
+            100% { transform: rotate(65deg); }
         }
         
         @keyframes flapRight {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(-40deg); }
+            0% { transform: rotate(-15deg); }
+            100% { transform: rotate(-65deg); }
         }
         
-        @keyframes floatQ {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(12px); }
+        @keyframes pulseQ {
+            0% { transform: scale(0.95); opacity: 0.6; text-shadow: 0 0 20px var(--glow-color); }
+            100% { transform: scale(1.05); opacity: 1; color: var(--fade-sky-blue); text-shadow: 0 0 60px var(--glow-color), 0 0 100px rgba(255,255,255,0.4); }
         }
-        
-        @keyframes smoothFadeLine {
-            0% { opacity: 0; transform: translateY(10px); }
-            20% { opacity: 1; transform: translateY(0); }
-            80% { opacity: 1; transform: translateY(0); }
-            100% { opacity: 0; transform: translateY(-10px); }
+
+        @keyframes tagDynamicBecome {
+            0% { opacity: 0; transform: translateX(-50px) scale(0.9) rotateX(20deg); }
+            15% { opacity: 1; transform: translateX(0) scale(1) rotateX(0deg); }
+            85% { opacity: 1; transform: translateX(0) scale(1) rotateX(0deg); }
+            100% { opacity: 0; transform: translateX(50px) scale(0.95) rotateX(-20deg); }
         }
 
         /* --- Header & Banner --- */
@@ -220,16 +277,24 @@
 </head>
 <body>
 
-    <!-- Loader Overlay with Wing Animation -->
+    <!-- Loader Overlay with Enhanced Wing Animation and Tags -->
     <div id="loader-overlay">
         <div class="bird-loader">
-            <div class="wings">
-                <div class="wing left"></div>
-                <div class="wing right"></div>
+            <div class="flying-wrapper">
+                <div class="wings">
+                    <div class="wing left"></div>
+                    <div class="wing right"></div>
+                </div>
             </div>
             <div class="q-mark">Q</div>
         </div>
-        <div class="loader-text-new">এগিয়ে যাই লক্ষ্য চিত্তে! eQro.sit</div>
+        <div class="loader-tags">
+            <div class="tag-line" style="--delay: 0s;">১. ফ্রি! pdf ডাউনলোড।</div>
+            <div class="tag-line" style="--delay: 0.8s;">২. সেরা শিক্ষা ও নিত্য উপকরণ ।</div>
+            <div class="tag-line" style="--delay: 1.6s;">৩. সহায়ক টিপস।</div>
+            <div class="tag-line" style="--delay: 2.4s;">৪. Whats'App - অর্ডার সাপোর্টেড।</div>
+            <div class="tag-line" style="--delay: 3.2s;">৫. এখানে শিক্ষা pdf অথবা পণ্য - বিক্রয় করতে পারেন আপনিও!</div>
+        </div>
     </div>
     
     <div id="notification" class="notification"></div>
@@ -260,7 +325,6 @@
 
     <!-- MAIN SECTIONS -->
     <main id="mainContainer">
-        
         <!-- HOME SECTION -->
         <section id="homeSection" class="section active">
             <h2 class="section-title">Latest Updates</h2>
@@ -371,6 +435,9 @@
     </nav>
 
     <script>
+        // Track when page started loading to enforce 4 seconds
+        const appStartTime = Date.now();
+
         // --- SAFE LOCAL DATABASE CACHING ---
         const dbPromise = new Promise((resolve, reject) => {
             try {
@@ -466,16 +533,20 @@
         }
 
         function hideLoader() {
-            const loader = document.getElementById('loader-overlay');
-            if(loader) {
-                loader.classList.add('hidden');
-                setTimeout(() => { loader.style.display = 'none'; }, 500);
-            }
+            const elapsed = Date.now() - appStartTime;
+            const delayTime = Math.max(0, 4200 - elapsed); // 4.2 sec total (4s animation + 0.2s padding)
+
+            setTimeout(() => {
+                const loader = document.getElementById('loader-overlay');
+                if(loader) {
+                    loader.classList.add('hidden');
+                    setTimeout(() => { loader.style.display = 'none'; }, 600);
+                }
+            }, delayTime);
         }
 
         // --- Fetch Data safely & FAST (Stale-While-Revalidate) ---
         async function fetchInitialData() {
-            // 1. FAST INITIAL LOAD: Try loading from local cache first
             try {
                 const [cachedBanners, cachedPdfs, cachedProducts, cachedCultures, cachedLogo] = await Promise.all([
                     loadLocalData('banners'),
@@ -496,7 +567,6 @@
                     if(el) el.src = siteLogo;
                 }
 
-                // If we have cached data, render UI and hide loader INSTANTLY
                 if (banners.length || pdfs.length || products.length || cultures.length) {
                     startBannerRotation();
                     renderActiveView('');
@@ -506,7 +576,6 @@
                 console.error("Cache load error", err);
             }
 
-            // 2. BACKGROUND FETCH: Get fresh data from Supabase silently
             try {
                 const { data: settingsData } = await supabaseClient.from('settings').select('*');
                 if (settingsData && Array.isArray(settingsData)) {
@@ -533,19 +602,16 @@
                     supabaseClient.from('culture').select('*').order('id', { ascending: false }).limit(20)
                 ]);
 
-                // Update variables and cache with fresh data
                 if (banRes.data) { banners = banRes.data; saveLocalData('banners', banners); }
                 if (pdfData.data) { pdfs = pdfData.data; saveLocalData('pdfs', pdfs); }
                 if (prodData.data) { products = prodData.data; saveLocalData('products', products); }
                 if (cultData.data) { cultures = cultData.data; saveLocalData('culture', cultures); }
 
-                // Re-render UI with fresh data
                 startBannerRotation();
                 renderActiveView('');
             } catch (err) { 
                 console.error("Supabase Fetch Error", err); 
             } finally {
-                // Ensure loader is hidden even if it's the user's first time visiting (no cache)
                 hideLoader();
             }
         }
@@ -592,7 +658,6 @@
 
         function getCultureHtml(c) {
             if(!c) return '';
-            // Change page name to QhUb and logo to 🪐 with like, comment, share options removed.
             return `<div class="fb-card">
                 <div class="fb-header">
                     <div class="fb-avatar-emoji">🪐</div>
