@@ -18,29 +18,55 @@
     <meta property="og:url" content="https://eqro.sit/">
     <meta property="og:title" content="eQro.sit - Complete Platform">
     <meta property="og:description" content="Your ultimate hub for premium PDFs, exclusive shop products, and rich cultural insights.">
-    <meta property="og:image" content="https://via.placeholder.com/1200x630?text=eQro.sit+Platform">
+    <meta property="og:image" content="https://eqro.sit/logo.png">
     
-    <!-- Twitter Meta Tags -->
+    <!-- Twitter & General Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="eQro.sit - Complete Platform">
     <meta name="twitter:description" content="Your ultimate hub for premium PDFs, exclusive shop products, and rich cultural insights.">
+    <meta name="twitter:image" content="https://eqro.sit/logo.png">
+    <meta itemprop="name" content="eQro.sit">
+    <meta itemprop="description" content="Your ultimate hub for premium PDFs, exclusive shop products, and rich cultural insights.">
+    <meta itemprop="image" content="https://eqro.sit/logo.png">
 
-    <!-- JSON-LD Structured Data for Google Search Logo Indexing -->
+    <!-- === GOOGLE SEARCH LOGO SYSTEM (JSON-LD) === -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "eQro.sit",
       "url": "https://eqro.sit/",
-      "logo": "https://eqro.sit/logo.png",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://eqro.sit/logo.png",
+        "width": "512",
+        "height": "512"
+      },
+      "image": "https://eqro.sit/logo.png",
       "sameAs": [
         "https://youtube.com/@shihabsharar-j4p"
       ]
     }
     </script>
     
-    <!-- === FAVICON FOR GOOGLE SEARCH LOGO === -->
-    <link rel="icon" href="https://eqro.sit/logo.png" sizes="any">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "eQro.sit",
+      "url": "https://eqro.sit/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://eqro.sit/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- === FAVICON FOR GOOGLE SEARCH (Google prefers 48x48 multiples) === -->
+    <link rel="icon" href="https://eqro.sit/logo.png" sizes="48x48" type="image/png">
+    <link rel="icon" href="https://eqro.sit/logo.png" sizes="96x96" type="image/png">
+    <link rel="icon" href="https://eqro.sit/logo.png" sizes="144x144" type="image/png">
     <link rel="icon" href="https://eqro.sit/logo.png" type="image/svg+xml">
     <link rel="apple-touch-icon" href="https://eqro.sit/logo.png">
 
@@ -65,141 +91,38 @@
         
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
         
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            padding-bottom: 80px; 
-            overflow-x: hidden;
-        }
+        body { background-color: var(--bg-color); color: var(--text-main); padding-bottom: 80px; overflow-x: hidden; }
 
         /* --- Enhanced Full Screen Loader --- */
         #loader-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at center, #1e293b 0%, #050505 100%);
-            z-index: 9999;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center;
             transition: opacity 0.6s ease, visibility 0.6s ease;
         }
         #loader-overlay.hidden { opacity: 0; visibility: hidden; }
 
-        .bird-loader {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 50px;
-            position: relative;
-        }
+        .bird-loader { display: flex; flex-direction: column; align-items: center; margin-bottom: 50px; position: relative; }
+        .flying-wrapper { position: absolute; top: -40px; animation: majesticFly 4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite; z-index: 3; filter: drop-shadow(0 0 10px var(--glow-color)); }
+        .wings { display: flex; gap: 6px; }
+        .wing { width: 65px; height: 28px; background: linear-gradient(135deg, #ffffff, var(--fade-sky-blue)); border-radius: 50px 50px 0 50px; transform-origin: bottom right; animation: flapLeft 0.5s ease-in-out infinite alternate; box-shadow: 0 0 20px var(--glow-color); }
+        .wing.right { border-radius: 50px 50px 50px 0; transform-origin: bottom left; animation: flapRight 0.5s ease-in-out infinite alternate; }
         
-        /* Smooth floating wrapper */
-        .flying-wrapper {
-            position: absolute;
-            top: -40px;
-            animation: majesticFly 4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-            z-index: 3;
-            filter: drop-shadow(0 0 10px var(--glow-color));
-        }
+        .q-mark { font-size: 8rem; font-weight: 900; color: transparent; -webkit-text-stroke: 2px var(--fade-sky-blue); text-shadow: 0 0 40px var(--glow-color), 0 0 80px rgba(135, 206, 250, 0.3); animation: pulseQ 2s ease-in-out infinite alternate; margin-top: 20px; position: relative; }
 
-        .wings {
-            display: flex;
-            gap: 6px;
-        }
-        
-        .wing {
-            width: 65px;
-            height: 28px;
-            background: linear-gradient(135deg, #ffffff, var(--fade-sky-blue));
-            border-radius: 50px 50px 0 50px;
-            transform-origin: bottom right;
-            animation: flapLeft 0.5s ease-in-out infinite alternate;
-            box-shadow: 0 0 20px var(--glow-color);
-        }
-        
-        .wing.right {
-            border-radius: 50px 50px 50px 0;
-            transform-origin: bottom left;
-            animation: flapRight 0.5s ease-in-out infinite alternate;
-        }
-        
-        /* Enhanced Q Mark */
-        .q-mark {
-            font-size: 8rem;
-            font-weight: 900;
-            color: transparent;
-            -webkit-text-stroke: 2px var(--fade-sky-blue);
-            text-shadow: 0 0 40px var(--glow-color), 0 0 80px rgba(135, 206, 250, 0.3);
-            animation: pulseQ 2s ease-in-out infinite alternate;
-            margin-top: 20px;
-            position: relative;
-        }
+        .loader-tags { display: flex; flex-direction: column; gap: 15px; align-items: center; width: 90%; max-width: 420px; perspective: 1000px; }
+        .tag-line { background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.03)); border-left: 4px solid var(--fade-sky-blue); border-right: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 14px 22px; border-radius: 8px; font-size: 1.05rem; font-weight: 600; width: 100%; box-shadow: 0 10px 20px rgba(0,0,0,0.4); opacity: 0; transform: translateX(-50px) rotateX(20deg); animation: tagDynamicBecome 4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; animation-delay: var(--delay); backdrop-filter: blur(8px); letter-spacing: 0.5px; }
 
-        /* Enhanced Tag Paper Lines */
-        .loader-tags {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            align-items: center;
-            width: 90%;
-            max-width: 420px;
-            perspective: 1000px;
-        }
-
-        .tag-line {
-            background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.03));
-            border-left: 4px solid var(--fade-sky-blue);
-            border-right: 1px solid rgba(255,255,255,0.1);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            color: #fff;
-            padding: 14px 22px;
-            border-radius: 8px;
-            font-size: 1.05rem;
-            font-weight: 600;
-            width: 100%;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-            opacity: 0;
-            transform: translateX(-50px) rotateX(20deg);
-            animation: tagDynamicBecome 4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            animation-delay: var(--delay);
-            backdrop-filter: blur(8px);
-            letter-spacing: 0.5px;
-        }
-
-        @keyframes majesticFly {
-            0% { transform: translate(-120px, 30px) scale(0.8) rotate(-20deg); }
-            50% { transform: translate(0px, -50px) scale(1.3) rotate(0deg); }
-            100% { transform: translate(120px, 30px) scale(0.8) rotate(20deg); }
-        }
-
-        @keyframes flapLeft {
-            0% { transform: rotate(15deg); }
-            100% { transform: rotate(65deg); }
-        }
-        
-        @keyframes flapRight {
-            0% { transform: rotate(-15deg); }
-            100% { transform: rotate(-65deg); }
-        }
-        
-        @keyframes pulseQ {
-            0% { transform: scale(0.95); opacity: 0.6; text-shadow: 0 0 20px var(--glow-color); }
-            100% { transform: scale(1.05); opacity: 1; color: var(--fade-sky-blue); text-shadow: 0 0 60px var(--glow-color), 0 0 100px rgba(255,255,255,0.4); }
-        }
-
-        @keyframes tagDynamicBecome {
-            0% { opacity: 0; transform: translateX(-50px) scale(0.9) rotateX(20deg); }
-            15% { opacity: 1; transform: translateX(0) scale(1) rotateX(0deg); }
-            85% { opacity: 1; transform: translateX(0) scale(1) rotateX(0deg); }
-            100% { opacity: 0; transform: translateX(50px) scale(0.95) rotateX(-20deg); }
-        }
+        @keyframes majesticFly { 0% { transform: translate(-120px, 30px) scale(0.8) rotate(-20deg); } 50% { transform: translate(0px, -50px) scale(1.3) rotate(0deg); } 100% { transform: translate(120px, 30px) scale(0.8) rotate(20deg); } }
+        @keyframes flapLeft { 0% { transform: rotate(15deg); } 100% { transform: rotate(65deg); } }
+        @keyframes flapRight { 0% { transform: rotate(-15deg); } 100% { transform: rotate(-65deg); } }
+        @keyframes pulseQ { 0% { transform: scale(0.95); opacity: 0.6; text-shadow: 0 0 20px var(--glow-color); } 100% { transform: scale(1.05); opacity: 1; color: var(--fade-sky-blue); text-shadow: 0 0 60px var(--glow-color), 0 0 100px rgba(255,255,255,0.4); } }
+        @keyframes tagDynamicBecome { 0% { opacity: 0; transform: translateX(-50px) scale(0.9) rotateX(20deg); } 15% { opacity: 1; transform: translateX(0) scale(1) rotateX(0deg); } 85% { opacity: 1; transform: translateX(0) scale(1) rotateX(0deg); } 100% { opacity: 0; transform: translateX(50px) scale(0.95) rotateX(-20deg); } }
 
         /* --- Header & Banner --- */
-        .app-header {
-            background: var(--surface); padding: 10px 20px; display: flex; align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; gap: 15px;
-        }
+        .app-header { background: var(--surface); padding: 10px 20px; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; gap: 15px; }
         .header-logo { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 1px solid #ddd; }
         .header-title { font-size: 1.4rem; font-weight: 800; color: var(--primary-dark); }
-
         .banner-container { width: 100%; height: 180px; background: #ddd; position: relative; overflow: hidden; }
         .banner-img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease-in-out; }
 
@@ -213,19 +136,16 @@
         .section { display: none; padding: 0 15px 15px; }
         .section.active { display: block; }
         .section-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 20px; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+        .grid-container, .mixed-grid-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
 
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-        .mixed-grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
-
-        /* --- Standard Cards --- */
+        /* --- Cards --- */
         .card { background: var(--surface); border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; flex-direction: column; transition: transform 0.2s; }
         .card:hover { transform: translateY(-3px); }
-        .card-img { width: 100%; height: 140px; object-fit: cover; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: #94a3b8; }
+        .card-img { width: 100%; aspect-ratio: 1 / 1; height: auto; object-fit: cover; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: #94a3b8; }
         .card-content { padding: 12px; display: flex; flex-direction: column; flex: 1; }
         .card-badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; margin-bottom: 8px; width: max-content; }
         .badge-pdf { background: #fee2e2; color: #dc2626; }
         .badge-product { background: #e0e7ff; color: #4f46e5; }
-        
         .card-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 5px; color: #050505; }
         .card-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; flex: 1; }
         .card-price { font-size: 1.1rem; font-weight: 800; color: var(--secondary); margin-bottom: 10px; }
@@ -236,7 +156,7 @@
         .btn-danger { background: var(--danger); color: white; }
         .btn-whatsapp { background: #25D366; color: white; text-decoration: none; }
 
-        /* --- FACEBOOK STYLE CULTURE FEED --- */
+        /* --- Culture Feed --- */
         .fb-feed { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
         .fb-card { background: var(--surface); border-radius: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; }
         .fb-header { padding: 12px 15px; display: flex; align-items: center; gap: 10px; }
@@ -248,7 +168,6 @@
         .fb-img-container { width: 100%; background: #000; display: flex; justify-content: center; align-items: center; }
         .fb-img { width: 100%; max-height: 600px; object-fit: contain; }
 
-        /* --- Floating WhatsApp Button --- */
         .floating-wa { position: fixed; bottom: 80px; right: 20px; background-color: #25D366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 2000; text-decoration: none; }
 
         /* --- Admin Panel --- */
@@ -260,8 +179,8 @@
         .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; }
         .admin-list-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
         .admin-list-item img { width: 40px; height: 40px; border-radius: 5px; object-fit: cover; margin-right: 10px; }
+        .admin-list-item video { width: 40px; height: 40px; border-radius: 5px; object-fit: cover; margin-right: 10px; background: #000; }
 
-        /* --- Bottom Navigation --- */
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--surface); display: flex; justify-content: space-around; padding: 10px 0 15px; box-shadow: 0 -1px 5px rgba(0,0,0,0.05); z-index: 1000; }
         .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-muted); font-size: 0.75rem; cursor: pointer; width: 20%; }
         .nav-item i { font-size: 1.3rem; margin-bottom: 4px; }
@@ -269,20 +188,64 @@
 
         @media (min-width: 768px) {
             .banner-container { height: 350px; }
-            .grid-container { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
-            .mixed-grid-container { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+            .grid-container, .mixed-grid-container { grid-template-columns: repeat(4, 1fr); }
         }
 
-        /* --- Notifications --- */
         .notification { position: fixed; top: 20px; right: 20px; background: #10b981; color: white; padding: 15px 20px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 4000; transform: translateX(400px); transition: transform 0.3s ease; font-weight: 600; }
         .notification.show { transform: translateX(0); }
         .notification.error { background: var(--danger); }
         .notification.info { background: var(--primary); }
+
+        /* --- AD SYSTEM CSS --- */
+        #ad-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: none;
+            flex-direction: column;
+            align-items: center; justify-content: center;
+        }
+        
+        .ad-container {
+            width: 90vw;
+            max-width: 1024px;
+            max-height: 1024px;
+            aspect-ratio: 1 / 1;
+            background: #000;
+            position: relative;
+            box-shadow: 0 0 20px rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .ad-media { width: 100%; height: 100%; object-fit: contain; }
+        
+        .ad-skip-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 10px 24px;
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+            display: none; /* Shows after 10s */
+            z-index: 10001;
+            transition: background 0.3s;
+        }
+        .ad-skip-btn:hover { background: rgba(255, 255, 255, 0.4); }
+
     </style>
 </head>
 <body>
 
-    <!-- Loader Overlay with Enhanced Wing Animation and Tags -->
+    <!-- Loader Overlay -->
     <div id="loader-overlay">
         <div class="bird-loader">
             <div class="flying-wrapper">
@@ -302,25 +265,29 @@
         </div>
     </div>
     
+    <!-- AD Overlay System -->
+    <div id="ad-overlay">
+        <div class="ad-container" id="ad-media-container">
+            <button id="ad-skip-btn" class="ad-skip-btn" onclick="skipAd()">Skip Ad <i class="fas fa-forward"></i></button>
+        </div>
+    </div>
+
     <div id="notification" class="notification"></div>
 
-    <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/8801920037889" class="floating-wa" id="floatingWaBtn" target="_blank" aria-label="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <!-- Header -->
     <header class="app-header">
-        <img id="siteLogo" src="https://via.placeholder.com/50?text=Logo" alt="eQro Logo" class="header-logo">
+        <img id="siteLogo" src="https://eqro.sit/logo.png" alt="eQro Logo" class="header-logo" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
         <div class="header-title">eQro.sit</div>
     </header>
 
-    <!-- Rotating Banner -->
     <div class="banner-container">
         <img id="bannerImage" src="https://via.placeholder.com/800x300?text=Welcome+to+eQro.sit" class="banner-img" alt="Promotional Banner">
     </div>
 
-    <!-- Search Bar -->
     <div class="search-container" style="text-align: center; padding: 25px 15px; background: transparent; box-shadow: none;">
         <div class="search-box" style="max-width: 580px; margin: 0 auto; background: #fff; border: 1px solid #dfe1e5; box-shadow: 0 1px 6px rgba(32,33,36,.28); border-radius: 24px; padding: 6px 20px;">
             <i class="fas fa-search" style="color: #9aa0a6;"></i>
@@ -374,15 +341,32 @@
             <div class="admin-box" id="adminDashboard" style="display: none;">
                 <h3 style="margin-bottom: 20px; color: var(--primary-dark);"><i class="fas fa-cogs"></i> Admin Dashboard</h3>
                 
+                <!-- SEPARATE ADVERTISEMENT UPLOAD & DELETE SECTION -->
+                <div class="admin-section" style="background: #f0fdf4; border-color: #10b981;">
+                    <h4><i class="fas fa-ad"></i> Manage & Delete Advertisements</h4>
+                    <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">Upload Image or Video ads (Will run 1024x1024 square ratio).</p>
+                    
+                    <input type="text" id="adminAdSearch" placeholder="Search ads by ID or Type..." onkeyup="renderAdsList()" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 15px;">
+                    
+                    <div class="form-group">
+                        <label>Ad Media (Image or Video)</label>
+                        <input type="file" id="adminAdFile" accept="image/*,video/*">
+                    </div>
+                    <button class="btn btn-primary" style="background: #10b981;" onclick="uploadAd(event)">Upload Advertisement</button>
+                    
+                    <!-- Distinct Ads List -->
+                    <div id="adminAdsList" style="margin-top: 15px; border-top: 1px solid #10b981; padding-top: 15px;"></div>
+                </div>
+
                 <div class="admin-section" style="background: #fffbeeb3; border-color: var(--secondary);">
-                    <h4><i class="fas fa-search"></i> Delete Data</h4>
-                    <input type="text" id="adminDeleteSearch" placeholder="Search data by title..." onkeyup="renderAdminLists()" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc;">
+                    <h4><i class="fas fa-search"></i> Delete Normal Data</h4>
+                    <input type="text" id="adminDeleteSearch" placeholder="Search posts, PDFs, or products by title..." onkeyup="renderNormalLists()" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc;">
                 </div>
 
                 <div class="admin-section">
                     <h4><i class="fas fa-paint-brush"></i> Identity & Banners</h4>
                     <div class="form-group">
-                        <label>Update Site Logo</label>
+                        <label>Update Site Logo (Affects Google Search Icon)</label>
                         <input type="file" id="adminLogoFile" accept="image/*">
                         <button class="btn btn-primary" onclick="updateLogo()">Upload Logo</button>
                     </div>
@@ -440,10 +424,8 @@
     </nav>
 
     <script>
-        // Track when page started loading to enforce 4 seconds
         const appStartTime = Date.now();
 
-        // --- SAFE LOCAL DATABASE CACHING ---
         const dbPromise = new Promise((resolve, reject) => {
             try {
                 const req = indexedDB.open('eQroDB_Cache', 1);
@@ -491,7 +473,7 @@
         const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
         let CURRENT_ADMIN_PASS = "Shi567hab"; 
-        let pdfs = [], products = [], cultures = [], banners = [], siteLogo = "";
+        let pdfs = [], products = [], cultures = [], banners = [], ads = [], siteLogo = "";
         let currentActiveTab = 'home'; 
 
         // UI Logic
@@ -529,6 +511,18 @@
             reader.onerror = error => resolve(null); 
         });
 
+        function base64ToBlob(base64Data) {
+            const parts = base64Data.split(';');
+            const mime = parts[0].split(':')[1];
+            const raw = window.atob(parts[1].split(',')[1]);
+            const rawLength = raw.length;
+            const uInt8Array = new Uint8Array(rawLength);
+            for (let i = 0; i < rawLength; ++i) {
+                uInt8Array[i] = raw.charCodeAt(i);
+            }
+            return new Blob([uInt8Array], { type: mime });
+        }
+
         function showNotification(message, type = 'success') {
             const notif = document.getElementById('notification');
             if(!notif) return;
@@ -539,8 +533,7 @@
 
         function hideLoader() {
             const elapsed = Date.now() - appStartTime;
-            const delayTime = Math.max(0, 4200 - elapsed); // 4.2 sec total (4s animation + 0.2s padding)
-
+            const delayTime = Math.max(0, 4200 - elapsed);
             setTimeout(() => {
                 const loader = document.getElementById('loader-overlay');
                 if(loader) {
@@ -550,21 +543,18 @@
             }, delayTime);
         }
 
-        // --- Fetch Data safely & FAST (Stale-While-Revalidate) ---
+        // --- Fetch Data ---
         async function fetchInitialData() {
             try {
-                const [cachedBanners, cachedPdfs, cachedProducts, cachedCultures, cachedLogo] = await Promise.all([
-                    loadLocalData('banners'),
-                    loadLocalData('pdfs'),
-                    loadLocalData('products'),
-                    loadLocalData('culture'),
-                    loadLocalData('siteLogo')
+                const [cachedBanners, cachedPdfs, cachedProducts, cachedCultures, cachedLogo, cachedAds] = await Promise.all([
+                    loadLocalData('banners'), loadLocalData('pdfs'), loadLocalData('products'), loadLocalData('culture'), loadLocalData('siteLogo'), loadLocalData('ads')
                 ]);
 
                 if (cachedBanners) banners = cachedBanners;
                 if (cachedPdfs) pdfs = cachedPdfs;
                 if (cachedProducts) products = cachedProducts;
                 if (cachedCultures) cultures = cachedCultures;
+                if (cachedAds) ads = cachedAds;
                 
                 if (cachedLogo) {
                     siteLogo = cachedLogo;
@@ -577,20 +567,14 @@
                     renderActiveView('');
                     hideLoader();
                 }
-            } catch(err) {
-                console.error("Cache load error", err);
-            }
+            } catch(err) { console.error("Cache load error", err); }
 
             try {
                 const { data: settingsData } = await supabaseClient.from('settings').select('*');
                 if (settingsData && Array.isArray(settingsData)) {
                     const passRow = settingsData.find(s => s.key === 'admin_pass');
                     if (passRow?.value) CURRENT_ADMIN_PASS = passRow.value;
-                    else {
-                        const localPass = await loadLocalData('admin_pass');
-                        if (localPass) CURRENT_ADMIN_PASS = localPass;
-                    }
-
+                    
                     const logoRow = settingsData.find(s => s.key === 'logo');
                     if (logoRow?.value && logoRow.value !== siteLogo) {
                         siteLogo = logoRow.value;
@@ -600,25 +584,88 @@
                     }
                 }
 
-                const [banRes, pdfData, prodData, cultData] = await Promise.all([
+                const [banRes, pdfData, prodData, cultData, adData] = await Promise.all([
                     supabaseClient.from('banners').select('*').limit(10),
                     supabaseClient.from('pdfs').select('id, name, size, coverImage, fileSize').order('id', { ascending: false }).limit(20),
                     supabaseClient.from('products').select('*').order('id', { ascending: false }).limit(20),
-                    supabaseClient.from('culture').select('*').order('id', { ascending: false }).limit(20)
+                    supabaseClient.from('culture').select('*').order('id', { ascending: false }).limit(20),
+                    supabaseClient.from('ads').select('*').order('id', { ascending: false })
                 ]);
 
                 if (banRes.data) { banners = banRes.data; saveLocalData('banners', banners); }
                 if (pdfData.data) { pdfs = pdfData.data; saveLocalData('pdfs', pdfs); }
                 if (prodData.data) { products = prodData.data; saveLocalData('products', products); }
                 if (cultData.data) { cultures = cultData.data; saveLocalData('culture', cultures); }
+                
+                // Keep local cache if remote fetch fails entirely (preserves Ads from being deleted on reload)
+                if (adData.data && !adData.error) { 
+                    ads = adData.data; 
+                    saveLocalData('ads', ads); 
+                } else if (adData.error) {
+                    console.error("Ad fetch issue:", adData.error);
+                }
 
                 startBannerRotation();
                 renderActiveView('');
-            } catch (err) { 
-                console.error("Supabase Fetch Error", err); 
-            } finally {
-                hideLoader();
+                initAdSystem(); // Initialize Ad Schedule
+            } catch (err) { console.error("Supabase Fetch Error", err); } 
+            finally { hideLoader(); }
+        }
+
+        // --- AD SYSTEM LOGIC ---
+        function initAdSystem() {
+            // First Ad triggers at 50 Seconds
+            setTimeout(() => {
+                showRandomAd();
+                // Second Ad triggers at 5 Minutes (300,000ms later)
+                setTimeout(() => {
+                    showRandomAd();
+                    // Subsequent ads trigger every 7 minutes (420,000ms)
+                    setInterval(() => {
+                        showRandomAd();
+                    }, 7 * 60 * 1000); 
+                }, 5 * 60 * 1000); 
+            }, 50000); 
+        }
+
+        function showRandomAd() {
+            if(!ads || ads.length === 0) return;
+            const ad = ads[Math.floor(Math.random() * ads.length)];
+            
+            const overlay = document.getElementById('ad-overlay');
+            const container = document.getElementById('ad-media-container');
+            const skipBtn = document.getElementById('ad-skip-btn');
+            
+            // Clean up existing media
+            const existingMedia = container.querySelector('.ad-media');
+            if(existingMedia) existingMedia.remove();
+            
+            // Inject Ad Media
+            if (ad.mediaType === 'video') {
+                container.insertAdjacentHTML('afterbegin', `<video src="${ad.mediaData}" class="ad-media" autoplay playsinline loop muted></video>`);
+            } else {
+                container.insertAdjacentHTML('afterbegin', `<img src="${ad.mediaData}" class="ad-media" alt="Advertisement">`);
             }
+            
+            // Display overlay but hide skip button initially
+            skipBtn.style.display = 'none';
+            overlay.style.display = 'flex';
+            
+            // Show Skip Mark after exactly 10 seconds
+            setTimeout(() => {
+                if(overlay.style.display === 'flex') {
+                    skipBtn.style.display = 'block';
+                }
+            }, 10000);
+        }
+
+        function skipAd() {
+            const overlay = document.getElementById('ad-overlay');
+            const container = document.getElementById('ad-media-container');
+            
+            overlay.style.display = 'none';
+            const existingMedia = container.querySelector('.ad-media');
+            if (existingMedia) existingMedia.remove(); // Stop video logic
         }
 
         let currentBannerIdx = 0, bannerInterval;
@@ -700,7 +747,10 @@
                     const el = document.getElementById('cultureGrid');
                     if(el) el.innerHTML = f.length ? f.map(getCultureHtml).join('') : '<p>No QhUb posts.</p>';
                 }
-                else if (currentActiveTab === 'admin') renderAdminLists();
+                else if (currentActiveTab === 'admin') {
+                    renderAdsList();
+                    renderNormalLists();
+                }
             } catch(err) { console.error("Render UI Error:", err); }
         }
 
@@ -711,18 +761,21 @@
                 if(error || !data || !data.fileData) throw new Error("File not found");
 
                 const pdf = pdfs.find(p => p.id == id);
-                fetch(data.fileData).then(res => res.blob()).then(blob => {
-                    const blobUrl = URL.createObjectURL(blob);
-                    if(actionType === 'download') {
-                        const a = document.createElement('a');
-                        a.href = blobUrl; a.download = pdf?.name || 'document.pdf'; a.click();
-                        showNotification('Download Started!');
-                    } else {
-                        window.open(blobUrl, '_blank');
-                        showNotification('Opening PDF...');
-                    }
-                }).catch(()=>showNotification('Error rendering file', 'error'));
-            } catch (err) { showNotification('Failed to load PDF file', 'error'); }
+                const blob = base64ToBlob(data.fileData);
+                const blobUrl = URL.createObjectURL(blob);
+                
+                if(actionType === 'download') {
+                    const a = document.createElement('a');
+                    a.href = blobUrl; a.download = pdf?.name || 'document.pdf'; a.click();
+                    showNotification('Download Started!');
+                } else {
+                    window.open(blobUrl, '_blank');
+                    showNotification('Opening PDF...');
+                }
+            } catch (err) { 
+                console.error(err);
+                showNotification('Failed to load PDF file', 'error'); 
+            }
         }
 
         // --- Admin ---
@@ -732,13 +785,14 @@
                 document.getElementById('adminLoginBox').style.display = 'none';
                 document.getElementById('adminDashboard').style.display = 'block';
                 showNotification('Admin Logged In!');
-                renderAdminLists();
+                renderAdsList();
+                renderNormalLists();
             } else { showNotification('Wrong Password', 'error'); }
         }
 
         async function changeAdminPassword() {
             const newPass = document.getElementById('newAdminPass').value;
-            if(!newPass || newPass.length < 4) return showNotification('Password too short (Min 4 chars)', 'error');
+            if(!newPass || newPass.length < 4) return showNotification('Password too short', 'error');
             
             CURRENT_ADMIN_PASS = newPass;
             await saveLocalData('admin_pass', newPass);
@@ -768,8 +822,35 @@
             const newBan = { id: Date.now(), image: base64 };
             try { await supabaseClient.from('banners').insert([newBan]); } catch(e){}
             banners.push(newBan); await saveLocalData('banners', banners);
-            startBannerRotation(); if (currentActiveTab === 'admin') renderAdminLists();
+            startBannerRotation(); if (currentActiveTab === 'admin') renderNormalLists();
             showNotification('Banner Added!');
+        }
+
+        async function uploadAd(e) {
+            const file = document.getElementById('adminAdFile')?.files[0];
+            if(!file) return showNotification('Please select an Ad image or video', 'error');
+            
+            e.target.innerText = "Uploading Ad...";
+            const base64 = await fileToBase64(file);
+            const isVideo = file.type.startsWith('video/');
+            
+            if(!base64) { e.target.innerText = "Upload Advertisement"; return showNotification('Error reading media', 'error'); }
+            
+            const newAd = { id: Date.now(), mediaData: base64, mediaType: isVideo ? 'video' : 'image' };
+            try { 
+                const { error } = await supabaseClient.from('ads').insert([newAd]); 
+                if (error) {
+                    console.error("Cloud insert issue:", error);
+                    showNotification('Cloud saving error (file may be too large). Saved locally.', 'error');
+                }
+            } catch(err) { console.error(err); }
+            
+            ads.unshift(newAd); await saveLocalData('ads', ads);
+            if (currentActiveTab === 'admin') renderAdsList();
+            
+            e.target.innerText = "Upload Advertisement"; 
+            document.getElementById('adminAdFile').value = '';
+            showNotification('Advertisement uploaded successfully!');
         }
 
         async function uploadPDF(e) {
@@ -788,7 +869,7 @@
             
             const cachedObj = {...newObj}; delete cachedObj.fileData;
             pdfs.unshift(cachedObj); await saveLocalData('pdfs', pdfs);
-            if (currentActiveTab === 'admin') renderAdminLists();
+            if (currentActiveTab === 'admin') renderNormalLists();
             e.target.innerText = "Upload PDF"; showNotification('PDF Uploaded!');
         }
 
@@ -800,7 +881,7 @@
             const newObj = { id: Date.now(), name, price: parseInt(price), image: imgData };
             try { await supabaseClient.from('products').insert([newObj]); } catch(err){}
             products.unshift(newObj); await saveLocalData('products', products);
-            if (currentActiveTab === 'admin') renderAdminLists();
+            if (currentActiveTab === 'admin') renderNormalLists();
             e.target.innerText = "Add Product"; showNotification('Product Added!');
         }
 
@@ -812,11 +893,31 @@
             const newObj = { id: Date.now(), title, description: desc, image: imgData };
             try { await supabaseClient.from('culture').insert([newObj]); } catch(err){}
             cultures.unshift(newObj); await saveLocalData('culture', cultures);
-            if (currentActiveTab === 'admin') renderAdminLists();
+            if (currentActiveTab === 'admin') renderNormalLists();
             e.target.innerText = "Publish Post"; showNotification('Published!');
         }
 
-        function renderAdminLists() {
+        // Dedicated render function for Ads Delete list
+        function renderAdsList() {
+            try {
+                const q = (document.getElementById('adminAdSearch')?.value || '').toLowerCase();
+                const fAds = ads.filter(a => !q || a.id.toString().includes(q) || a.mediaType.toLowerCase().includes(q));
+                const aList = document.getElementById('adminAdsList'); 
+                if(aList) {
+                    aList.innerHTML = fAds.map(a => `
+                        <div class="admin-list-item">
+                            <div style="display:flex; align-items:center;">
+                                ${a.mediaType === 'video' ? `<video src="${a.mediaData}" muted></video>` : `<img src="${a.mediaData}">`}
+                                <span>Ad ID: ${a.id} <br><small>(${a.mediaType.toUpperCase()})</small></span> 
+                            </div>
+                            <button class="btn btn-danger" onclick="deleteItem('ads', ${a.id})"><i class="fas fa-trash"></i> Delete Ad</button>
+                        </div>`).join('');
+                }
+            } catch(e) {}
+        }
+
+        // General render function for Products, PDFs, Culture, and Banners
+        function renderNormalLists() {
             try {
                 const q = (document.getElementById('adminDeleteSearch')?.value || '').toLowerCase();
                 const fBanners = banners.filter(b => !q || b.id.toString().includes(q)); 
@@ -838,8 +939,13 @@
             if(table==='pdfs') { pdfs = pdfs.filter(x => x.id !== id); await saveLocalData('pdfs', pdfs); }
             if(table==='products') { products = products.filter(x => x.id !== id); await saveLocalData('products', products); }
             if(table==='culture') { cultures = cultures.filter(x => x.id !== id); await saveLocalData('culture', cultures); }
-            if (currentActiveTab === 'admin') renderAdminLists();
-            showNotification('Deleted');
+            if(table==='ads') { ads = ads.filter(x => x.id !== id); await saveLocalData('ads', ads); }
+            
+            if (currentActiveTab === 'admin') {
+                if(table === 'ads') renderAdsList();
+                else renderNormalLists();
+            }
+            showNotification('Deleted Successfully');
         }
 
         document.addEventListener('DOMContentLoaded', fetchInitialData);
