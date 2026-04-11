@@ -7,7 +7,7 @@
     
     <!-- === SEO & GOOGLE RANKING TAGS === -->
     <title>eQro.sit - The Complete Platform for Resources & Culture</title>
-    <meta name="description" content="Welcome to eQro.sit - Your ultimate hub for premium PDFs, exclusive shop products, and rich cultural insights. Read, buy, and explore in one seamless platform.">
+    <meta name="description" content="It's the great destination of online education by eQro.sit company.It's made for students earning by research,writing notes or literature,taking online classes etc.Also, here essential pdfs,learning materials are available. It will play vital roles in 'Junior Scolarship~জুনিয়র বৃত্তি পরিক্ষা ','SSC','HSC','Primary Scolarship','Admission','Job preparation, etc. by giving pdf notes. (Insa-Allah).Here students can pulish there any type of research,notes,pdfs by contacting throuh What'sApp.">
     <meta name="keywords" content="eQro, eQro.sit, PDF Hub, Buy Products, Culture, Blog, Resources, Bangladesh, Online Store">
     <meta name="author" content="eQro.sit">
     <meta name="robots" content="index, follow">
@@ -17,16 +17,16 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://eqro.sit/">
     <meta property="og:title" content="eQro.sit - Complete Platform">
-    <meta property="og:description" content="Your ultimate hub for premium PDFs, exclusive shop products, and rich cultural insights.">
+    <meta property="og:description" content="It's the great destination of online education by eQro.sit company.It's made for students earning by research,writing notes or literature,taking online classes etc.Also, here essential pdfs,learning materials are available. It will play vital roles in 'Junior Scolarship~জুনিয়র বৃত্তি পরিক্ষা ','SSC','HSC','Primary Scolarship','Admission','Job preparation, etc. by giving pdf notes. (Insa-Allah).Here students can pulish there any type of research,notes,pdfs by contacting throuh What'sApp.">
     <meta property="og:image" content="https://eqro.sit/logo.png">
     
     <!-- Twitter & General Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="eQro.sit - Complete Platform">
-    <meta name="twitter:description" content="Your ultimate hub for premium PDFs, exclusive shop products, and rich cultural insights.">
+    <meta name="twitter:description" content="It's the great destination of online education by eQro.sit company.It's made for students earning by research,writing notes or literature,taking online classes etc.Also, here essential pdfs,learning materials are available. It will play vital roles in 'Junior Scolarship~জুনিয়র বৃত্তি পরিক্ষা ','SSC','HSC','Primary Scolarship','Admission','Job preparation, etc. by giving pdf notes. (Insa-Allah).Here students can pulish there any type of research,notes,pdfs by contacting throuh What'sApp.">
     <meta name="twitter:image" content="https://eqro.sit/logo.png">
     <meta itemprop="name" content="eQro.sit">
-    <meta itemprop="description" content="Your ultimate hub for premium PDFs, exclusive shop products, and rich cultural insights.">
+    <meta itemprop="description" content="It's the great destination of online education by eQro.sit company.It's made for students earning by research,writing notes or literature,taking online classes etc.Also, here essential pdfs,learning materials are available. It will play vital roles in 'Junior Scolarship~জুনিয়র বৃত্তি পরিক্ষা ','SSC','HSC','Primary Scolarship','Admission','Job preparation, etc. by giving pdf notes. (Insa-Allah).Here students can pulish there any type of research,notes,pdfs by contacting throuh What'sApp.">
     <meta itemprop="image" content="https://eqro.sit/logo.png">
 
     <!-- === GOOGLE SEARCH LOGO SYSTEM (JSON-LD) === -->
@@ -92,6 +92,12 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
         
         body { background-color: var(--bg-color); color: var(--text-main); padding-bottom: 80px; overflow-x: hidden; }
+
+        /* Disable pull-to-refresh when body has ad-active class */
+        body.ad-active {
+            overflow: hidden;
+            overscroll-behavior-y: none;
+        }
 
         /* --- Enhanced Full Screen Loader --- */
         #loader-overlay {
@@ -199,19 +205,22 @@
         /* --- AD SYSTEM CSS --- */
         #ad-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.4); /* Make background transparent instead of solid black */
+            backdrop-filter: blur(3px); /* Add a slight blur to help the ad stand out against the website */
             z-index: 10000;
             display: none;
             flex-direction: column;
             align-items: center; justify-content: center;
+            touch-action: none;          /* Block zooming/swiping on overlay */
+            overscroll-behavior: none;   /* Stop pull to refresh */
         }
         
         .ad-container {
-            width: 90vw;
-            max-width: 1024px;
-            max-height: 1024px;
-            aspect-ratio: 1 / 1;
-            background: #000;
+            width: 1250px;
+            height: 850px;
+            max-width: 95vw;
+            max-height: 95vh;
+            background: transparent; /* Remove solid black background box */
             position: relative;
             box-shadow: 0 0 20px rgba(255,255,255,0.1);
             display: flex;
@@ -226,7 +235,8 @@
         .ad-skip-btn {
             position: absolute;
             bottom: 20px;
-            right: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             background: rgba(255, 255, 255, 0.2);
             color: #fff;
             padding: 10px 24px;
@@ -235,7 +245,7 @@
             cursor: pointer;
             font-weight: 600;
             backdrop-filter: blur(5px);
-            display: none; /* Shows after 10s */
+            display: none; /* Shows after 2s now */
             z-index: 10001;
             transition: background 0.3s;
         }
@@ -344,7 +354,7 @@
                 <!-- SEPARATE ADVERTISEMENT UPLOAD & DELETE SECTION -->
                 <div class="admin-section" style="background: #f0fdf4; border-color: #10b981;">
                     <h4><i class="fas fa-ad"></i> Manage & Delete Advertisements</h4>
-                    <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">Upload Image or Video ads (Will run 1024x1024 square ratio).</p>
+                    <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">Upload Image or Video ads.</p>
                     
                     <input type="text" id="adminAdSearch" placeholder="Search ads by ID or Type..." onkeyup="renderAdsList()" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 15px;">
                     
@@ -476,6 +486,15 @@
         let pdfs = [], products = [], cultures = [], banners = [], ads = [], siteLogo = "";
         let currentActiveTab = 'home'; 
 
+        // Block Refresh shortcut while ad is showing
+        window.addEventListener('beforeunload', function (e) {
+            const adOverlay = document.getElementById('ad-overlay');
+            if (adOverlay && adOverlay.style.display === 'flex') {
+                e.preventDefault();
+                e.returnValue = ''; // Required for some browsers to show a prompt
+            }
+        });
+
         // UI Logic
         document.querySelectorAll('.nav-item').forEach(nav => {
             nav.addEventListener('click', () => switchTab(nav.dataset.target));
@@ -597,9 +616,12 @@
                 if (prodData.data) { products = prodData.data; saveLocalData('products', products); }
                 if (cultData.data) { cultures = cultData.data; saveLocalData('culture', cultures); }
                 
-                // Keep local cache if remote fetch fails entirely (preserves Ads from being deleted on reload)
-                if (adData.data && !adData.error) { 
-                    ads = adData.data; 
+                // IMPORTANT DATA PERSISTENCE FIX
+                // Merge cloud ad data with local data so local ads that failed DB insert (too large) aren't erased 
+                if (adData.data && !adData.error) {
+                    const cloudAdIds = new Set(adData.data.map(a => a.id));
+                    const localOnlyAds = (ads || []).filter(a => !cloudAdIds.has(a.id));
+                    ads = [...adData.data, ...localOnlyAds];
                     saveLocalData('ads', ads); 
                 } else if (adData.error) {
                     console.error("Ad fetch issue:", adData.error);
@@ -613,23 +635,30 @@
         }
 
         // --- AD SYSTEM LOGIC ---
+        let isFirstAd = true; // Added flag to track if it is the 1st ad shown
+
         function initAdSystem() {
-            // First Ad triggers at 50 Seconds
+            // First Ad triggers at 10 Seconds
             setTimeout(() => {
                 showRandomAd();
-                // Second Ad triggers at 5 Minutes (300,000ms later)
-                setTimeout(() => {
+                // Subsequent ads trigger every 3 minutes (180,000ms)
+                setInterval(() => {
                     showRandomAd();
-                    // Subsequent ads trigger every 7 minutes (420,000ms)
-                    setInterval(() => {
-                        showRandomAd();
-                    }, 7 * 60 * 1000); 
-                }, 5 * 60 * 1000); 
-            }, 50000); 
+                }, 3 * 60 * 1000); 
+            }, 10000); 
         }
 
         function showRandomAd() {
             if(!ads || ads.length === 0) return;
+            
+            // For subsequent ads, do NOT show them if user is on the PDF hub page
+            if (!isFirstAd && currentActiveTab === 'pdf') {
+                return;
+            }
+            
+            // Mark that the first ad checking phase has passed
+            isFirstAd = false;
+            
             const ad = ads[Math.floor(Math.random() * ads.length)];
             
             const overlay = document.getElementById('ad-overlay');
@@ -650,13 +679,16 @@
             // Display overlay but hide skip button initially
             skipBtn.style.display = 'none';
             overlay.style.display = 'flex';
+
+            // Add class to body to prevent scrolling & swiping to refresh
+            document.body.classList.add('ad-active');
             
-            // Show Skip Mark after exactly 10 seconds
+            // Show Skip Mark after exactly 2 seconds
             setTimeout(() => {
                 if(overlay.style.display === 'flex') {
                     skipBtn.style.display = 'block';
                 }
-            }, 10000);
+            }, 2000);
         }
 
         function skipAd() {
@@ -664,6 +696,8 @@
             const container = document.getElementById('ad-media-container');
             
             overlay.style.display = 'none';
+            document.body.classList.remove('ad-active'); // Re-enable scrolling & swiping
+            
             const existingMedia = container.querySelector('.ad-media');
             if (existingMedia) existingMedia.remove(); // Stop video logic
         }
