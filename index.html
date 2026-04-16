@@ -18,19 +18,19 @@
     <meta property="og:url" content="https://eqro.sit/">
     <meta property="og:title" content="eQro.sit - Complete Platform">
     <meta property="og:description" content="It's the great destination of online education by eQro.sit company.It's made for students earning by research,writing notes or literature,taking online classes etc.Also, here essential pdfs,learning materials are available. It will play vital roles in 'Junior Scolarship~জুনিয়র বৃত্তি পরিক্ষা ','SSC','HSC','Primary Scolarship','Admission','Job preparation, etc. by giving pdf notes. (Insa-Allah).Here students can pulish there any type of research,notes,pdfs by contacting throuh What'sApp.">
-    <meta property="og:image" content="https://www.genspark.ai/api/files/s/wmFLMAo8">
+    <meta property="og:image" id="meta-og-image" content="https://via.placeholder.com/512?text=eQro">
     
     <!-- Twitter & General Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="eQro.sit - Complete Platform">
     <meta name="twitter:description" content="It's the great destination of online education by eQro.sit company.It's made for students earning by research,writing notes or literature,taking online classes etc.Also, here essential pdfs,learning materials are available. It will play vital roles in 'Junior Scolarship~জুনিয়র বৃত্তি পরিক্ষা ','SSC','HSC','Primary Scolarship','Admission','Job preparation, etc. by giving pdf notes. (Insa-Allah).Here students can pulish there any type of research,notes,pdfs by contacting throuh What'sApp.">
-    <meta name="twitter:image" content="https://www.genspark.ai/api/files/s/wmFLMAo8">
+    <meta name="twitter:image" id="meta-twitter-image" content="https://via.placeholder.com/512?text=eQro">
     <meta itemprop="name" content="eQro.sit">
     <meta itemprop="description" content="It's the great destination of online education by eQro.sit company.It's made for students earning by research,writing notes or literature,taking online classes etc.Also, here essential pdfs,learning materials are available. It will play vital roles in 'Junior Scolarship~জুনিয়র বৃত্তি পরিক্ষা ','SSC','HSC','Primary Scolarship','Admission','Job preparation, etc. by giving pdf notes. (Insa-Allah).Here students can pulish there any type of research,notes,pdfs by contacting throuh What'sApp.">
-    <meta itemprop="image" content="https://www.genspark.ai/api/files/s/wmFLMAo8">
+    <meta itemprop="image" id="meta-itemprop-image" content="https://via.placeholder.com/512?text=eQro">
 
     <!-- === GOOGLE SEARCH LOGO SYSTEM (JSON-LD) === -->
-    <script type="application/ld+json">
+    <script type="application/ld+json" id="schema-org">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -38,11 +38,11 @@
       "url": "https://eqro.sit/",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.genspark.ai/api/files/s/wmFLMAo8",
+        "url": "https://via.placeholder.com/512?text=eQro",
         "width": "512",
         "height": "512"
       },
-      "image": "https://www.genspark.ai/api/files/s/wmFLMAo8",
+      "image": "https://via.placeholder.com/512?text=eQro",
       "sameAs": [
         "https://youtube.com/@shihabsharar-j4p"
       ]
@@ -63,12 +63,12 @@
     }
     </script>
 
-    <!-- === FAVICON FOR GOOGLE SEARCH (Google prefers 48x48 multiples) === -->
-    <link rel="icon" href="https://www.genspark.ai/api/files/s/wmFLMAo8" sizes="48x48" type="image/png">
-    <link rel="icon" href="https://www.genspark.ai/api/files/s/wmFLMAo8" sizes="96x96" type="image/png">
-    <link rel="icon" href="https://www.genspark.ai/api/files/s/wmFLMAo8" sizes="144x144" type="image/png">
-    <link rel="icon" href="https://www.genspark.ai/api/files/s/wmFLMAo8" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="https://www.genspark.ai/api/files/s/wmFLMAo8">
+    <!-- === DYNAMIC FAVICON (Updated automatically via JS) === -->
+    <link rel="icon" id="favicon-48" sizes="48x48" type="image/png" href="https://via.placeholder.com/48?text=Q">
+    <link rel="icon" id="favicon-96" sizes="96x96" type="image/png" href="https://via.placeholder.com/96?text=Q">
+    <link rel="icon" id="favicon-144" sizes="144x144" type="image/png" href="https://via.placeholder.com/144?text=Q">
+    <link rel="icon" id="favicon-svg" type="image/svg+xml" href="https://via.placeholder.com/512?text=Q">
+    <link rel="apple-touch-icon" id="favicon-apple" href="https://via.placeholder.com/180?text=Q">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -290,7 +290,7 @@
 
     <!-- Header -->
     <header class="app-header">
-        <img id="siteLogo" src="https://www.genspark.ai/api/files/s/wmFLMAo8" alt="eQro Logo" class="header-logo" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
+        <img id="siteLogo" src="https://via.placeholder.com/50?text=Logo" alt="eQro Logo" class="header-logo" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
         <div class="header-title">eQro.sit</div>
     </header>
 
@@ -376,7 +376,7 @@
                 <div class="admin-section">
                     <h4><i class="fas fa-paint-brush"></i> Identity & Banners</h4>
                     <div class="form-group">
-                        <label>Update Site Logo (Affects Google Search Icon)</label>
+                        <label>Update Site Logo (Affects Google Search & Header)</label>
                         <input type="file" id="adminLogoFile" accept="image/*">
                         <button class="btn btn-primary" onclick="updateLogo()">Upload Logo</button>
                     </div>
@@ -495,6 +495,37 @@
             }
         });
 
+        // === NEW: Update Meta Tags & Favicon Dynamically ===
+        function applyLogoToMetaTags(logoBase64) {
+            if (!logoBase64) return;
+            
+            // 1. Update OpenGraph & Twitter Images
+            const ogImage = document.getElementById('meta-og-image');
+            if(ogImage) ogImage.setAttribute('content', logoBase64);
+            
+            const twImage = document.getElementById('meta-twitter-image');
+            if(twImage) twImage.setAttribute('content', logoBase64);
+            
+            const itemImage = document.getElementById('meta-itemprop-image');
+            if(itemImage) itemImage.setAttribute('content', logoBase64);
+
+            // 2. Update Favicons dynamically
+            document.querySelectorAll('link[rel="icon"], link[rel="apple-touch-icon"]').forEach(link => {
+                link.href = logoBase64;
+            });
+
+            // 3. Update Google Search Schema dynamically
+            const schemaOrg = document.getElementById('schema-org');
+            if(schemaOrg) {
+                try {
+                    let schemaData = JSON.parse(schemaOrg.innerHTML);
+                    schemaData.logo.url = logoBase64;
+                    schemaData.image = logoBase64;
+                    schemaOrg.innerHTML = JSON.stringify(schemaData);
+                } catch(e) {}
+            }
+        }
+
         // UI Logic
         document.querySelectorAll('.nav-item').forEach(nav => {
             nav.addEventListener('click', () => switchTab(nav.dataset.target));
@@ -579,6 +610,7 @@
                     siteLogo = cachedLogo;
                     const el = document.getElementById('siteLogo');
                     if(el) el.src = siteLogo;
+                    applyLogoToMetaTags(siteLogo); // Apply cached logo immediately
                 }
 
                 if (banners.length || pdfs.length || products.length || cultures.length) {
@@ -600,6 +632,7 @@
                         const el = document.getElementById('siteLogo');
                         if(el) el.src = siteLogo;
                         saveLocalData('siteLogo', siteLogo);
+                        applyLogoToMetaTags(siteLogo); // Apply new fetched logo
                     }
                 }
 
@@ -616,32 +649,26 @@
                 if (prodData.data) { products = prodData.data; saveLocalData('products', products); }
                 if (cultData.data) { cultures = cultData.data; saveLocalData('culture', cultures); }
                 
-                // IMPORTANT DATA PERSISTENCE FIX
-                // Merge cloud ad data with local data so local ads that failed DB insert (too large) aren't erased 
                 if (adData.data && !adData.error) {
                     const cloudAdIds = new Set(adData.data.map(a => a.id));
                     const localOnlyAds = (ads || []).filter(a => !cloudAdIds.has(a.id));
                     ads = [...adData.data, ...localOnlyAds];
                     saveLocalData('ads', ads); 
-                } else if (adData.error) {
-                    console.error("Ad fetch issue:", adData.error);
                 }
 
                 startBannerRotation();
                 renderActiveView('');
-                initAdSystem(); // Initialize Ad Schedule
+                initAdSystem(); 
             } catch (err) { console.error("Supabase Fetch Error", err); } 
             finally { hideLoader(); }
         }
 
         // --- AD SYSTEM LOGIC ---
-        let isFirstAd = true; // Added flag to track if it is the 1st ad shown
+        let isFirstAd = true; 
 
         function initAdSystem() {
-            // First Ad triggers at 10 Seconds
             setTimeout(() => {
                 showRandomAd();
-                // Subsequent ads trigger every 3 minutes (180,000ms)
                 setInterval(() => {
                     showRandomAd();
                 }, 3 * 60 * 1000); 
@@ -651,12 +678,10 @@
         function showRandomAd() {
             if(!ads || ads.length === 0) return;
             
-            // For subsequent ads, do NOT show them if user is on the PDF hub page
             if (!isFirstAd && currentActiveTab === 'pdf') {
                 return;
             }
             
-            // Mark that the first ad checking phase has passed
             isFirstAd = false;
             
             const ad = ads[Math.floor(Math.random() * ads.length)];
@@ -665,25 +690,20 @@
             const container = document.getElementById('ad-media-container');
             const skipBtn = document.getElementById('ad-skip-btn');
             
-            // Clean up existing media
             const existingMedia = container.querySelector('.ad-media');
             if(existingMedia) existingMedia.remove();
             
-            // Inject Ad Media
             if (ad.mediaType === 'video') {
                 container.insertAdjacentHTML('afterbegin', `<video src="${ad.mediaData}" class="ad-media" autoplay playsinline loop muted></video>`);
             } else {
                 container.insertAdjacentHTML('afterbegin', `<img src="${ad.mediaData}" class="ad-media" alt="Advertisement">`);
             }
             
-            // Display overlay but hide skip button initially
             skipBtn.style.display = 'none';
             overlay.style.display = 'flex';
 
-            // Add class to body to prevent scrolling & swiping to refresh
             document.body.classList.add('ad-active');
             
-            // Show Skip Mark after exactly 2 seconds
             setTimeout(() => {
                 if(overlay.style.display === 'flex') {
                     skipBtn.style.display = 'block';
@@ -696,10 +716,10 @@
             const container = document.getElementById('ad-media-container');
             
             overlay.style.display = 'none';
-            document.body.classList.remove('ad-active'); // Re-enable scrolling & swiping
+            document.body.classList.remove('ad-active'); 
             
             const existingMedia = container.querySelector('.ad-media');
-            if (existingMedia) existingMedia.remove(); // Stop video logic
+            if (existingMedia) existingMedia.remove(); 
         }
 
         let currentBannerIdx = 0, bannerInterval;
@@ -836,16 +856,22 @@
             showNotification('Password Changed Securely!', 'success');
         }
 
+        // === UPGRADED: Trigger Logo Function when Admin Uploads ===
         async function updateLogo() {
             const file = document.getElementById('adminLogoFile')?.files[0];
             if(!file) return;
             const base64 = await fileToBase64(file);
             if(!base64) return showNotification('Error reading image', 'error');
+            
             siteLogo = base64; 
             const el = document.getElementById('siteLogo'); if(el) el.src = base64;
+            
+            // Instantly apply the logo to favicons and SEO schemas
+            applyLogoToMetaTags(siteLogo);
+            
             await saveLocalData('siteLogo', base64);
             try { await supabaseClient.from('settings').upsert({ key: 'logo', value: base64 }); } catch(e){}
-            showNotification('Logo Updated!');
+            showNotification('Logo Updated Successfully!');
         }
 
         async function addBanner() {
