@@ -63,7 +63,7 @@
     }
     </script>
 
-    <!-- === DYNAMIC FAVICON (Updated automatically via JS) === -->
+    <!-- === DYNAMIC FAVICON === -->
     <link rel="icon" id="favicon-48" sizes="48x48" type="image/png" href="https://via.placeholder.com/48?text=Q">
     <link rel="icon" id="favicon-96" sizes="96x96" type="image/png" href="https://via.placeholder.com/96?text=Q">
     <link rel="icon" id="favicon-144" sizes="144x144" type="image/png" href="https://via.placeholder.com/144?text=Q">
@@ -93,13 +93,8 @@
         
         body { background-color: var(--bg-color); color: var(--text-main); padding-bottom: 80px; overflow-x: hidden; }
 
-        /* Disable pull-to-refresh when body has ad-active class */
-        body.ad-active {
-            overflow: hidden;
-            overscroll-behavior-y: none;
-        }
+        body.ad-active { overflow: hidden; overscroll-behavior-y: none; }
 
-        /* --- Enhanced Full Screen Loader --- */
         #loader-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at center, #1e293b 0%, #050505 100%);
@@ -125,7 +120,6 @@
         @keyframes pulseQ { 0% { transform: scale(0.95); opacity: 0.6; text-shadow: 0 0 20px var(--glow-color); } 100% { transform: scale(1.05); opacity: 1; color: var(--fade-sky-blue); text-shadow: 0 0 60px var(--glow-color), 0 0 100px rgba(255,255,255,0.4); } }
         @keyframes tagDynamicBecome { 0% { opacity: 0; transform: translateX(-50px) scale(0.9) rotateX(20deg); } 15% { opacity: 1; transform: translateX(0) scale(1) rotateX(0deg); } 85% { opacity: 1; transform: translateX(0) scale(1) rotateX(0deg); } 100% { opacity: 0; transform: translateX(50px) scale(0.95) rotateX(-20deg); } }
 
-        /* --- Header & Banner --- */
         .app-header { background: var(--surface); padding: 10px 20px; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; gap: 15px; }
         .header-logo { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 1px solid #ddd; }
         .header-title { font-size: 1.4rem; font-weight: 800; color: var(--primary-dark); }
@@ -137,14 +131,12 @@
         .search-box i { color: var(--text-muted); }
         .search-box input { flex: 1; border: none; outline: none; background: transparent; padding: 10px; font-size: 1rem; }
 
-        /* --- Sections & Grids --- */
         #mainContainer { max-width: 1200px; margin: 0 auto; padding-top: 15px; }
         .section { display: none; padding: 0 15px 15px; }
         .section.active { display: block; }
         .section-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 20px; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
         .grid-container, .mixed-grid-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
 
-        /* --- Cards --- */
         .card { background: var(--surface); border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; flex-direction: column; transition: transform 0.2s; }
         .card:hover { transform: translateY(-3px); }
         .card-img { width: 100%; aspect-ratio: 1 / 1; height: auto; object-fit: cover; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: #94a3b8; }
@@ -162,7 +154,6 @@
         .btn-danger { background: var(--danger); color: white; }
         .btn-whatsapp { background: #25D366; color: white; text-decoration: none; }
 
-        /* --- Culture Feed --- */
         .fb-feed { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
         .fb-card { background: var(--surface); border-radius: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; }
         .fb-header { padding: 12px 15px; display: flex; align-items: center; gap: 10px; }
@@ -176,7 +167,6 @@
 
         .floating-wa { position: fixed; bottom: 80px; right: 20px; background-color: #25D366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 2000; text-decoration: none; }
 
-        /* --- Admin Panel --- */
         .admin-box { background: var(--surface); padding: 20px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px; }
         .admin-section { border: 1px solid #e4e6eb; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
         .admin-section h4 { color: var(--primary); margin-bottom: 15px; border-bottom: 2px solid #e4e6eb; padding-bottom: 5px; }
@@ -202,52 +192,31 @@
         .notification.error { background: var(--danger); }
         .notification.info { background: var(--primary); }
 
-        /* --- AD SYSTEM CSS --- */
         #ad-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.4); /* Make background transparent instead of solid black */
-            backdrop-filter: blur(3px); /* Add a slight blur to help the ad stand out against the website */
-            z-index: 10000;
-            display: none;
-            flex-direction: column;
+            background: rgba(0, 0, 0, 0.4); 
+            backdrop-filter: blur(3px); 
+            z-index: 10000; display: none; flex-direction: column;
             align-items: center; justify-content: center;
-            touch-action: none;          /* Block zooming/swiping on overlay */
-            overscroll-behavior: none;   /* Stop pull to refresh */
+            touch-action: none; overscroll-behavior: none;
         }
         
         .ad-container {
-            width: 1250px;
-            height: 850px;
-            max-width: 95vw;
-            max-height: 95vh;
-            background: transparent; /* Remove solid black background box */
-            position: relative;
+            width: 1250px; height: 850px; max-width: 95vw; max-height: 95vh;
+            background: transparent; position: relative;
             box-shadow: 0 0 20px rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 8px; overflow: hidden;
         }
 
         .ad-media { width: 100%; height: 100%; object-fit: contain; }
         
         .ad-skip-btn {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.2);
-            color: #fff;
-            padding: 10px 24px;
-            border: 1px solid rgba(255,255,255,0.5);
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            backdrop-filter: blur(5px);
-            display: none; /* Shows after 2s now */
-            z-index: 10001;
-            transition: background 0.3s;
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.2); color: #fff; padding: 10px 24px;
+            border: 1px solid rgba(255,255,255,0.5); border-radius: 30px;
+            cursor: pointer; font-weight: 600; backdrop-filter: blur(5px);
+            display: none; z-index: 10001; transition: background 0.3s;
         }
         .ad-skip-btn:hover { background: rgba(255, 255, 255, 0.4); }
 
@@ -351,20 +320,15 @@
             <div class="admin-box" id="adminDashboard" style="display: none;">
                 <h3 style="margin-bottom: 20px; color: var(--primary-dark);"><i class="fas fa-cogs"></i> Admin Dashboard</h3>
                 
-                <!-- SEPARATE ADVERTISEMENT UPLOAD & DELETE SECTION -->
                 <div class="admin-section" style="background: #f0fdf4; border-color: #10b981;">
                     <h4><i class="fas fa-ad"></i> Manage & Delete Advertisements</h4>
                     <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">Upload Image or Video ads.</p>
-                    
                     <input type="text" id="adminAdSearch" placeholder="Search ads by ID or Type..." onkeyup="renderAdsList()" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 15px;">
-                    
                     <div class="form-group">
                         <label>Ad Media (Image or Video)</label>
                         <input type="file" id="adminAdFile" accept="image/*,video/*">
                     </div>
                     <button class="btn btn-primary" style="background: #10b981;" onclick="uploadAd(event)">Upload Advertisement</button>
-                    
-                    <!-- Distinct Ads List -->
                     <div id="adminAdsList" style="margin-top: 15px; border-top: 1px solid #10b981; padding-top: 15px;"></div>
                 </div>
 
@@ -375,12 +339,22 @@
 
                 <div class="admin-section">
                     <h4><i class="fas fa-paint-brush"></i> Identity & Banners</h4>
+                    
+                    <!-- NEW LOGO SYSTEM (FILE OR URL) -->
                     <div class="form-group">
-                        <label>Update Site Logo (Affects Google Search & Header)</label>
+                        <label>Update Site Logo (Local file upload - <span style="color:red">Will not show in Google Search</span>)</label>
                         <input type="file" id="adminLogoFile" accept="image/*">
-                        <button class="btn btn-primary" onclick="updateLogo()">Upload Logo</button>
+                        <button class="btn btn-outline" style="margin-top: 8px; width: 100%;" onclick="updateLogo()">Upload Local File</button>
                     </div>
-                    <div class="form-group" style="margin-top: 20px;">
+                    
+                    <div class="form-group" style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed #ccc;">
+                        <label>Update Site Logo via Link (<span style="color:green; font-weight:bold;">Recommended for Google Search indexing</span>)</label>
+                        <p style="font-size: 0.75rem; color: #666; margin-bottom: 8px;">Paste a public image link (e.g. from ImgBB or your server). It MUST start with https://</p>
+                        <input type="url" id="adminLogoUrl" placeholder="https://your-image-link.com/logo.png">
+                        <button class="btn btn-primary" style="margin-top: 8px; width: 100%;" onclick="updateLogoFromUrl()">Set Logo from URL</button>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 30px;">
                         <label>Add Banner Image</label>
                         <input type="file" id="adminBannerFile" accept="image/*">
                         <button class="btn btn-primary" onclick="addBanner()">Upload Banner</button>
@@ -491,38 +465,41 @@
             const adOverlay = document.getElementById('ad-overlay');
             if (adOverlay && adOverlay.style.display === 'flex') {
                 e.preventDefault();
-                e.returnValue = ''; // Required for some browsers to show a prompt
+                e.returnValue = ''; 
             }
         });
 
-        // === NEW: Update Meta Tags & Favicon Dynamically ===
-        function applyLogoToMetaTags(logoBase64) {
-            if (!logoBase64) return;
+        // === FIXED: Update Meta Tags & JSON-LD properly without crashing GSC ===
+        function applyLogoToMetaTags(logoUrl) {
+            if (!logoUrl) return;
             
-            // 1. Update OpenGraph & Twitter Images
             const ogImage = document.getElementById('meta-og-image');
-            if(ogImage) ogImage.setAttribute('content', logoBase64);
+            if(ogImage) ogImage.setAttribute('content', logoUrl);
             
             const twImage = document.getElementById('meta-twitter-image');
-            if(twImage) twImage.setAttribute('content', logoBase64);
+            if(twImage) twImage.setAttribute('content', logoUrl);
             
             const itemImage = document.getElementById('meta-itemprop-image');
-            if(itemImage) itemImage.setAttribute('content', logoBase64);
+            if(itemImage) itemImage.setAttribute('content', logoUrl);
 
-            // 2. Update Favicons dynamically
             document.querySelectorAll('link[rel="icon"], link[rel="apple-touch-icon"]').forEach(link => {
-                link.href = logoBase64;
+                link.href = logoUrl;
             });
 
-            // 3. Update Google Search Schema dynamically
+            // Fix for Google Search Schema
             const schemaOrg = document.getElementById('schema-org');
             if(schemaOrg) {
                 try {
                     let schemaData = JSON.parse(schemaOrg.innerHTML);
-                    schemaData.logo.url = logoBase64;
-                    schemaData.image = logoBase64;
-                    schemaOrg.innerHTML = JSON.stringify(schemaData);
-                } catch(e) {}
+                    // Google strictly requires a REAL link (http), not base64.
+                    if (logoUrl.startsWith('http')) {
+                        if(schemaData.logo) schemaData.logo.url = logoUrl;
+                        schemaData.image = logoUrl;
+                        schemaOrg.innerHTML = JSON.stringify(schemaData);
+                    }
+                } catch(e) {
+                    console.error("Schema logic update error:", e);
+                }
             }
         }
 
@@ -610,7 +587,7 @@
                     siteLogo = cachedLogo;
                     const el = document.getElementById('siteLogo');
                     if(el) el.src = siteLogo;
-                    applyLogoToMetaTags(siteLogo); // Apply cached logo immediately
+                    applyLogoToMetaTags(siteLogo);
                 }
 
                 if (banners.length || pdfs.length || products.length || cultures.length) {
@@ -618,7 +595,7 @@
                     renderActiveView('');
                     hideLoader();
                 }
-            } catch(err) { console.error("Cache load error", err); }
+            } catch(err) {}
 
             try {
                 const { data: settingsData } = await supabaseClient.from('settings').select('*');
@@ -632,7 +609,7 @@
                         const el = document.getElementById('siteLogo');
                         if(el) el.src = siteLogo;
                         saveLocalData('siteLogo', siteLogo);
-                        applyLogoToMetaTags(siteLogo); // Apply new fetched logo
+                        applyLogoToMetaTags(siteLogo);
                     }
                 }
 
@@ -663,7 +640,6 @@
             finally { hideLoader(); }
         }
 
-        // --- AD SYSTEM LOGIC ---
         let isFirstAd = true; 
 
         function initAdSystem() {
@@ -677,15 +653,10 @@
 
         function showRandomAd() {
             if(!ads || ads.length === 0) return;
-            
-            if (!isFirstAd && currentActiveTab === 'pdf') {
-                return;
-            }
+            if (!isFirstAd && currentActiveTab === 'pdf') return;
             
             isFirstAd = false;
-            
             const ad = ads[Math.floor(Math.random() * ads.length)];
-            
             const overlay = document.getElementById('ad-overlay');
             const container = document.getElementById('ad-media-container');
             const skipBtn = document.getElementById('ad-skip-btn');
@@ -701,13 +672,10 @@
             
             skipBtn.style.display = 'none';
             overlay.style.display = 'flex';
-
             document.body.classList.add('ad-active');
             
             setTimeout(() => {
-                if(overlay.style.display === 'flex') {
-                    skipBtn.style.display = 'block';
-                }
+                if(overlay.style.display === 'flex') skipBtn.style.display = 'block';
             }, 2000);
         }
 
@@ -736,7 +704,6 @@
             }, 4000);
         }
 
-        // View Gens
         function getPdfHtml(pdf) {
             if(!pdf) return '';
             return `<div class="card">
@@ -827,7 +794,6 @@
                     showNotification('Opening PDF...');
                 }
             } catch (err) { 
-                console.error(err);
                 showNotification('Failed to load PDF file', 'error'); 
             }
         }
@@ -856,7 +822,7 @@
             showNotification('Password Changed Securely!', 'success');
         }
 
-        // === UPGRADED: Trigger Logo Function when Admin Uploads ===
+        // === UPDATED LOGO UPLOAD FUNCTIONS ===
         async function updateLogo() {
             const file = document.getElementById('adminLogoFile')?.files[0];
             if(!file) return;
@@ -866,12 +832,24 @@
             siteLogo = base64; 
             const el = document.getElementById('siteLogo'); if(el) el.src = base64;
             
-            // Instantly apply the logo to favicons and SEO schemas
             applyLogoToMetaTags(siteLogo);
-            
             await saveLocalData('siteLogo', base64);
             try { await supabaseClient.from('settings').upsert({ key: 'logo', value: base64 }); } catch(e){}
-            showNotification('Logo Updated Successfully!');
+            showNotification('Local Logo Updated! (Will NOT show in Google Search)', 'info');
+        }
+
+        async function updateLogoFromUrl() {
+            const url = document.getElementById('adminLogoUrl')?.value;
+            if(!url || !url.startsWith('http')) return showNotification('Please enter a valid HTTP/HTTPS link', 'error');
+
+            siteLogo = url;
+            const el = document.getElementById('siteLogo'); if(el) el.src = url;
+
+            applyLogoToMetaTags(siteLogo);
+            await saveLocalData('siteLogo', url);
+            try { await supabaseClient.from('settings').upsert({ key: 'logo', value: url }); } catch(e){}
+            showNotification('Logo URL Set! Google Search indexing activated.', 'success');
+            document.getElementById('adminLogoUrl').value = '';
         }
 
         async function addBanner() {
@@ -900,7 +878,6 @@
             try { 
                 const { error } = await supabaseClient.from('ads').insert([newAd]); 
                 if (error) {
-                    console.error("Cloud insert issue:", error);
                     showNotification('Cloud saving error (file may be too large). Saved locally.', 'error');
                 }
             } catch(err) { console.error(err); }
@@ -957,7 +934,6 @@
             e.target.innerText = "Publish Post"; showNotification('Published!');
         }
 
-        // Dedicated render function for Ads Delete list
         function renderAdsList() {
             try {
                 const q = (document.getElementById('adminAdSearch')?.value || '').toLowerCase();
@@ -976,7 +952,6 @@
             } catch(e) {}
         }
 
-        // General render function for Products, PDFs, Culture, and Banners
         function renderNormalLists() {
             try {
                 const q = (document.getElementById('adminDeleteSearch')?.value || '').toLowerCase();
