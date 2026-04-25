@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="google-site-verification" content="15CTDcpQEtUOfzzYeD0XdfRpOXxoyuQmu74PrwZ5rkg" />
     
-    <!-- === SEO & GOOGLE RANKING TAGS === -->
+    <!-- === SEO & META TAGS === -->
     <title>eQro.sit - The Complete Platform for Resources & Culture</title>
     <meta name="description" content="It's the great destination of online education by eQro.sit company.It's made for students earning by research,writing notes or literature,taking online classes etc.Also, here essential pdfs,learning materials are available. It will play vital roles in 'Junior Scolarship~জুনিয়র বৃত্তি পরিক্ষা ','SSC','HSC','Primary Scolarship','Admission','Job preparation, etc. by giving pdf notes. (Insa-Allah).Here students can pulish there any type of research,notes,pdfs by contacting throuh What'sApp.">
     <meta name="keywords" content="eQro, eQro.sit, PDF Hub, Buy Products, Culture, Blog, Resources, Bangladesh, Online Store">
@@ -29,51 +29,17 @@
     <meta itemprop="description" content="It's the great destination of online education by eQro.sit company.It's made for students earning by research,writing notes or literature,taking online classes etc.Also, here essential pdfs,learning materials are available. It will play vital roles in 'Junior Scolarship~জুনিয়র বৃত্তি পরিক্ষা ','SSC','HSC','Primary Scolarship','Admission','Job preparation, etc. by giving pdf notes. (Insa-Allah).Here students can pulish there any type of research,notes,pdfs by contacting throuh What'sApp.">
     <meta itemprop="image" id="meta-itemprop-image" content="https://via.placeholder.com/512?text=eQro">
 
-    <!-- === GOOGLE SEARCH LOGO SYSTEM (JSON-LD) === -->
-    <script type="application/ld+json" id="schema-org">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "eQro.sit",
-      "url": "https://eqro.sit/",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://via.placeholder.com/512?text=eQro",
-        "width": "512",
-        "height": "512"
-      },
-      "image": "https://via.placeholder.com/512?text=eQro",
-      "sameAs": [
-        "https://youtube.com/@shihabsharar-j4p"
-      ]
-    }
-    </script>
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "eQro.sit",
-      "url": "https://eqro.sit/",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://eqro.sit/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
-
-    <!-- === DYNAMIC FAVICON === -->
-    <link rel="icon" id="favicon-48" sizes="48x48" type="image/png" href="https://via.placeholder.com/48?text=Q">
-    <link rel="icon" id="favicon-96" sizes="96x96" type="image/png" href="https://via.placeholder.com/96?text=Q">
-    <link rel="icon" id="favicon-144" sizes="144x144" type="image/png" href="https://via.placeholder.com/144?text=Q">
-    <link rel="icon" id="favicon-svg" type="image/svg+xml" href="https://via.placeholder.com/512?text=Q">
-    <link rel="apple-touch-icon" id="favicon-apple" href="https://via.placeholder.com/180?text=Q">
+    <!-- === FAVICON === -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co.com/9kkZ5m6g/2847.png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co.com/9kkZ5m6g/2847.png">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Google Font for Curve text -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -103,22 +69,47 @@
         }
         #loader-overlay.hidden { opacity: 0; visibility: hidden; }
 
-        .bird-loader { display: flex; flex-direction: column; align-items: center; margin-bottom: 50px; position: relative; }
-        .flying-wrapper { position: absolute; top: -40px; animation: majesticFly 4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite; z-index: 3; filter: drop-shadow(0 0 10px var(--glow-color)); }
-        .wings { display: flex; gap: 6px; }
-        .wing { width: 65px; height: 28px; background: linear-gradient(135deg, #ffffff, var(--fade-sky-blue)); border-radius: 50px 50px 0 50px; transform-origin: bottom right; animation: flapLeft 0.5s ease-in-out infinite alternate; box-shadow: 0 0 20px var(--glow-color); }
-        .wing.right { border-radius: 50px 50px 50px 0; transform-origin: bottom left; animation: flapRight 0.5s ease-in-out infinite alternate; }
+        /* New Mobile Loader Animation */
+        .mobile-frame {
+            width: 100px;
+            height: 180px;
+            border: 4px solid #ffffff;
+            border-radius: 16px;
+            position: relative;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 0 30px var(--glow-color);
+        }
         
-        .q-mark { font-size: 8rem; font-weight: 900; color: transparent; -webkit-text-stroke: 2px var(--fade-sky-blue); text-shadow: 0 0 40px var(--glow-color), 0 0 80px rgba(135, 206, 250, 0.3); animation: pulseQ 2s ease-in-out infinite alternate; margin-top: 20px; position: relative; }
+        .mobile-frame::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            width: 30px;
+            height: 4px;
+            background: #fff;
+            border-radius: 4px;
+        }
 
-        .loader-tags { display: flex; flex-direction: column; gap: 15px; align-items: center; width: 90%; max-width: 420px; perspective: 1000px; }
-        .tag-line { background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.03)); border-left: 4px solid var(--fade-sky-blue); border-right: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 14px 22px; border-radius: 8px; font-size: 1.05rem; font-weight: 600; width: 100%; box-shadow: 0 10px 20px rgba(0,0,0,0.4); opacity: 0; transform: translateX(-50px) rotateX(20deg); animation: tagDynamicBecome 4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; animation-delay: var(--delay); backdrop-filter: blur(8px); letter-spacing: 0.5px; }
+        .flying-text {
+            font-family: 'Dancing Script', cursive;
+            color: var(--fade-sky-blue);
+            font-size: 2.2rem;
+            position: absolute;
+            bottom: -50px;
+            white-space: nowrap;
+            text-shadow: 0 0 15px var(--glow-color);
+            animation: flyOutMobile 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+        }
 
-        @keyframes majesticFly { 0% { transform: translate(-120px, 30px) scale(0.8) rotate(-20deg); } 50% { transform: translate(0px, -50px) scale(1.3) rotate(0deg); } 100% { transform: translate(120px, 30px) scale(0.8) rotate(20deg); } }
-        @keyframes flapLeft { 0% { transform: rotate(15deg); } 100% { transform: rotate(65deg); } }
-        @keyframes flapRight { 0% { transform: rotate(-15deg); } 100% { transform: rotate(-65deg); } }
-        @keyframes pulseQ { 0% { transform: scale(0.95); opacity: 0.6; text-shadow: 0 0 20px var(--glow-color); } 100% { transform: scale(1.05); opacity: 1; color: var(--fade-sky-blue); text-shadow: 0 0 60px var(--glow-color), 0 0 100px rgba(255,255,255,0.4); } }
-        @keyframes tagDynamicBecome { 0% { opacity: 0; transform: translateX(-50px) scale(0.9) rotateX(20deg); } 15% { opacity: 1; transform: translateX(0) scale(1) rotateX(0deg); } 85% { opacity: 1; transform: translateX(0) scale(1) rotateX(0deg); } 100% { opacity: 0; transform: translateX(50px) scale(0.95) rotateX(-20deg); } }
+        @keyframes flyOutMobile {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            20% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { transform: translateY(-200px) scale(1.5); opacity: 0; }
+        }
 
         .app-header { background: var(--surface); padding: 10px 20px; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; gap: 15px; }
         .header-logo { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 1px solid #ddd; }
@@ -224,23 +215,10 @@
 </head>
 <body>
 
-    <!-- Loader Overlay -->
+    <!-- Loader Overlay with Mobile Animation -->
     <div id="loader-overlay">
-        <div class="bird-loader">
-            <div class="flying-wrapper">
-                <div class="wings">
-                    <div class="wing left"></div>
-                    <div class="wing right"></div>
-                </div>
-            </div>
-            <div class="q-mark">Q</div>
-        </div>
-        <div class="loader-tags">
-            <div class="tag-line" style="--delay: 0s;">১. ফ্রি! pdf ডাউনলোড।</div>
-            <div class="tag-line" style="--delay: 0.8s;">২. সেরা শিক্ষা ও নিত্য উপকরণ ।</div>
-            <div class="tag-line" style="--delay: 1.6s;">৩. সহায়ক টিপস।</div>
-            <div class="tag-line" style="--delay: 2.4s;">৪. Whats'App - অর্ডার সাপোর্টেড।</div>
-            <div class="tag-line" style="--delay: 3.2s;">৫. এখানে শিক্ষা pdf অথবা পণ্য - বিক্রয় করতে পারেন আপনিও!</div>
+        <div class="mobile-frame">
+            <div class="flying-text">eQro . sit</div>
         </div>
     </div>
     
@@ -259,7 +237,7 @@
 
     <!-- Header -->
     <header class="app-header">
-        <img id="siteLogo" src="https://via.placeholder.com/50?text=Logo" alt="eQro Logo" class="header-logo" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
+        <img id="siteLogo" src="https://i.ibb.co.com/9kkZ5m6g/2847.png" alt="eQro Logo" class="header-logo" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
         <div class="header-title">eQro.sit</div>
     </header>
 
@@ -279,7 +257,7 @@
         <!-- HOME SECTION -->
         <section id="homeSection" class="section active">
             <h2 class="section-title">Latest Updates</h2>
-            <div id="homeMixedGrid" class="mixed-grid-container"></div>
+            <div id="homeMixedGrid"></div> <!-- Changed to block container for new layout -->
             
             <div class="admin-box" style="text-align: center; margin-top: 40px; background: transparent; box-shadow: none;">
                 <h2 style="margin-bottom: 10px;">About eQro.sit</h2>
@@ -340,16 +318,15 @@
                 <div class="admin-section">
                     <h4><i class="fas fa-paint-brush"></i> Identity & Banners</h4>
                     
-                    <!-- NEW LOGO SYSTEM (FILE OR URL) -->
                     <div class="form-group">
-                        <label>Update Site Logo (Local file upload - <span style="color:red">Will not show in Google Search</span>)</label>
+                        <label>Update Site Logo (Local file upload)</label>
                         <input type="file" id="adminLogoFile" accept="image/*">
                         <button class="btn btn-outline" style="margin-top: 8px; width: 100%;" onclick="updateLogo()">Upload Local File</button>
                     </div>
                     
                     <div class="form-group" style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed #ccc;">
-                        <label>Update Site Logo via Link (<span style="color:green; font-weight:bold;">Recommended for Google Search indexing</span>)</label>
-                        <p style="font-size: 0.75rem; color: #666; margin-bottom: 8px;">Paste a public image link (e.g. from ImgBB or your server). It MUST start with https://</p>
+                        <label>Update Site Logo via Link</label>
+                        <p style="font-size: 0.75rem; color: #666; margin-bottom: 8px;">Paste a public image link. It MUST start with https://</p>
                         <input type="url" id="adminLogoUrl" placeholder="https://your-image-link.com/logo.png">
                         <button class="btn btn-primary" style="margin-top: 8px; width: 100%;" onclick="updateLogoFromUrl()">Set Logo from URL</button>
                     </div>
@@ -457,7 +434,7 @@
         const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
         let CURRENT_ADMIN_PASS = "Shi567hab"; 
-        let pdfs = [], products = [], cultures = [], banners = [], ads = [], siteLogo = "";
+        let pdfs = [], products = [], cultures = [], banners = [], ads = [], siteLogo = "https://i.ibb.co.com/9kkZ5m6g/2847.png";
         let currentActiveTab = 'home'; 
 
         // Block Refresh shortcut while ad is showing
@@ -469,7 +446,7 @@
             }
         });
 
-        // === FIXED: Update Meta Tags & JSON-LD properly without crashing GSC ===
+        // Update Meta Tags properly
         function applyLogoToMetaTags(logoUrl) {
             if (!logoUrl) return;
             
@@ -481,26 +458,6 @@
             
             const itemImage = document.getElementById('meta-itemprop-image');
             if(itemImage) itemImage.setAttribute('content', logoUrl);
-
-            document.querySelectorAll('link[rel="icon"], link[rel="apple-touch-icon"]').forEach(link => {
-                link.href = logoUrl;
-            });
-
-            // Fix for Google Search Schema
-            const schemaOrg = document.getElementById('schema-org');
-            if(schemaOrg) {
-                try {
-                    let schemaData = JSON.parse(schemaOrg.innerHTML);
-                    // Google strictly requires a REAL link (http), not base64.
-                    if (logoUrl.startsWith('http')) {
-                        if(schemaData.logo) schemaData.logo.url = logoUrl;
-                        schemaData.image = logoUrl;
-                        schemaOrg.innerHTML = JSON.stringify(schemaData);
-                    }
-                } catch(e) {
-                    console.error("Schema logic update error:", e);
-                }
-            }
         }
 
         // UI Logic
@@ -560,7 +517,7 @@
 
         function hideLoader() {
             const elapsed = Date.now() - appStartTime;
-            const delayTime = Math.max(0, 4200 - elapsed);
+            const delayTime = Math.max(0, 3000 - elapsed);
             setTimeout(() => {
                 const loader = document.getElementById('loader-overlay');
                 if(loader) {
@@ -747,11 +704,40 @@
         function renderActiveView(filter) {
             try {
                 if (currentActiveTab === 'home') {
-                    let mixed = [...pdfs.map(p => ({...p, itemType: 'pdf'})), ...products.map(p => ({...p, itemType: 'product'}))];
-                    mixed.sort((a, b) => b.id - a.id);
-                    if(filter) mixed = mixed.filter(item => (item.name||item.title||'').toLowerCase().includes(filter));
                     const el = document.getElementById('homeMixedGrid');
-                    if(el) el.innerHTML = mixed.slice(0,16).map(item => item.itemType==='pdf'?getPdfHtml(item):getProductHtml(item)).join('') || '<p>No updates.</p>';
+                    if(el) {
+                        let html = '';
+                        
+                        // Last 10 QhUb files
+                        let recentCultures = [...cultures].sort((a, b) => b.id - a.id).slice(0, 10);
+                        // All PDFs and Products sorted together
+                        let mixedPP = [...pdfs.map(p => ({...p, itemType: 'pdf'})), ...products.map(p => ({...p, itemType: 'product'}))].sort((a, b) => b.id - a.id);
+                        
+                        if(filter) {
+                            recentCultures = recentCultures.filter(item => (item.title||'').toLowerCase().includes(filter));
+                            mixedPP = mixedPP.filter(item => (item.name||item.title||'').toLowerCase().includes(filter));
+                        }
+
+                        let cIdx = 0;
+                        let ppIdx = 0;
+                        
+                        // Layout Logic: 2 QhUb posts, then 2 products/pdfs
+                        while(cIdx < recentCultures.length || ppIdx < mixedPP.length) {
+                            let cChunk = recentCultures.slice(cIdx, cIdx + 2);
+                            cIdx += 2;
+                            if(cChunk.length > 0) {
+                                html += `<div class="fb-feed" style="margin-bottom: 20px;">` + cChunk.map(getCultureHtml).join('') + `</div>`;
+                            }
+                            
+                            let ppChunk = mixedPP.slice(ppIdx, ppIdx + 2);
+                            ppIdx += 2;
+                            if(ppChunk.length > 0) {
+                                html += `<div class="grid-container" style="margin-bottom: 20px;">` + ppChunk.map(item => item.itemType === 'pdf' ? getPdfHtml(item) : getProductHtml(item)).join('') + `</div>`;
+                            }
+                        }
+                        
+                        el.innerHTML = html || '<p>No updates found.</p>';
+                    }
                 }
                 else if (currentActiveTab === 'pdf') {
                     const f = pdfs.filter(p => (p.name||'').toLowerCase().includes(filter));
@@ -822,7 +808,6 @@
             showNotification('Password Changed Securely!', 'success');
         }
 
-        // === UPDATED LOGO UPLOAD FUNCTIONS ===
         async function updateLogo() {
             const file = document.getElementById('adminLogoFile')?.files[0];
             if(!file) return;
@@ -835,7 +820,7 @@
             applyLogoToMetaTags(siteLogo);
             await saveLocalData('siteLogo', base64);
             try { await supabaseClient.from('settings').upsert({ key: 'logo', value: base64 }); } catch(e){}
-            showNotification('Local Logo Updated! (Will NOT show in Google Search)', 'info');
+            showNotification('Local Logo Updated!', 'info');
         }
 
         async function updateLogoFromUrl() {
@@ -848,7 +833,7 @@
             applyLogoToMetaTags(siteLogo);
             await saveLocalData('siteLogo', url);
             try { await supabaseClient.from('settings').upsert({ key: 'logo', value: url }); } catch(e){}
-            showNotification('Logo URL Set! Google Search indexing activated.', 'success');
+            showNotification('Logo URL Set!', 'success');
             document.getElementById('adminLogoUrl').value = '';
         }
 
