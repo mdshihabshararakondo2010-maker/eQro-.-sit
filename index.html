@@ -18,20 +18,20 @@
     <meta property="og:url" content="https://eqro.sit/">
     <meta property="og:title" content="eQro.sit - Complete Platform">
     <meta property="og:description" content="It's the great destination of online education by eQro.sit company.It's made for students earning by research,writing notes or literature,taking online classes etc.Also, here essential pdfs,learning materials are available. It will play vital roles in 'Junior Scolarship~জুনিয়র বৃত্তি পরিক্ষা ','SSC','HSC','Primary Scolarship','Admission','Job preparation, etc. by giving pdf notes. (Insa-Allah).Here students can pulish there any type of research,notes,pdfs by contacting throuh What'sApp.">
-    <meta property="og:image" id="meta-og-image" content="https://via.placeholder.com/512?text=eQro">
+    <meta property="og:image" id="meta-og-image" content="https://i.ibb.co/9kkZ5m6g/2847.png">
     
     <!-- Twitter & General Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="eQro.sit - Complete Platform">
     <meta name="twitter:description" content="It's the great destination of online education by eQro.sit company.It's made for students earning by research,writing notes or literature,taking online classes etc.Also, here essential pdfs,learning materials are available. It will play vital roles in 'Junior Scolarship~জুনিয়র বৃত্তি পরিক্ষা ','SSC','HSC','Primary Scolarship','Admission','Job preparation, etc. by giving pdf notes. (Insa-Allah).Here students can pulish there any type of research,notes,pdfs by contacting throuh What'sApp.">
-    <meta name="twitter:image" id="meta-twitter-image" content="https://via.placeholder.com/512?text=eQro">
+    <meta name="twitter:image" id="meta-twitter-image" content="https://i.ibb.co/9kkZ5m6g/2847.png">
     <meta itemprop="name" content="eQro.sit">
     <meta itemprop="description" content="It's the great destination of online education by eQro.sit company.It's made for students earning by research,writing notes or literature,taking online classes etc.Also, here essential pdfs,learning materials are available. It will play vital roles in 'Junior Scolarship~জুনিয়র বৃত্তি পরিক্ষা ','SSC','HSC','Primary Scolarship','Admission','Job preparation, etc. by giving pdf notes. (Insa-Allah).Here students can pulish there any type of research,notes,pdfs by contacting throuh What'sApp.">
-    <meta itemprop="image" id="meta-itemprop-image" content="https://via.placeholder.com/512?text=eQro">
+    <meta itemprop="image" id="meta-itemprop-image" content="https://i.ibb.co/9kkZ5m6g/2847.png">
 
     <!-- === FAVICON === -->
-    <link rel="icon" type="image/png" href="https://i.ibb.co.com/9kkZ5m6g/2847.png">
-    <link rel="apple-touch-icon" href="https://i.ibb.co.com/9kkZ5m6g/2847.png">
+    <link rel="icon" type="image/png" id="favicon" href="https://i.ibb.co/9kkZ5m6g/2847.png">
+    <link rel="apple-touch-icon" id="apple-favicon" href="https://i.ibb.co/9kkZ5m6g/2847.png">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -237,7 +237,7 @@
 
     <!-- Header -->
     <header class="app-header">
-        <img id="siteLogo" src="https://i.ibb.co.com/9kkZ5m6g/2847.png" alt="eQro Logo" class="header-logo" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
+        <img id="siteLogo" src="https://i.ibb.co/9kkZ5m6g/2847.png" alt="eQro Logo" class="header-logo" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
         <div class="header-title">eQro.sit</div>
     </header>
 
@@ -434,7 +434,7 @@
         const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
         let CURRENT_ADMIN_PASS = "Shi567hab"; 
-        let pdfs = [], products = [], cultures = [], banners = [], ads = [], siteLogo = "https://i.ibb.co.com/9kkZ5m6g/2847.png";
+        let pdfs = [], products = [], cultures = [], banners = [], ads = [], siteLogo = "https://i.ibb.co/9kkZ5m6g/2847.png";
         let currentActiveTab = 'home'; 
 
         // Block Refresh shortcut while ad is showing
@@ -446,7 +446,7 @@
             }
         });
 
-        // Update Meta Tags properly
+        // Update Meta Tags and Favicon properly
         function applyLogoToMetaTags(logoUrl) {
             if (!logoUrl) return;
             
@@ -458,6 +458,13 @@
             
             const itemImage = document.getElementById('meta-itemprop-image');
             if(itemImage) itemImage.setAttribute('content', logoUrl);
+
+            // Dynamically update favicon in the head
+            const favicon = document.getElementById('favicon');
+            if(favicon) favicon.href = logoUrl;
+            
+            const appleFavicon = document.getElementById('apple-favicon');
+            if(appleFavicon) appleFavicon.href = logoUrl;
         }
 
         // UI Logic
