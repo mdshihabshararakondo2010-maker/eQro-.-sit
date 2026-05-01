@@ -30,10 +30,11 @@
     <meta itemprop="image" id="meta-itemprop-image" content="https://i.ibb.co/9kkZ5m6g/2847.png">
 
     <!-- === FAVICON === -->
-    <!-- Added standard sizes and shortcut icon for maximum Google Search compatibility -->
-    <link rel="icon" type="image/png" sizes="192x192" id="favicon" href="https://i.ibb.co/9kkZ5m6g/2847.png">
-    <link rel="shortcut icon" id="shortcut-favicon" href="https://i.ibb.co/9kkZ5m6g/2847.png">
-    <link rel="apple-touch-icon" id="apple-favicon" href="https://i.ibb.co/9kkZ5m6g/2847.png">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -470,7 +471,7 @@
             }
         });
 
-        // Update Meta Tags and Favicon WITHOUT AGGRESSIVE CACHE-BUSTING for Google Indexing
+        // Update Meta Tags
         function applyLogoToMetaTags(logoUrl) {
             if (!logoUrl) return;
             
@@ -482,16 +483,6 @@
             
             const itemImage = document.getElementById('meta-itemprop-image');
             if(itemImage) itemImage.setAttribute('content', logoUrl);
-
-            // DO NOT append dynamic timestamps to favicon so Googlebot can confidently index it
-            const favicon = document.getElementById('favicon');
-            if(favicon) favicon.href = logoUrl;
-            
-            const shortcutFavicon = document.getElementById('shortcut-favicon');
-            if(shortcutFavicon) shortcutFavicon.href = logoUrl;
-            
-            const appleFavicon = document.getElementById('apple-favicon');
-            if(appleFavicon) appleFavicon.href = logoUrl;
         }
 
         // UI Logic
