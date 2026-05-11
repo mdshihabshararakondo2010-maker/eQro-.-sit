@@ -6,13 +6,13 @@
     <meta name="google-site-verification" content="15CTDcpQEtUOfzzYeD0XdfRpOXxoyuQmu74PrwZ5rkg" />
     
     <!-- === FAVICON (FIXED / STATIC) === -->
-    <link rel="icon" type="image/png" href="https://i.ibb.co.com/4nn1rwzt/2847.png">
-    <link rel="shortcut icon" type="image/png" href="https://i.ibb.co.com/4nn1rwzt/2847.png">
-    <link rel="apple-touch-icon" href="https://i.ibb.co.com/9kkZ5m6g/2847.png">
-    <link rel="icon" sizes="192x192" href="https://i.ibb.co.com/9kkZ5m6g/2847.png">
-    <link rel="icon" sizes="512x512" href="https://i.ibb.co.com/9kkZ5m6g/2847.png">
+    <link rel="icon" type="image/png" href="https://i.ibb.co/9kkZ5m6g/2847.png">
+    <link rel="shortcut icon" type="image/png" href="https://i.ibb.co/9kkZ5m6g/2847.png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/9kkZ5m6g/2847.png">
+    <link rel="icon" sizes="192x192" href="https://i.ibb.co/9kkZ5m6g/2847.png">
+    <link rel="icon" sizes="512x512" href="https://i.ibb.co/9kkZ5m6g/2847.png">
     
-    <!-- === SEO & META TAGS (FIXED / STATIC) === -->
+    <!-- === SEO & META TAGS === -->
     <title>eQro.sit - The Complete Platform for Resources & Culture</title>
     <meta name="description" content="It's the great destination of online education by eQro.sit company.It's made for students earning by research,writing notes or literature,taking online classes etc.Also, here essential pdfs,learning materials are available. It will play vital roles in 'Junior Scolarship~জুনিয়র বৃত্তি পরিক্ষা ','SSC','HSC','Primary Scolarship','Admission','Job preparation, etc. by giving pdf notes. (Insa-Allah).Here students can pulish there any type of research,notes,pdfs by contacting throuh What'sApp.">
     <meta name="keywords" content="eQro, eQro.sit, PDF Hub, Buy Products, Culture, Blog, Resources, Bangladesh, Online Store">
@@ -25,16 +25,16 @@
     <meta property="og:url" content="https://eqro.sit/">
     <meta property="og:title" content="eQro.sit - Complete Platform">
     <meta property="og:description" content="It's the great destination of online education by eQro.sit company.It's made for students earning by research,writing notes or literature,taking online classes etc.">
-    <meta property="og:image" content="https://i.ibb.co.com/9kkZ5m6g/2847.png">
+    <meta property="og:image" id="meta-og-image" content="https://i.ibb.co/9kkZ5m6g/2847.png">
     
     <!-- Twitter & General Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="eQro.sit - Complete Platform">
     <meta name="twitter:description" content="It's the great destination of online education by eQro.sit company.It's made for students earning by research,writing notes or literature,taking online classes etc.">
-    <meta name="twitter:image" content="https://i.ibb.co.com/9kkZ5m6g/2847.png">
+    <meta name="twitter:image" id="meta-twitter-image" content="https://i.ibb.co/9kkZ5m6g/2847.png">
     <meta itemprop="name" content="eQro.sit">
     <meta itemprop="description" content="It's the great destination of online education by eQro.sit company.">
-    <meta itemprop="image" content="https://i.ibb.co.com/9kkZ5m6g/2847.png">
+    <meta itemprop="image" id="meta-itemprop-image" content="https://i.ibb.co/9kkZ5m6g/2847.png">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -260,9 +260,9 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Header (FIXED LOGO) -->
+    <!-- Header -->
     <header class="app-header">
-        <img src="https://i.ibb.co.com/9kkZ5m6g/2847.png" alt="eQro Logo" class="header-logo" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
+        <img id="siteLogo" src="https://i.ibb.co/9kkZ5m6g/2847.png" alt="eQro Logo" class="header-logo" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
         <div class="header-title">eQro.sit</div>
     </header>
 
@@ -341,8 +341,22 @@
                 </div>
 
                 <div class="admin-section">
-                    <h4><i class="fas fa-image"></i> Banners</h4>
-                    <div class="form-group" style="margin-top: 15px;">
+                    <h4><i class="fas fa-paint-brush"></i> Identity & Banners</h4>
+                    
+                    <div class="form-group">
+                        <label>Update Site Logo (Local file upload)</label>
+                        <input type="file" id="adminLogoFile" accept="image/*">
+                        <button class="btn btn-outline" style="margin-top: 8px; width: 100%;" onclick="updateLogo()">Upload Local File</button>
+                    </div>
+                    
+                    <div class="form-group" style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed #ccc;">
+                        <label>Update Site Logo via Link</label>
+                        <p style="font-size: 0.75rem; color: #666; margin-bottom: 8px;">Paste a public image link. It MUST start with https://</p>
+                        <input type="url" id="adminLogoUrl" placeholder="https://your-image-link.com/logo.png">
+                        <button class="btn btn-primary" style="margin-top: 8px; width: 100%;" onclick="updateLogoFromUrl()">Set Logo from URL</button>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 30px;">
                         <label>Add Banner Image</label>
                         <input type="file" id="adminBannerFile" accept="image/*">
                         <button class="btn btn-primary" onclick="addBanner()">Upload Banner</button>
@@ -445,7 +459,7 @@
         const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
         let CURRENT_ADMIN_PASS = "Shi567hab"; 
-        let pdfs = [], products = [], cultures = [], banners = [], ads = [];
+        let pdfs = [], products = [], cultures = [], banners = [], ads = [], siteLogo = "https://i.ibb.co/9kkZ5m6g/2847.png";
         let currentActiveTab = 'home'; 
 
         // Block Refresh shortcut while ad is showing
@@ -456,6 +470,20 @@
                 e.returnValue = ''; 
             }
         });
+
+        // Update Meta Tags only (favicon is fixed/static)
+        function applyLogoToMetaTags(logoUrl) {
+            if (!logoUrl) return;
+            
+            const ogImage = document.getElementById('meta-og-image');
+            if(ogImage) ogImage.setAttribute('content', logoUrl);
+            
+            const twImage = document.getElementById('meta-twitter-image');
+            if(twImage) twImage.setAttribute('content', logoUrl);
+            
+            const itemImage = document.getElementById('meta-itemprop-image');
+            if(itemImage) itemImage.setAttribute('content', logoUrl);
+        }
 
         // UI Logic
         document.querySelectorAll('.nav-item').forEach(nav => {
@@ -527,8 +555,8 @@
         // --- Fetch Data ---
         async function fetchInitialData() {
             try {
-                const [cachedBanners, cachedPdfs, cachedProducts, cachedCultures, cachedAds] = await Promise.all([
-                    loadLocalData('banners'), loadLocalData('pdfs'), loadLocalData('products'), loadLocalData('culture'), loadLocalData('ads')
+                const [cachedBanners, cachedPdfs, cachedProducts, cachedCultures, cachedLogo, cachedAds] = await Promise.all([
+                    loadLocalData('banners'), loadLocalData('pdfs'), loadLocalData('products'), loadLocalData('culture'), loadLocalData('siteLogo'), loadLocalData('ads')
                 ]);
 
                 if (cachedBanners) banners = cachedBanners;
@@ -536,6 +564,13 @@
                 if (cachedProducts) products = cachedProducts;
                 if (cachedCultures) cultures = cachedCultures;
                 if (cachedAds) ads = cachedAds;
+                
+                if (cachedLogo) {
+                    siteLogo = cachedLogo;
+                    const el = document.getElementById('siteLogo');
+                    if(el) el.src = siteLogo;
+                    applyLogoToMetaTags(siteLogo);
+                }
 
                 if (banners.length || pdfs.length || products.length || cultures.length) {
                     startBannerRotation();
@@ -549,6 +584,15 @@
                 if (settingsData && Array.isArray(settingsData)) {
                     const passRow = settingsData.find(s => s.key === 'admin_pass');
                     if (passRow?.value) CURRENT_ADMIN_PASS = passRow.value;
+                    
+                    const logoRow = settingsData.find(s => s.key === 'logo');
+                    if (logoRow?.value && logoRow.value !== siteLogo) {
+                        siteLogo = logoRow.value;
+                        const el = document.getElementById('siteLogo');
+                        if(el) el.src = siteLogo;
+                        saveLocalData('siteLogo', siteLogo);
+                        applyLogoToMetaTags(siteLogo);
+                    }
                 }
 
                 const [banRes, pdfData, prodData, cultData, adData] = await Promise.all([
@@ -787,6 +831,35 @@
             
             document.getElementById('newAdminPass').value = '';
             showNotification('Password Changed Securely!', 'success');
+        }
+
+        async function updateLogo() {
+            const file = document.getElementById('adminLogoFile')?.files[0];
+            if(!file) return;
+            const base64 = await fileToBase64(file);
+            if(!base64) return showNotification('Error reading image', 'error');
+            
+            siteLogo = base64; 
+            const el = document.getElementById('siteLogo'); if(el) el.src = base64;
+            
+            applyLogoToMetaTags(siteLogo);
+            await saveLocalData('siteLogo', base64);
+            try { await supabaseClient.from('settings').upsert({ key: 'logo', value: base64 }); } catch(e){}
+            showNotification('Local Logo Updated!', 'info');
+        }
+
+        async function updateLogoFromUrl() {
+            const url = document.getElementById('adminLogoUrl')?.value;
+            if(!url || !url.startsWith('http')) return showNotification('Please enter a valid HTTP/HTTPS link', 'error');
+
+            siteLogo = url;
+            const el = document.getElementById('siteLogo'); if(el) el.src = url;
+
+            applyLogoToMetaTags(siteLogo);
+            await saveLocalData('siteLogo', url);
+            try { await supabaseClient.from('settings').upsert({ key: 'logo', value: url }); } catch(e){}
+            showNotification('Logo URL Set!', 'success');
+            document.getElementById('adminLogoUrl').value = '';
         }
 
         async function addBanner() {
